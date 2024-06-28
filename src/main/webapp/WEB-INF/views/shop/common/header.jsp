@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <header id="header" class="header">
 <!-- 로딩바 -->
 <div class="loading">
     <div class="loading_bar">
         <div class="loading_img">
-            <img src="../../asset/images/shop/default/ico_loading.svg" alt="">
+            <img src="<c:url value='/asset/images/shop/default/ico_loading.svg' />" alt="">
         </div>
     </div>
     <script type="text/javascript">
@@ -32,7 +31,7 @@
             <li class="language mb_hidden">
                 <button type="button">
                     <span>
-                        <img class="langg" src="../../asset/images/shop/default/pc_icon_flag_korea_sq.png" alt="">
+                        <img class="langg" src="<c:url value='/asset/images/shop/default/pc_icon_flag_korea_sq.png' />" alt="">
                     </span>
                     <span class="txt">KOR</span>
                 </button>
@@ -40,7 +39,7 @@
             <li class="language mb_hidden">
                 <button type="button" onclick="location.href='/en/main'">
                     <span class="langg">
-                        <img class="langg" src="../../asset/images/shop/default/pc_icon_flag_usa_sq.png" alt="">
+                        <img class="langg" src="<c:url value='/asset/images/shop/default/pc_icon_flag_usa_sq.png' />" alt="">
                     </span>
                     <span class="txt">ENG</span>
                 </button>
@@ -67,12 +66,12 @@
             <a href="../main.html">
                 <picture>
                     <!--[if IE 9]><video style="display: none;"><![endif]-->
-                    <source srcset="../../asset/images/shop/default/logo_header_pc.svg" media="(min-width:768px)">
+                    <source srcset="<c:url value='/asset/images/shop/default/logo_header_pc.svg' />" media="(min-width:768px)">
                     <!-- pc이미지 -->
-                    <source srcset="../../asset/images/shop/default/logo_header_mb.svg" media="(max-width:767px)">
+                    <source srcset="<c:url value='/asset/images/shop/default/logo_header_mb.svg' />" media="(max-width:767px)">
                     <!-- mb이미지 -->
                     <!--[if IE 9]></video><![endif]-->
-                    <img src="../../asset/images/shop/default/logo_header_pc.svg" alt="WINENARA 1987" draggable="false">
+                    <img src="<c:url value='/asset/images/shop/default/logo_header_pc.svg' />" alt="WINENARA 1987" draggable="false">
                     <!-- pc이미지 -->
                 </picture>
             </a>
@@ -84,29 +83,29 @@
                 </a>
             </li>
             <!-- <li class="mobile_mypage pc_hidden">
-                <a href="javascript:commonUI.layer.open('login_layer');"><img src="../../asset/images/shop/default/pc_icon_mypage.png" alt="My Page"></a>
+                <a href="javascript:commonUI.layer.open('login_layer');"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
             </li> -->
             <li class="mb_hidden wish">
                 <a href="/shop/mypage/note/wish_lists">
-                    <img src="../../asset/images/shop/default/pc_icon_wish.png" alt="Wish List">
+                    <img src="<c:url value='/asset/images/shop/default/pc_icon_wish.png' />" alt="Wish List">
                 </a>
             </li>
             <!-- <li class="pc_search_btn mb_hidden"><button type="button" onclick="commonUI.header.Search.clickFn()">PC Search</button></li>-->
             <li class="mypage mb_hidden">
                 <button type="button" onclick="commonUI.header.Mypage.clickFn()">
-                    <img src="../../asset/images/shop/default/pc_icon_mypage.png" alt="My Page">
+                    <img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page">
                 </button>
                 <div class="mypage_layer">
                     <div class="no_login">
                         <a href="javascript:commonUI.layer.open('login_layer')">로그인</a>
-                        <a href="/shop/member/join/join_form.do">회원가입</a>
+                        <a href="/shop/member/join/law_agreement.do">회원가입</a>
                         <!-- <a href="javascript:commonUI.layer.open('wine_profile_layer')">와인 프로파일(임시 테스트용)</a> -->
                     </div>
                 </div>
             </li>
             <li class="mb_hidden">
                 <a href="/shop/cs/notice_lists">
-                    <img src="../../asset/images/shop/default/pc_icon_center.png" alt="Info Center">
+                    <img src="<c:url value='/asset/images/shop/default/pc_icon_center.png' />" alt="Info Center">
                 </a>
             </li>
         </ul>
@@ -115,7 +114,7 @@
 <div class="bottom">
     <h1 class="fixed_logo" style="display:none;">
         <a href="../main">
-            <img src="../../asset/images/shop/default/pc_fixed_logo.png" alt="WINENARA 1987" draggable="false">
+            <img src="<c:url value='/asset/images/shop/default/pc_fixed_logo.png' />" alt="WINENARA 1987" draggable="false">
         </a>
     </h1>
     <div class="wrap">
@@ -370,7 +369,7 @@
         </div>
     </div>
     <button type="button" onclick="commonUI.header.Search.clickFn()" class="fixed_search_btn">PC Search</button>
-    <a href="/shop/mypage/shopping/mypage" class="fixed_mypage"><img src="../../asset/images/shop/default/pc_icon_mypage.png" alt="My Page"></a>
+    <a href="/shop/mypage/shopping/mypage" class="fixed_mypage"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
     <a href="/shop/cart/cart_lists" class="fixed_cart">
     </a>
 </div>

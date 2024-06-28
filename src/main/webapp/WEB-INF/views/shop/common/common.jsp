@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
@@ -25,7 +26,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta name="naver-site-verification" content="5a02c2e75c2f206818498a10352f35f7feb8c966"/>
 <!-- 삭제 불가 토큰갱신시 사용-->
-<script>
+<!-- <script>
     //if (document.location.protocol == 'http:' && location.hostname.indexOf("winenara.com") != -1) {
     //    document.location.href = document.location.href.replace('http:', 'https:');
     //}
@@ -35,7 +36,7 @@
     var sesCustSeq = "";
     var session_id = "";
     var ci_cookie = "s3klkmjskuf6n4ruqsf4t1673qfpejlf";
-</script>
+</script> -->
 <!--백로그 API-->
 <script type="text/JavaScript" language="JavaScript" src="https://winenara-recommend-method.s3.ap-northeast-2.amazonaws.com/rcMethod.js" charset="UTF-8"></script>
 <!-- <script type="text/JavaScript">
@@ -44,26 +45,26 @@
 <!--백로그 API-->
 <meta id="CsrfSecrets" name="witplus_csrf_token" content="be7b38b9302ff3c05cc7f68a617d7dd7"/>
 <!-- 삭제 불가 토큰갱신시 사용-->
-<link rel="shortcut icon" href="../asset/images/shop/default/favicon.ico" type="image/x-icon"/>
-<link rel="icon" href="../asset/images/shop/default/favicon.ico" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/jquery-ui.min.css"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout.css?v=240409200930"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_pc.css?v=240409200935" media="screen and (min-width:1025px)">
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_jj.css?v=240409200935"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_pc_jj.css?v=240409200935" media="screen and (min-width:1025px)">
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_elly.css?v=240409200935"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_pc_elly.css?v=240409200935" media="screen and (min-width:1025px)">
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_ch.css?v=240409200935"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_pc_ch.css?v=240409200935" media="screen and (min-width:1025px)">
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_sy.css?v=240409200935"/>
-<link rel="stylesheet" type="text/css" href="../asset/css/shop/layout_pc_sy.css?v=240409200935" media="screen and (min-width:1025px)">
-<script type="text/javascript" src="../asset/js/jquery.min.js"></script>
-<script type="text/javascript" src="../asset/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../asset/js/picturefill.min.js"></script>
-<script type="text/javascript" src="../asset/js/front_ui.js?v=221226120920"></script>
-<script type="text/javascript" src="../asset/js/common.js?v=221216102931"></script>
+<link rel="shortcut icon" href="<c:url value='/asset/images/shop/default/favicon.ico' />" type="image/x-icon"/>
+<link rel="icon" href="<c:url value='/asset/images/shop/default/favicon.ico' />" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/jquery-ui.min.css' />"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout.css?v=240409200930' />"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_pc.css?v=240409200935' />" media="screen and (min-width:1025px)">
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_jj.css?v=240409200935' />"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_pc_jj.css?v=240409200935' />" media="screen and (min-width:1025px)">
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_elly.css?v=240409200935' />"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_pc_elly.css?v=240409200935' />" media="screen and (min-width:1025px)">
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_ch.css?v=240409200935' />"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_pc_ch.css?v=240409200935' />" media="screen and (min-width:1025px)">
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_sy.css?v=240409200935' />"/>
+<link rel="stylesheet" type="text/css" href="<c:url value='/asset/css/shop/layout_pc_sy.css?v=240409200935' />" media="screen and (min-width:1025px)">
+<script type="text/javascript" src="<c:url value='/asset/js/jquery.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/asset/js/jquery-ui.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/asset/js/picturefill.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/asset/js/front_ui.js?v=221226120920' />"></script>
+<script type="text/javascript" src="<c:url value='/asset/js/common.js?v=221216102931' />"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script src="../asset/js/wn.product.js?v=230405140747"></script>
+<script src="<c:url value='/asset/js/wn.product.js?v=230405140747' />"></script>
 <!--[if lt IE 9]>
     <script src="../asset/js/html5shiv.min.js"></script>
     <script src="../asset/js/IE9.js"></script>

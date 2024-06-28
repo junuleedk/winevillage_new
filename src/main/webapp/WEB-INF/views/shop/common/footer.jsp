@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="common1.jsp" %>
-
 <footer id="footer" class="footer">
 <div class="hidden_info">
 	<div class="link_box">
@@ -29,7 +26,7 @@
 			</ul>
 		</div>
 		<div class="logo">
-			<img src="../../asset/images/shop/default/logo_footer.svg" alt="WINENARA 1987">
+			<img src="<c:url value='/asset/images/shop/default/logo_footer.svg' />" alt="WINENARA 1987">
 		</div>
 	</div>
 </div>
@@ -43,12 +40,12 @@
 				<div class="icon">
 					<picture>
 					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source srcset="../../asset/images/shop/default/pc_ico_quick_delivery.png" media="(min-width:768px)">
+					<source srcset="<c:url value='/asset/images/shop/default/pc_ico_quick_delivery.png' />" media="(min-width:768px)">
 					<!-- pc이미지 -->
-					<source srcset="../../asset/images/shop/default/mb_ico_quick_delivery.png" media="(max-width:767px)">
+					<source srcset="<c:url value='/asset/images/shop/default/mb_ico_quick_delivery.png' />" media="(max-width:767px)">
 					<!-- mb이미지 -->
 					<!--[if IE 9]></video><![endif]-->
-					<img src="../../asset/images/shop/default/pc_ico_quick_delivery.png" alt="특판문의" draggable="false">
+					<img src="<c:url value='/asset/images/shop/default/pc_ico_quick_delivery.png' />" alt="특판문의" draggable="false">
 					<!-- pc이미지 -->
 					</picture>
 				</div>
@@ -60,12 +57,12 @@
 				<div class="icon">
 					<picture>
 					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source srcset="../../asset/images/shop/default/pc_ico_quick_talk.png" media="(min-width:768px)">
+					<source srcset="<c:url value='/asset/images/shop/default/pc_ico_quick_talk.png' />" media="(min-width:768px)">
 					<!-- pc이미지 -->
-					<source srcset="../../asset/images/shop/default/mb_ico_quick_talk.png" media="(max-width:767px)">
+					<source srcset="<c:url value='/asset/images/shop/default/mb_ico_quick_talk.png' />" media="(max-width:767px)">
 					<!-- mb이미지 -->
 					<!--[if IE 9]></video><![endif]-->
-					<img src="../../asset/images/shop/default/pc_ico_quick_talk.png" alt="Talk" draggable="false">
+					<img src="<c:url value='/asset/images/shop/default/pc_ico_quick_talk.png' />" alt="Talk" draggable="false">
 					<!-- pc이미지 -->
 					</picture>
 				</div>
@@ -75,12 +72,12 @@
 				<div class="icon">
 					<picture>
 					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source srcset="../../asset/images/shop/default/pc_ico_quick_talk.png" media="(min-width:768px)">
+					<source srcset="<c:url value='/asset/images/shop/default/pc_ico_quick_talk.png' />" media="(min-width:768px)">
 					<!-- pc이미지 -->
-					<source srcset="../../asset/images/shop/default/mb_ico_quick_talk.png" media="(max-width:767px)">
+					<source srcset="<c:url value='/asset/images/shop/default/mb_ico_quick_talk.png' />" media="(max-width:767px)">
 					<!-- mb이미지 -->
 					<!--[if IE 9]></video><![endif]-->
-					<img src="../../asset/images/shop/default/pc_ico_quick_talk.png" alt="Talk" draggable="false">
+					<img src="<c:url value='/asset/images/shop/default/pc_ico_quick_talk.png' />" alt="Talk" draggable="false">
 					<!-- pc이미지 -->
 					</picture>
 				</div>
