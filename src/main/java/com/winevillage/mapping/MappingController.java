@@ -19,9 +19,15 @@ public class MappingController {
 	public String header() {
 		return "shop/common/header";
 	}
+	
 	@GetMapping("shop/common/footer.do")
 	public String footer() {
 		return "shop/common/footer";
+	}
+	
+	@GetMapping("shop/member/join/join_form.do")
+	public String join() {
+		return "shop/member/join/join_form";
 	}
 	
 }

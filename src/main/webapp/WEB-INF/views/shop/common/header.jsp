@@ -99,7 +99,7 @@
                 <div class="mypage_layer">
                     <div class="no_login">
                         <a href="javascript:commonUI.layer.open('login_layer')">로그인</a>
-                        <a href="/shop/member/join/law_agreement">회원가입</a>
+                        <a href="/shop/member/join/join_form.do">회원가입</a>
                         <!-- <a href="javascript:commonUI.layer.open('wine_profile_layer')">와인 프로파일(임시 테스트용)</a> -->
                     </div>
                 </div>
