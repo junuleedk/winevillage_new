@@ -121,34 +121,43 @@
 						</div>
 						</li>
 						<li class="tel_li">
-						<div class="l_tit">
-							<label for="user_name">휴대폰번호*</label>
-						</div>
-						<div class="form_box">
-							<div class="tel_box">
-								<input type="text" id="phone" name="phone" placeholder="'-'제외한 숫자만 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" readonly value="">
-								<!-- <button type="button" class="btn_txt btn_bgray btn_m_view" onclick="commonUI.layer.open('m_view_layer')">통합회원 조회</button> -->
-								<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">통합회원 조회</button>
-								<p class="input_info_txt">
-								</p>
+							<div class="l_tit">
+								<label for="phone">휴대폰번호*</label>
 							</div>
-						</div>
+							<div class="form_box">
+								<div class="tel_box">
+									<input type="text" id="phoneNumber" name="phoneNumber"
+										placeholder="휴대폰번호를 입력해주세요.">
+									<button type="button" id="sendBtn"
+										class="btn_txt btn_bgray btn_m_view"
+										onclick="sendPhoneNumber();">휴대폰 인증</button>
+								</div>
+								<div class="tel_box">
+									<input type="text" id="certification"
+										placeholder="인증 번호를 입력해주세요." />
+									<button type="button" onclick="verifyCode();" id="enterBtn"
+										class="btn_txt btn_bgray btn_m_view">확인</button>
+									<p class="input_info_txt"></p>
+								</div>
+							</div>
 						</li>
 						<li>
-						<div class="l_tit">
-							<label for="user_id">아이디*</label>
-							<p class="input_info_txt" id="id_length_chk">
-								5~20자의 영문 혹은 영문+숫자 조합
-							</p>
-						</div>
-						<div class="form_box">
-							<!-- <div class="form_box error">
-                        <div class="form_box success"> -->
-							<input type="text" id="user_id" name="user_id" placeholder="5~20자의 영문 혹은 영문+숫자 조합" value="">
-							<p class="input_info_txt" id="id_chk" style="display:none;">
-								입력해 주신 아이디는 사용중인 아이디입니다.
-							</p>
-						</div>
+							<div class="tel_box">
+								<div class="l_tit">
+									<label for="user_id">아이디*</label>
+									<p class="input_info_txt" id="id_length_chk">5~20자의 영문 혹은
+										영문+숫자 조합</p>
+								</div>
+								<div class="form_box">
+									<input type="text" id="memberId" name="memberId"
+										placeholder="5~20자의 영문 혹은 영문+숫자 조합"
+										style="width: calc(100% - 165px);" value="">
+									<p class="input_info_txt" id="id_chk" style="display: none;">입력해
+										주신 아이디는 사용중인 아이디입니다.</p>
+									<button title="중복확인" class="btn_txt btn_bgray btn_m_view"
+										type="button" onclick="checkMemberIdExist()">중복확인</button>
+								</div>
+							</div>
 						</li>
 						<li>
 						<div class="l_tit">
