@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<title>WINENARA 1987 ㅣ 와인의 모든 것이 있는 곳 와인나라입니다! </title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
@@ -67,8 +65,8 @@
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="../../asset/js/wn.product.js?v=230405140747"></script>
 <!--[if lt IE 9]>
-    <script src="../../asset/js/html5shiv.min.js"></script>
-    <script src="../../asset/js/IE9.js"></script>
+    <script src="../asset/js/html5shiv.min.js"></script>
+    <script src="../asset/js/IE9.js"></script>
     <![endif]-->
 <!-- 구글 로그 분석 220428 -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -82,151 +80,3 @@
 <!-- 구글 로그 분석 220428 -->
 <!-- 트래킹 관련 include -->
 <!-- 트래킹 관련 include -->
-</head>
-<body>
-
-
-
-
-
-
-
-
-
-    
-<!-- footer -->
-<footer id="footer" class="footer">
-<div class="hidden_info">
-<div class="link_box">
-	<div class="wrap">
-		<ul>
-			<li><a href="/shop/company/about_us">회사소개</a></li>
-			<li><a href="/shop/company/brand">브랜드 소개</a></li>
-			<li><a href="/shop/member/policy/law_con">이용약관</a></li>
-			<li><a href="/shop/member/policy/privacy_con">개인정보처리방침</a></li>
-			<li><a href="/shop/cs/notice_lists">고객센터</a></li>
-		</ul>
-	</div>
-</div>
-<div class="info_box">
-	<div class="info">
-		<ul class="company_info">
-			<li>대표번호 : 080-732-0101 (업무시간 : 10:00-17:00 월~금/ 점심시간 : 12:00-13:00) 주말, 공휴일 휴무</li>
-			<li><span><em>대표자</em> : 윤주상</span><span><em>주소</em> : 서울특별시 중구 퇴계로46길 23, 1층(묵정동)</span></li>
-			<li><span><em>법인명</em> : (주)와인빌리지 제일와인셀러점</span><span><em>사업자 등록정보</em> : 141-40-90435</span></li>
-			<li><span><em>통신판매업</em> : 제 2022-서울중구-1128호</span><span><em>개인정보보호책임자</em> : 정재훈</span></li>
-			<li><span>호스팅 : (주)와인빌리지아이비</span><span>E-MAIL : yjs@winevillate.com</span></li>
-			<li>주류는 매장을 방문하여 수령하여야 하며, 주류를 매장 외부로 반출하여 소비자에게 배달/판매하지 않음</li>
-			<li>Copyright (c) WINEVIALLAGE All Rights Reserved. 무단 전재와 무단 복제를 금함.</li>
-		</ul>
-	</div>
-	<div class="logo">
-		<img src="../../asset/images/shop/default/logo_footer.svg" alt="WINENARA 1987">
-	</div>
-</div>
-</div>
-<div class=" mb_hidden quick_menu ">
-<ul class="list">
-	<li class="top">
-	<a href="#none" onclick="commonUI.footer.topMove()">TOP</a>
-	</li>
-	<li>
-	<a href="/shop/cs/special">
-	<div class="icon">
-		<picture>
-		<!--[if IE 9]><video style="display: none;"><![endif]-->
-		<source srcset="../../asset/images/shop/default/pc_ico_quick_delivery.png" media="(min-width:768px)">
-		<!-- pc이미지 -->
-		<source srcset="../../asset/images/shop/default/mb_ico_quick_delivery.png" media="(max-width:767px)">
-		<!-- mb이미지 -->
-		<!--[if IE 9]></video><![endif]-->
-		<img src="../../asset/images/shop/default/pc_ico_quick_delivery.png" alt="특판문의" draggable="false">
-		<!-- pc이미지 -->
-		</picture>
-	</div>
-	<div class="txt">
-		특판문의
-	</div>
-	</a>
-	</li>
-	<li>
-	<a href="http://pf.kakao.com/_vlkxfxb/chat" class="pc_hidden">
-	<div class="icon">
-		<picture>
-		<!--[if IE 9]><video style="display: none;"><![endif]-->
-		<source srcset="../../asset/images/shop/default/pc_ico_quick_talk.png" media="(min-width:768px)">
-		<!-- pc이미지 -->
-		<source srcset="../../asset/images/shop/default/mb_ico_quick_talk.png" media="(max-width:767px)">
-		<!-- mb이미지 -->
-		<!--[if IE 9]></video><![endif]-->
-		<img src="../../asset/images/shop/default/pc_ico_quick_talk.png" alt="Talk" draggable="false">
-		<!-- pc이미지 -->
-		</picture>
-	</div>
-	<div class="txt">
-		1:1문의
-	</div>
-	</a>
-	<a href="javascript:window.open('http://pf.kakao.com/_vlkxfxb/chat','1:1문의','width=800,height=800,scrollbars=yes');" class="mb_hidden">
-	<div class="icon">
-		<picture>
-		<!--[if IE 9]><video style="display: none;"><![endif]-->
-		<source srcset="../../asset/images/shop/default/pc_ico_quick_talk.png" media="(min-width:768px)">
-		<!-- pc이미지 -->
-		<source srcset="../../asset/images/shop/default/mb_ico_quick_talk.png" media="(max-width:767px)">
-		<!-- mb이미지 -->
-		<!--[if IE 9]></video><![endif]-->
-		<img src="../../asset/images/shop/default/pc_ico_quick_talk.png" alt="Talk" draggable="false">
-		<!-- pc이미지 -->
-		</picture>
-	</div>
-	<div class="txt">
-		1:1문의
-	</div>
-	</a>
-	</li>
-</ul>
-<div class="open_box">
-	<button type="button" class="menu_open">quick menu open</button>
-</div>
-</div>
-</footer>
-<!-- //footer -->
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
-<!--백로그 API-->
-<script type="text/JavaScript">
-	var page = '';
-	if( page == false){
-		page = 'main';
-	}
-	if( page !== 'product_view' && page !== 'order_ok'){
-		console.log(page);
-		/*
-			RC_Method({
-				sign_up_data: "",
-				page_type : page, 
-				behavior:"page_view"
-			});
-			*/
-	}
-</script>
-<!--백로그 API-->
-<!--lazy_loading-->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-<script>
-	const observer = lozad();
-	observer.observe();
-	console.log('test');
-</script>
-<!--lazy_loading-->
