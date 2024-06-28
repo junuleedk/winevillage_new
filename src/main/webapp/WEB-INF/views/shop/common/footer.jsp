@@ -3,7 +3,6 @@
 
 <%@ include file="common1.jsp" %>
 
-<!-- footer -->
 <footer id="footer" class="footer">
 <div class="hidden_info">
 	<div class="link_box">
@@ -94,4 +93,3 @@
 	</div>
 </div>
 </footer>
-<!-- //footer -->

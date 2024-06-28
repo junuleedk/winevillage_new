@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="common1.jsp" %>
-
-<!-- header -->
 <header id="header" class="header">
 <!-- 로딩바 -->
 <div class="loading">
