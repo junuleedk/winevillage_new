@@ -215,6 +215,8 @@
 .join_form_page .btn_area .btn_txt{width:160px}
 .form_area ul li.gender_li .form_box .gender_box .box{width:115px} 
 .form_area ul li.tel_li .form_box .tel_box{margin-top:0}
+.form_area ul li.tel_li .form_box.success .tel_box{margin-top:4px}
+.form_area ul li.tel_li .form_box.error .tel_box{margin-top:4px}
 .form_area ul li.tel_li .form_box .tel_box::after{content:'';display:block;clear:both}
 .form_area ul li.tel_li .form_box .tel_box input{float:left;width:calc(100% - 165px)}
 .form_area ul li.tel_li .form_box .tel_box .btn_txt{float:right;margin-top:0;width:160px;height:40px;line-height:39px;font-size:14px}
