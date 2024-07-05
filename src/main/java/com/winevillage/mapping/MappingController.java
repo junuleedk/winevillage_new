@@ -28,9 +28,9 @@ public class MappingController {
 	public String join_form() {
 		return "shop/member/join/join_form";
 	}
-	@GetMapping("shop/member/join/join_success.do")
+	@GetMapping("shop/member/join/join_ok.do")
 	public String join_success() {
-		return "shop/member/join/join_success";
+		return "shop/member/join/join_ok";
 	}
 	
 	/* temp */

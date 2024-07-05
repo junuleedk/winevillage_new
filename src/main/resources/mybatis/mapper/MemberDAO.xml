@@ -12,13 +12,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             MemberPassword, MemberEmail, MemberPostcode, MemberAddress1, 
             MemberAddress2,
             MemberMaritalStatus, MemberAnniversary, MemberStore, 
-            MemberReferenceId, MemberBizReferenceCode
+            MemberBizReferenceCode
         ) VALUES (
             member_seq.NEXTVAL, #{memberId}, #{memberName}, #{memberBirth}, #{memberPhoneNumber},
             #{memberPassword}, #{memberEmail}, #{memberPostcode}, #{memberAddress1},
             #{memberAddress2}, 
             #{memberMaritalStatus}, #{memberAnniversary}, #{memberStore},
-            #{memberReferenceId}, #{memberBizReferenceCode}
+            #{memberBizReferenceCode}
 		)
 	</insert>
 </mapper>

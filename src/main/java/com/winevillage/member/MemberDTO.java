@@ -22,6 +22,5 @@ public class MemberDTO {
 	private String memberMaritalStatus;
 	private String memberAnniversary;
 	private String memberStore;
-	private String memberReferenceId;
 	private String memberBizReferenceCode;
 }

@@ -33,7 +33,7 @@
 		<div class="select_brand js_select" id="select_brand">
 			<button type="button" class="my_value js_selectBtn" onclick="$(this).toggleClass('on')"><span>회원가입</span></button>
 			<ul class="mb_lnb_lists">
-				<li><a href="law_agreement.html">약관동의 및 소셜인증</a></li>
+				<li><a href="/shop/member/join/law_agreement">약관동의 및 소셜인증</a></li>
 			</ul>
 		</div>
 	</div>
@@ -49,25 +49,36 @@
 	</div>
 </div>
 <div class="wrap">
-	<form action="/shop/member/join/join_submit.do" name='join_form' id='join_form' method="post" accept-charset="utf-8">
-		<input type="hidden" name="join_agreement_age" value=""/>
-		<input type="hidden" name="join_agreement_service" value=""/>
-		<input type="hidden" name="join_agreement_private" value=""/>
-		<input type="hidden" name="join_agreement_marketing_1" value=""/>
-		<input type="hidden" name="join_agreement_marketing_2" value=""/>
-		<input type="hidden" name="join_agreement_sms" value=""/>
-		<input type="hidden" name="join_agreement_email" value=""/>
-		<input type="hidden" name="join_gb" value=""/>
-		<input type="hidden" name="witplus_csrf_token" value="6d4b67b6bb470edeee07d5a9e38ef1d6"/>
+	<form action="https://www.winenara.com/shop/member/join/join_proc" name='join_form' id='join_form' method="post" accept-charset="utf-8">
+		<input type="hidden" name="join_agreement_age" value="true"/>
+		<input type="hidden" name="join_agreement_service" value="true"/>
+		<input type="hidden" name="join_agreement_private" value="true"/>
+		<input type="hidden" name="join_agreement_marketing_1" value="false"/>
+		<input type="hidden" name="join_agreement_marketing_2" value="false"/>
+		<input type="hidden" name="join_agreement_sms" value="false"/>
+		<input type="hidden" name="join_agreement_email" value="false"/>
+		<input type="hidden" name="join_gb" value="G"/>
+		<input type="hidden" name="witplus_csrf_token" value="7a1ceec33cce32b5436817ba8c49a538"/>
 		<div class="content member join join_form_page">
 			<div class="inner">
-				<div class="connect_info">
-					<p class="tit">
-						인증된 소셜계정
-					</p>
+				<!-- <div class="connect_info">
+					<p class="tit">인증된 소셜계정</p>
 					<div class="connect">
+						<img src="../../../asset/images/shop/default/ico_google.png" alt="구글 로고">
+						<span>구글 (gogek1234@gmail.com)</span>
+						<input type="hidden" name="google_id" value="117271153815721505296">
 					</div>
-				</div>
+					<div class="connect">
+						<img src="../../../asset/images/shop/default/ico_naver.png" alt="네이버 로고">
+						<span>네이버 (gogek1234@naver.com)</span>
+						<input type="hidden" name="naver_id" value="Ph46x1ITfw7jCExYqJXhyjXOQgrAH8YoGf74vT7aFYk">
+					</div>
+					<div class="connect">
+						<img src="../../../asset/images/shop/default/ico_kakao.png" alt="카카오 로고">
+						<span>카카오 (gogek1234@gmail.com)</span>
+						<input type="hidden" name="kakao_id" value="3603720309">
+					</div>
+				</div> -->
 				<div class="connect_info" id="auth_div">
 					<div class="form_box">
 						<div class="">
@@ -84,207 +95,207 @@
 				<div class="form_area">
 					<ul>
 						<li>
-						<div class="l_tit">
-							<label for="user_nm">이름*</label>
-						</div>
-						<div class="form_box">
-							<!-- <div class="form_box error">
-                        <div class="form_box success"> -->
-							<input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요." value="">
-							<p class="input_info_txt">
-							</p>
-						</div>
+							<div class="l_tit">
+								<label for="memberName">이름*</label>
+							</div>
+							<div class="form_box">
+								<!-- <div class="form_box error">
+							<div class="form_box success"> -->
+								<input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요." value="">
+								<p class="input_info_txt">
+								</p>
+							</div>
 						</li>
 						<li>
-						<div class="l_tit">
-							<label for="user_birth">생년월일*</label>
-						</div>
-						<div class="form_box">
-							<!-- <div class="form_box error">
-                        <div class="form_box success"> -->
-							<input type="text" id="memberBirth" name="memberBirth"  placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
-							<!--p class="input_info_txt">생년월일을 숫자 8자리로 입력하세요.</p-->
-						</div>
+							<div class="l_tit">
+								<label for="memberBirth">생년월일*</label>
+							</div>
+							<div class="form_box">
+								<!-- <div class="form_box error">
+							<div class="form_box success"> -->
+								<input type="text" id="memberBirth" name="memberBirth" placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+								<!--p class="input_info_txt">생년월일을 숫자 8자리로 입력하세요.</p-->
+							</div>
 						</li>
 						<li class="gender_li">
-						<div class="l_tit">
-							<label for="user_gender" style="display:none;" id="gender_label">성별*</label>
-						</div>
-						<div class="form_box">
-							<div class="gender_box">
-								<div class="box men" style="display:none;">
-									<input type="radio" name="gender" id="gender_men" value="M">
-									<label for="gender_men">남성</label>
-								</div>
-								<div class="box women" style="display:none;">
-									<input type="radio" name="gender" id="gender_women" value="F">
-									<label for="gender_women">여성</label>
+							<div class="l_tit">
+								<label for="user_gender" style="display:none;" id="gender_label">성별*</label>
+							</div>
+							<div class="form_box">
+								<div class="gender_box">
+									<div class="box men" style="display:none;">
+										<input type="radio" name="gender" id="gender_men" value="M">
+										<label for="gender_men">남성</label>
+									</div>
+									<div class="box women" style="display:none;">
+										<input type="radio" name="gender" id="gender_women" value="F">
+										<label for="gender_women">여성</label>
+									</div>
 								</div>
 							</div>
-						</div>
 						</li>
 						<li class="tel_li">
 							<div class="l_tit">
-								<label for="phone">휴대폰번호*</label>
+								<label for="memberPhoneNumber">휴대폰번호*</label>
 							</div>
 							<div class="form_box">
 								<div class="tel_box">
-									<input type="text" id="memberPhoneNumber" name="memberPhoneNumber"
-										placeholder="휴대폰번호를 입력해주세요.">
-									<button type="button" id="sendBtn"
-										class="btn_txt btn_bgray btn_m_view"
-										onclick="sendPhoneNumber();">휴대폰 인증</button>
+									<input type="text" id="memberPhoneNumber" name="memberPhoneNumber" placeholder="'-'제외한 숫자만 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+									<!-- <button type="button" class="btn_txt btn_bgray btn_m_view" onclick="commonUI.layer.open('m_view_layer')">통합회원 조회</button> -->
+									<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">휴대폰 인증</button>
+									<p class="input_info_txt">
+									</p>
 								</div>
 								<div class="tel_box">
-									<input type="text" id="certification"
-										placeholder="인증 번호를 입력해주세요." />
-									<button type="button" onclick="verifyCode();" id="enterBtn"
-										class="btn_txt btn_bgray btn_m_view">확인</button>
-									<p class="input_info_txt"></p>
+									<input type="text" id="phone" name="phone" placeholder="인증번호를 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+									<!-- <button type="button" class="btn_txt btn_bgray btn_m_view" onclick="commonUI.layer.open('m_view_layer')">통합회원 조회</button> -->
+									<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">확인</button>
+									<p class="input_info_txt">
+									</p>
 								</div>
 							</div>
 						</li>
-						<li>
-							<div class="tel_box">
-								<div class="l_tit">
-									<label for="user_id">아이디*</label>
-									<p class="input_info_txt" id="id_length_chk">5~20자의 영문 혹은
-										영문+숫자 조합</p>
-								</div>
-								<div class="form_box">
-									<input type="text" id="memberId" name="memberId"
-										placeholder="5~20자의 영문 혹은 영문+숫자 조합"
-										style="width: calc(100% - 165px);" value="">
-									<p class="input_info_txt" id="id_chk" style="display: none;">입력해
-										주신 아이디는 사용중인 아이디입니다.</p>
-									<button title="중복확인" class="btn_txt btn_bgray btn_m_view"
-										type="button" onclick="checkMemberIdExist()">중복확인</button>
-								</div>
+						<li class="id_li">
+							<div class="l_tit">
+								<label for="memberId">아이디*</label>
+								<p class="input_info_txt" id="id_length_chk">
+									5~20자의 영문 혹은 영문+숫자 조합
+								</p>
+							</div>
+							<div class="form_box">
+								<!-- <div class="form_box error">
+							<div class="form_box success"> -->
+								<input type="text" id="memberId" name="memberId" placeholder="5~20자의 영문 혹은 영문+숫자 조합" value="">
+								<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">중복확인</button>
+								<p class="input_info_txt" id="id_chk" style="display:none;">
+									입력해 주신 아이디는 사용중인 아이디입니다.
+								</p>
 							</div>
 						</li>
 						<li>
-						<div class="l_tit">
-							<label for="user_pass_01">비밀번호*</label>
-							<p class="input_info_txt" id="pw_chk">
-								영문+숫자+특수문자 조합 8자 이상(공백제외)
-							</p>
-						</div>
-						<div class="form_box">
-							<!-- <div class="form_box error">
-                        <div class="form_box success"> -->
-							<input type="password" id="memberPassword" name="memberPassword" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
-						</div>
+							<div class="l_tit">
+								<label for="user_pass_01">비밀번호*</label>
+								<p class="input_info_txt" id="pw_chk">
+									영문+숫자+특수문자 조합 8자 이상(공백제외)
+								</p>
+							</div>
+							<div class="form_box">
+								<!-- <div class="form_box error">
+							<div class="form_box success"> -->
+								<input type="password" id="memberPassword" name="memberPassword" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
+							</div>
 						</li>
 						<li>
-						<div class="l_tit">
-							<label for="user_pass_02">비밀번호 확인*</label>
-						</div>
-						<div class="form_box">
-							<!-- <div class="form_box error">
-                        <div class="form_box success"> -->
-							<input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
-							<!-- <p class="input_info_txt">동일한 비밀번호를 입력했습니다.</p> -->
-							<p class="input_info_txt">
-							</p>
-						</div>
+							<div class="l_tit">
+								<label for="user_pass_02">비밀번호 확인*</label>
+							</div>
+							<div class="form_box">
+								<!-- <div class="form_box error">
+							<div class="form_box success"> -->
+								<input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
+								<!-- <p class="input_info_txt">동일한 비밀번호를 입력했습니다.</p> -->
+								<p class="input_info_txt">
+								</p>
+							</div>
 						</li>
 						<li>
-						<div class="l_tit">
-							<label for="user_email">이메일*</label>
-						</div>
-						<div class="form_box">
-							<!-- <div class="form_box error">
-                        <div class="form_box success"> -->
-							<input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." value="">
-							<p class="input_info_txt">
-							</p>
-						</div>
+							<div class="l_tit">
+								<label for="memberEmail">이메일*</label>
+							</div>
+							<div class="form_box">
+								<!-- <div class="form_box error">
+							<div class="form_box success"> -->
+								<input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." value="">
+								<p class="input_info_txt">
+								</p>
+							</div>
 						</li>
 						<li class="add_li">
-						<div class="l_tit">
-							<label for="memberPostcode">주소</label>
-						</div>
-						<div class="form_box">
-							<div class="add_box_01">
-								<input type="text" id="memberPostcode" name="memberPostcode" placeholder="주소를 입력해주세요." readonly>
-								<button type="button" class="btn_txt btn_bgray" id="addr_open">우편번호찾기</button>
+							<div class="l_tit">
+								<label for="memberPostcode">주소</label>
 							</div>
-							<div class="add_box_02">
-								<input type="text" id="memberAddress1" name="memberAddress1">
-								<input type="text" id="memberAddress2" name="memberAddress2">
+							<div class="form_box">
+								<div class="add_box_01">
+									<input type="text" id="memberPostcode" name="memberPostcode" placeholder="주소를 입력해주세요.">
+									<button type="button" class="btn_txt btn_bgray" id="addr_open">우편번호찾기</button>
+								</div>
+								<div class="add_box_02">
+									<input type="text" id="memberAddress1" name="memberAddress1">
+									<input type="text" id="memberAddress2" name="memberAddress2">
+								</div>
 							</div>
-						</div>
 						</li>
 						<li class="marry_li gender_li">
-						<div class="l_tit">
-							<label>결혼여부</label>
-						</div>
-						<div class="form_box">
-							<div class="marry_box gender_box">
-								<div class="box marry_y">
-									<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_Y" value="Y">
-									<label for="memberMaritalStatus_Y">기혼</label>
-								</div>
-								<div class="box marry_n">
-									<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_N" value="N">
-									<label for="memberMaritalStatus_N">미혼</label>
+							<div class="l_tit">
+								<label>결혼여부</label>
+							</div>
+							<div class="form_box">
+								<div class="marry_box gender_box">
+									<div class="box marry_y">
+										<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_Y" value="Y">
+										<label for="memberMaritalStatus_Y">기혼</label>
+									</div>
+									<div class="box marry_n">
+										<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_N" value="N">
+										<label for="memberMaritalStatus_N">미혼</label>
+									</div>                                
 								</div>
 							</div>
-						</div>
 						</li>
 						<li class="marry_date_li" style="display:none;">
-						<div class="l_tit">
-							<label for="marry_date">결혼기념일</label>
-						</div>
-						<div class="form_box">
-							<input type="text" name="memberAnniversary" id="marry_date" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-							<p class="input_info_txt">
-								결혼기념일을 숫자 8자리로 입력하세요.
-							</p>
-						</div>
+							<div class="l_tit">
+								<label for="memberAnniversary">결혼기념일</label>
+							</div>
+							<div class="form_box">
+								<input type="text" name="memberAnniversary" id="memberAnniversary" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+								<p class="input_info_txt">결혼기념일을 숫자 8자리로 입력하세요.</p>
+							</div>                     
 						</li>
 						<li class="chk_li">
-						<div class="l_tit">
-							<label for="memberStore">매장*</label>
-						</div>
-						<div class="form_box">
-							<select name="memberStore" id="memberStore">
-								<option value="">▒ 선택 ▒</option>
-								<option value="200000784">온라인(본사)</option>
-								<option value="200000738">경희궁점</option>
-								<option value="200000084">코엑스점</option>
-								<option value="200000111">서래마을점</option>
-								<option value="200000779">일산점</option>
-								<option value="200000782">홍대점</option>
-								<option value="200000792">시청점</option>
-								<option value="200000793">성수점</option>
-								<option value="200000796">압구정점</option>
-								<option value="200000795">신용산점</option>
-								<option value="200000803">송도점</option>
-							</select>
-						</div>
+							<div class="l_tit">
+								<label for="memberStore">매장*</label>
+							</div>
+							<div class="form_box">
+								<select name="memberStore" id="memberStore">
+									<option value="">▒ 선택 ▒</option>
+									<option value="200000784">온라인</option>
+									<option value="200000762">경희궁점</option>
+									<option value="200000084">코엑스점</option>
+									<option value="200000111">서래마을점</option>
+									<option value="200000779">일산점</option>
+									<option value="200000782">홍대점</option>
+									<option value="200000792">시청점</option>
+									<option value="200000793">성수점</option>
+									<option value="200000796">압구정점</option>
+									<option value="200000795">신용산점</option>
+									<option value="200000803">송도점</option>
+									<option value="200000804">명동점(모와)</option>
+								</select>
+							</div>
 						</li>
+						<!--
 						<li class="marry_li gender_li">
-						<div class="l_tit">
-							<label for="reference_id">추천인 코드</label>
-						</div>
-						<div class="l_tit">
-							<input type="text" name="memberReferenceId" id="memberReferenceId" placeholder="추천인 코드를 입력해주세요.">
-						</div>
+							<div class="l_tit">
+								<label for="reference_id">추천인 코드</label>
+							</div>
+							<div class="l_tit">
+								<input type="text" name="reference_id" id="reference_id" placeholder="추천인 코드를 입력해주세요.">
+							</div>                     
 						</li>
+						-->
 						<li class="marry_li gender_li">
-						<div class="l_tit">
-							<label for="biz_reference_code">기업회원 인증코드</label>
-						</div>
-						<div class="l_tit">
-							<input type="text" name="memberBizReferenceCode" id="memberBizReferenceCode" placeholder="기업회원 인증코드를 입력해주세요.">
-						</div>
+							<div class="l_tit">
+								<label for="memberBizReferenceCode">프로모션 인증코드</label>
+							</div>
+							<div class="l_tit">
+								<input type="text" name="memberBizReferenceCode" id="memberBizReferenceCode" placeholder="프로모션 인증코드를 입력해주세요.">
+							</div>
 						</li>
 					</ul>
 				</div>
 				<div class="btn_area">
 					<!-- <a href="#" class="btn_txt btn_black">회원가입</a>-->
-					<button type="button" class="btn_txt btn_black" id="joinButton" onclick="submit_join()">회원가입</button>
+					<button type="button" class="btn_txt btn_black" onclick="submit_join();">회원가입</button>
 				</div>
 			</div>
 			<!-- 통합회원 조회 레이어 -->
@@ -295,8 +306,7 @@
 							<h2 class="layer_tit">통합회원 조회</h2>
 							<!-- <button type="button" class="layer_close" onclick="commonUI.layer.close()">닫기</button> -->
 							<div class="layer_con">
-								<ul id="wine_mem_list">
-								</ul>
+								<ul id="wine_mem_list"></ul>
 								<div class="btn_area">
 									<button type="button" class="btn_txt btn_black" onclick="merge_member();">회원통합</button>
 								</div>
@@ -309,25 +319,23 @@
 		</div>
 	</div>
 </form>
-<form action="https://www.winenara.com/shop/member/join/KCP/kcpcert_proc" name='form_auth' id='form_auth'>
+<form action="/shop/member/join/KCP/kcpcert_proc" name='form_auth' id='form_auth'>
 	<input type="hidden" name="site_cd" id="site_cd" value="AI3K5">
 	<input type="hidden" name="ordr_idxx" id="ordr_idxx">
 	<input type="hidden" name="req_tx" id="req_tx" value="cert">
 	<input type="hidden" name="cert_method" id="cert_method" value="01">
 	<input type="hidden" name="cert_otp_use" id="cert_otp_use" value="Y">
 	<input type="hidden" name="action" id="action" value="https://cert.kcp.co.kr/kcp_cert/cert_view.jsp">
-	<input type="hidden" name="Ret_URL" id="Ret_URL" value="kcpcert_response_ajax.html">
+	<input type="hidden" name="Ret_URL" id="Ret_URL" value="https://www.winenara.com/shop/member/join/kcpcert_response_ajax">
 	<input type="hidden" name="cert_enc_use_ext" id="cert_enc_use_ext" value="Y">
 	<input type="hidden" name="kcp_birth" id="kcp_birth">
 	<input type="hidden" name="veri_up_hash" id="veri_up_hash">
-	<input type="hidden" name="param_opt_1" id="param_opt_1" value="p4ct82411fecoli87cm8qthpp0hg4fq0">
+	<input type="hidden" name="param_opt_1" id="param_opt_1" value="td5cqosrc0drsr4rts8i21muu4orh108">
 	<input type="hidden" name="param_opt_2" id="param_opt_2" value="">
 	<input type="hidden" name="param_opt_3" id="param_opt_3" value="join_form_page">
-	<!-- 스프링 시큐리티 CSRF 토큰 -->
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
-	<img src="t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+	<img src="https://t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 </div>
 <!-- page_script -->
 <script>
@@ -1038,7 +1046,6 @@
             }
         }
         var memberStore = document.getElementById("memberStore").value.trim();
-        var memberReferenceId = document.getElementById("memberReferenceId").value.trim();
         var memberBizReferenceCode = document.getElementById("memberBizReferenceCode").value.trim();
         
         
@@ -1052,7 +1059,7 @@
 		        console.log("서버 응답:", response);  // 응답 전체를 로깅
 		        if (response.result === true) {
 		            alert("회원 가입이 완료되었습니다.");
-		            window.location.href = "/shop/member/join/join_success.do";
+		            window.location.href = "/shop/member/join/join_ok.do";
 		        } else {
 		            alert("회원 가입에 실패했습니다. 이유: " + (response.message || "알 수 없는 오류"));
 		        }
