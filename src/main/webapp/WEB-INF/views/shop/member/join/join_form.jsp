@@ -6,7 +6,10 @@
 <head>
 <title>WINEVIllAGE 2024 ㅣ 와인의 모든 것이 있는 곳 와인빌리지입니다! </title>
 <%@ include file="../../common/common.jsp" %>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <body>
 <!-- skip_menu -->
 <div class="skip_menu" id="skip_menu">
@@ -46,7 +49,7 @@
 	</div>
 </div>
 <div class="wrap">
-	<form action="https://www.winenara.com/shop/member/join/join_proc" name='join_form' id='join_form' method="post" accept-charset="utf-8">
+	<form action="/shop/member/join/join_submit.do" name='join_form' id='join_form' method="post" accept-charset="utf-8">
 		<input type="hidden" name="join_agreement_age" value=""/>
 		<input type="hidden" name="join_agreement_service" value=""/>
 		<input type="hidden" name="join_agreement_private" value=""/>
@@ -87,7 +90,7 @@
 						<div class="form_box">
 							<!-- <div class="form_box error">
                         <div class="form_box success"> -->
-							<input type="text" id="user_nm" name="user_nm" placeholder="이름을 입력해주세요." value="">
+							<input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요." value="">
 							<p class="input_info_txt">
 							</p>
 						</div>
@@ -99,7 +102,7 @@
 						<div class="form_box">
 							<!-- <div class="form_box error">
                         <div class="form_box success"> -->
-							<input type="text" id="user_birth" name="birthday" readonly placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+							<input type="text" id="memberBirth" name="memberBirth"  placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
 							<!--p class="input_info_txt">생년월일을 숫자 8자리로 입력하세요.</p-->
 						</div>
 						</li>
@@ -126,7 +129,7 @@
 							</div>
 							<div class="form_box">
 								<div class="tel_box">
-									<input type="text" id="phoneNumber" name="phoneNumber"
+									<input type="text" id="memberPhoneNumber" name="memberPhoneNumber"
 										placeholder="휴대폰번호를 입력해주세요.">
 									<button type="button" id="sendBtn"
 										class="btn_txt btn_bgray btn_m_view"
@@ -169,7 +172,7 @@
 						<div class="form_box">
 							<!-- <div class="form_box error">
                         <div class="form_box success"> -->
-							<input type="password" id="user_pass_01" name="user_pass_01" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
+							<input type="password" id="memberPassword" name="memberPassword" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
 						</div>
 						</li>
 						<li>
@@ -179,7 +182,7 @@
 						<div class="form_box">
 							<!-- <div class="form_box error">
                         <div class="form_box success"> -->
-							<input type="password" id="user_pass_02" name="user_pass_02" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
+							<input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
 							<!-- <p class="input_info_txt">동일한 비밀번호를 입력했습니다.</p> -->
 							<p class="input_info_txt">
 							</p>
@@ -192,23 +195,23 @@
 						<div class="form_box">
 							<!-- <div class="form_box error">
                         <div class="form_box success"> -->
-							<input type="text" id="user_email" name="email" placeholder="이메일을 입력해주세요." value="">
+							<input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." value="">
 							<p class="input_info_txt">
 							</p>
 						</div>
 						</li>
 						<li class="add_li">
 						<div class="l_tit">
-							<label for="home_zip">주소</label>
+							<label for="memberPostcode">주소</label>
 						</div>
 						<div class="form_box">
 							<div class="add_box_01">
-								<input type="text" id="home_zip" name="home_zip" placeholder="주소를 입력해주세요." readonly>
+								<input type="text" id="memberPostcode" name="memberPostcode" placeholder="주소를 입력해주세요." readonly>
 								<button type="button" class="btn_txt btn_bgray" id="addr_open">우편번호찾기</button>
 							</div>
 							<div class="add_box_02">
-								<input type="text" id="home_addr1" name="home_addr1">
-								<input type="text" id="home_addr2" name="home_addr2">
+								<input type="text" id="memberAddress1" name="memberAddress1">
+								<input type="text" id="memberAddress2" name="memberAddress2">
 							</div>
 						</div>
 						</li>
@@ -219,12 +222,12 @@
 						<div class="form_box">
 							<div class="marry_box gender_box">
 								<div class="box marry_y">
-									<input type="radio" name="marry_yn" id="marry_y" value="Y">
-									<label for="marry_y">기혼</label>
+									<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_Y" value="Y">
+									<label for="memberMaritalStatus_Y">기혼</label>
 								</div>
 								<div class="box marry_n">
-									<input type="radio" name="marry_yn" id="marry_n" value="N">
-									<label for="marry_n">미혼</label>
+									<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_N" value="N">
+									<label for="memberMaritalStatus_N">미혼</label>
 								</div>
 							</div>
 						</div>
@@ -234,7 +237,7 @@
 							<label for="marry_date">결혼기념일</label>
 						</div>
 						<div class="form_box">
-							<input type="text" name="marry_date" id="marry_date" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<input type="text" name="memberAnniversary" id="marry_date" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<p class="input_info_txt">
 								결혼기념일을 숫자 8자리로 입력하세요.
 							</p>
@@ -242,10 +245,10 @@
 						</li>
 						<li class="chk_li">
 						<div class="l_tit">
-							<label for="store_cd">매장*</label>
+							<label for="memberStore">매장*</label>
 						</div>
 						<div class="form_box">
-							<select name="store_cd" id="store_cd">
+							<select name="memberStore" id="memberStore">
 								<option value="">▒ 선택 ▒</option>
 								<option value="200000784">온라인(본사)</option>
 								<option value="200000738">경희궁점</option>
@@ -266,7 +269,7 @@
 							<label for="reference_id">추천인 코드</label>
 						</div>
 						<div class="l_tit">
-							<input type="text" name="reference_id" id="reference_id" placeholder="추천인 코드를 입력해주세요.">
+							<input type="text" name="memberReferenceId" id="memberReferenceId" placeholder="추천인 코드를 입력해주세요.">
 						</div>
 						</li>
 						<li class="marry_li gender_li">
@@ -274,14 +277,14 @@
 							<label for="biz_reference_code">기업회원 인증코드</label>
 						</div>
 						<div class="l_tit">
-							<input type="text" name="biz_reference_code" id="biz_reference_code" placeholder="기업회원 인증코드를 입력해주세요.">
+							<input type="text" name="memberBizReferenceCode" id="memberBizReferenceCode" placeholder="기업회원 인증코드를 입력해주세요.">
 						</div>
 						</li>
 					</ul>
 				</div>
 				<div class="btn_area">
 					<!-- <a href="#" class="btn_txt btn_black">회원가입</a>-->
-					<button type="button" class="btn_txt btn_black" onclick="submit_join();">회원가입</button>
+					<button type="button" class="btn_txt btn_black" id="joinButton" onclick="submit_join()">회원가입</button>
 				</div>
 			</div>
 			<!-- 통합회원 조회 레이어 -->
@@ -320,20 +323,37 @@
 	<input type="hidden" name="param_opt_1" id="param_opt_1" value="p4ct82411fecoli87cm8qthpp0hg4fq0">
 	<input type="hidden" name="param_opt_2" id="param_opt_2" value="">
 	<input type="hidden" name="param_opt_3" id="param_opt_3" value="join_form_page">
+	<!-- 스프링 시큐리티 CSRF 토큰 -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 	<img src="t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 </div>
 <!-- page_script -->
-<script src="t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    $("input[name='marry_yn']:radio").change(function(){
+    $("input[name='memberMaritalStatus']:radio").change(function(){
         if(this.value == 'Y'){
             $('.marry_date_li').css({'display':'block'});
         }else{
             $('.marry_date_li').css({'display':'none'});
         }
     })
+    /* 결혼상태 유무 */
+	$(document).ready(function() {
+	    $("input[name='memberMaritalStatus']").change(function() {
+	        if (this.value == 'Y') {
+	            $('.marry_date_li').show();
+	            $('#memberMaritalStatus_Y').next('label').addClass('selected');
+	            $('#memberMaritalStatus_N').next('label').removeClass('selected');
+	        } 
+	        else {
+	            $('.marry_date_li').hide();
+	            $('#marry_date').val('');
+	            $('#memberMaritalStatus_N').next('label').addClass('selected');
+	            $('#memberMaritalStatus_Y').next('label').removeClass('selected');
+	        }
+	    });
+	});
     function merge_member(){
         var no = $("input:radio[name='mem_num']:checked").val();
         var shop = $("input:radio[name='mem_num']:checked").data('shop');
@@ -873,10 +893,10 @@
                         // document.getElementById("sample2_extraAddress").value = '';
                     }
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('home_zip').value = data.zonecode;
-                    document.getElementById("home_addr1").value = addr;
+                    document.getElementById('memberPostcode').value = data.zonecode;
+                    document.getElementById("memberAddress1").value = addr;
                     // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("home_addr2").focus();
+                    document.getElementById("memberAddress2").focus();
                     // iframe을 넣은 element를 안보이게 한다.
                     // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
                     element_layer.style.display = 'none';
@@ -926,13 +946,18 @@
     $('#addr_open').click(function(){
         form_check.addr_open(this);
     })
+    
+
+    /* submit_join */
     function submit_join(){
 		var check = true;
+		/*
         if(!adult_chk){
             alert('성인인증을 진행해주세요.');
             $('#auth_btn').focus();
             return false;
         }
+		*/
 		if(!form_check.user_nm(join_form.user_nm)){
 			check = false;
 		}
@@ -974,6 +999,8 @@
 		if(!form_check.email(join_form.email)){
 			check = false;
 		}
+		
+		/*
         if(!wine_mem_chk){
             alert('통합회원 조회를 진행해주세요.');
             return false;
@@ -982,16 +1009,70 @@
             alert('회원통합을 진행해주세요.');
             return false;
         }
-        if(!$("#store_cd option:selected").val()){
+        */
+        
+        if(!$("#memberStore option:selected").val()){
         	alert('매장을 선택해주세요.');
             return false;
         }
-		if(!check || !adult_chk || !wine_mem_chk || !merge_mem_chk){
-			return false;
-		}else{
-            Csrf.Set(_CSRF_NAME_);
-            $('#join_form').submit();
+		
+        var form = document.getElementById("join_form");
+        var formData = new FormData(form);
+        
+        var memberId = document.getElementById("memberId").value.trim();
+        var memberBirth = document.getElementById("memberBirth").value.trim();
+        var memberPhoneNumber = document.getElementById("memberPhoneNumber").value;
+        var memberName = document.getElementById("memberName").value.trim();
+        var memberPassword = document.getElementById("memberPassword").value.trim();
+        var memberEmail = document.getElementById("memberEmail").value.trim();
+        var memberAddress1 = document.getElementById("memberAddress1").value.trim();
+        var memberAddress2 = document.getElementById("memberAddress2").value.trim();
+        var memberPostcode = document.getElementById("memberPostcode").value.trim();
+        var memberMaritalStatus = $("input[name='memberMaritalStatus']:checked").val();
+        var memberAnniversary = "";
+        // 기혼 선택시 결혼기념일 값을 가져옴
+        if (memberMaritalStatus === 'Y') {
+            var anniversaryElement = document.getElementById("marry_date");
+            if (anniversaryElement) {
+                memberAnniversary = anniversaryElement.value.trim();
+            }
         }
+        var memberStore = document.getElementById("memberStore").value.trim();
+        var memberReferenceId = document.getElementById("memberReferenceId").value.trim();
+        var memberBizReferenceCode = document.getElementById("memberBizReferenceCode").value.trim();
+        
+        
+     // AJAX 요청
+	     $.ajax({
+		    type: "POST",
+		    url: "/join_submit.do",
+		    contentType: "application/json",
+		    data: JSON.stringify(Object.fromEntries(new Map(formData))),
+		    success: function(response) {
+		        console.log("서버 응답:", response);  // 응답 전체를 로깅
+		        if (response.result === true) {
+		            alert("회원 가입이 완료되었습니다.");
+		            window.location.href = "/shop/member/join/join_success.do";
+		        } else {
+		            alert("회원 가입에 실패했습니다. 이유: " + (response.message || "알 수 없는 오류"));
+		        }
+		    },
+		    error: function() {
+		        alert("서버와의 통신 중 오류가 발생했습니다.");
+		    }
+		});
+        
+		
+		if (!$("input[name='memberMaritalStatus']:checked").val()) {
+	        alert('결혼여부를 선택해주세요.');
+	        check = false;
+	    } 
+		else if ($("input[name='memberMaritalStatus']:checked").val() == 'Y') {
+	        if (!checkWeddingDate('#marry_date')) {
+	            check = false;
+	        }
+	    }
+		
 	}
 </script>
 <!-- //page_script -->
@@ -1002,4 +1083,28 @@
 <%@ include file="../../common/footer.jsp" %>
 <!-- //footer -->
 </body>
+
+<!-- 기혼, 미혼 스타일 추가 적용 -->
+<style>
+    .marry_box .box input[type="radio"] {
+        display: none;
+    }
+    .form_area ul li.gender_li .form_box .gender_box .box label {
+        display: flex;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        align-items: center;
+   		justify-content: center;
+    }
+    .marry_box .box input[type="radio"]:checked + label {
+        background-color: #555;
+        color: #ddd;
+        border-color: #555;
+    }
+   .form_area ul li.gender_li .form_box .gender_box .box input:checked + label {
+    	color: white;
+}
+</style>
 </html>
