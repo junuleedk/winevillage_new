@@ -101,7 +101,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_nm" name="memberName" placeholder="이름을 입력해주세요." value="">
+								<input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요." value="">
 								<p class="input_info_txt">
 								</p>
 							</div>
@@ -113,7 +113,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_birth" name="memberBirth" placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+								<input type="text" id="memberBirth" name="memberBirth" placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
 								<!--p class="input_info_txt">생년월일을 숫자 8자리로 입력하세요.</p-->
 							</div>
 						</li>
@@ -140,7 +140,7 @@
 							</div>
 							<div class="form_box">
 								<div class="tel_box">
-									<input type="text" id="phone" name="memberPhoneNumber" placeholder="'-'제외한 숫자만 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+									<input type="text" id="memberPhoneNumber" name="memberPhoneNumber" placeholder="'-'제외한 숫자만 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
 									<!-- <button type="button" class="btn_txt btn_bgray btn_m_view" onclick="commonUI.layer.open('m_view_layer')">통합회원 조회</button> -->
 									<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">휴대폰 인증</button>
 									<p class="input_info_txt">
@@ -165,7 +165,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_id" name="memberId" placeholder="5~20자의 영문 혹은 영문+숫자 조합" value="">
+								<input type="text" id="memberId" name="memberId" placeholder="5~20자의 영문 혹은 영문+숫자 조합" value="">
 								<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">중복확인</button>
 								<p class="input_info_txt" id="id_chk" style="display:none;">
 									입력해 주신 아이디는 사용중인 아이디입니다.
@@ -182,7 +182,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="password" id="user_pass_01" name="memberPassword" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
+								<input type="password" id="memberPassword" name="memberPassword" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
 							</div>
 						</li>
 						<li>
@@ -192,7 +192,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="password" id="user_pass_02" name="memberPassword" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
+								<input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
 								<!-- <p class="input_info_txt">동일한 비밀번호를 입력했습니다.</p> -->
 								<p class="input_info_txt">
 								</p>
@@ -205,23 +205,23 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_email" name="memberEmail" placeholder="이메일을 입력해주세요." value="">
+								<input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." value="">
 								<p class="input_info_txt">
 								</p>
 							</div>
 						</li>
 						<li class="add_li">
 							<div class="l_tit">
-								<label for="home_zip">주소</label>
+								<label for="memberPostcode">주소</label>
 							</div>
 							<div class="form_box">
 								<div class="add_box_01">
-									<input type="text" id="home_zip" name="memberPostcode" placeholder="주소를 입력해주세요.">
+									<input type="text" id="memberPostcode" name="memberPostcode" placeholder="주소를 입력해주세요.">
 									<button type="button" class="btn_txt btn_bgray" id="addr_open">우편번호찾기</button>
 								</div>
 								<div class="add_box_02">
-									<input type="text" id="home_addr1" name="memberAddress1">
-									<input type="text" id="home_addr2" name="memberAddress2">
+									<input type="text" id="memberAddress1" name="memberAddress1">
+									<input type="text" id="memberAddress2" name="memberAddress2">
 								</div>
 							</div>
 						</li>
@@ -247,7 +247,7 @@
 								<label for="marry_date">결혼기념일</label>
 							</div>
 							<div class="form_box">
-								<input type="text" name="marry_date" id="memberAnniversary" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+								<input type="text" name="memberAnniversary" id="memberAnniversary" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 								<p class="input_info_txt">결혼기념일을 숫자 8자리로 입력하세요.</p>
 							</div>                     
 						</li>
@@ -256,7 +256,7 @@
 								<label for="store_cd">매장*</label>
 							</div>
 							<div class="form_box">
-								<select name="store_cd" id="memberStore">
+								<select name="memberStore" id="memberStore">
 									<option value="">▒ 선택 ▒</option>
 									<option value="200000784">온라인</option>
 									<option value="200000762">경희궁점</option>
@@ -288,7 +288,7 @@
 								<label for="biz_reference_code">프로모션 인증코드</label>
 							</div>
 							<div class="l_tit">
-								<input type="text" name="biz_reference_code" id="memberBizReferenceCode" placeholder="프로모션 인증코드를 입력해주세요.">
+								<input type="text" name="memberBizReferenceCode" id="memberBizReferenceCode" placeholder="프로모션 인증코드를 입력해주세요.">
 							</div>
 						</li>
 					</ul>
