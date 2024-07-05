@@ -214,6 +214,7 @@
 .join_form_page .btn_area{margin-top:60px}
 .join_form_page .btn_area .btn_txt{width:160px}
 .form_area ul li.gender_li .form_box .gender_box .box{width:115px} 
+.form_area ul li.tel_li .form_box .tel_box{margin-top:0}
 .form_area ul li.tel_li .form_box .tel_box::after{content:'';display:block;clear:both}
 .form_area ul li.tel_li .form_box .tel_box input{float:left;width:calc(100% - 165px)}
 .form_area ul li.tel_li .form_box .tel_box .btn_txt{float:right;margin-top:0;width:160px;height:40px;line-height:39px;font-size:14px}
@@ -226,6 +227,8 @@
 .form_area ul li.tel_li .form_box .code_box_2 .code_time{margin-left:20px;width:auto;font-size:16px;line-height:40px}
 .form_area ul li.tel_li .form_box>div>input{float:left;width:calc(100% - 165px)}
 .form_area ul li.tel_li .form_box .btn_m_view{float:right;width:160px;height:40px;line-height:40px;margin:0}
+.form_area ul li.id_li .form_box input{width:calc(100% - 165px)}
+.form_area ul li.id_li .form_box .btn_txt{margin-top:0;width:160px;height:40px;line-height:39px;font-size:14px}
 .form_area ul li.add_li .form_box .add_box_01{width:360px}
 .form_area ul li.add_li .form_box .add_box_01 input{width:250px}
 .form_area ul li.add_li .form_box .add_box_01 .btn_txt{width:100px;height:40px;line-height:39px;font-size:14px}
@@ -355,7 +358,7 @@
 /* mypage - accont - withdrawal_page */
 .withdrawal_page .inner .ok_area{margin-top:60px}
 /* mypage - accont - withdrawal_ok_page */
-.content.mypage.withdrawal_ok_page{padding:120px}
+.content.mypage.withdrawal_ok_page{padding:120px;max-width:calc(100% - 220px);margin:0 0 0 auto}
 .content.mypage.withdrawal_ok_page .inner{padding:0}
 .withdrawal_ok_page .inner .ok_area{margin-top:0}
 /* company - about_us_page */

@@ -107,7 +107,7 @@
 .header .bottom .wrap .gnb::after{display:none}
 .header .bottom .wrap .gnb>ul{overflow:visible;white-space:normal;flex-wrap:nowrap;text-align:center;font-size:0}
 .header .bottom .wrap .gnb>ul>li{padding:0 20px}
-.header .bottom .wrap .gnb>ul>li:first-child{padding:0 40px 0 0}
+.header .bottom .wrap .gnb>ul>li:first-child{padding:0 20px 0 0}
 .header .bottom .wrap .gnb>ul>li:last-of-type{padding:0 0 0 20px}
 .header .bottom .wrap .gnb>ul>li.mb_hidden{display:inline-block !important}
 /* .header .bottom .wrap .gnb>ul>li:nth-child(5){position:relative;padding-right:35px;margin-right:35px}

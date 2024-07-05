@@ -328,7 +328,7 @@
 /* member - join - join_form_page */
 .content.join_form_page{padding:30px 20px 120px}
 .join_form_page .inner .connect_info{padding:20px 15px;box-sizing:border-box;border:3px solid #eee}
-.join_form_page .inner .connect_info .tit{color:#333;font-size:13px;font-weight:500;line-height:18px}
+.join_form_page .inner .connect_info .tit{color:#333;font-size:13px;font-weight:500;line-height:18px;margin-top:0}
 .join_form_page .inner .connect_info .connect{margin-top:10px;font-size:0}
 .join_form_page .inner .connect_info .connect img{display:inline-block;vertical-align:middle;width:24px;height:24px}
 .join_form_page .inner .connect_info .connect span{display:inline-block;vertical-align:middle;margin-left:5px;color:#555;font-size:13px;line-height:18px}
@@ -342,6 +342,8 @@
 .form_area ul li.gender_li .form_box .gender_box .box input{position:absolute;top:0;left:0;width:0;height:0} 
 .form_area ul li.gender_li .form_box .gender_box .box label{display:block;width:100%;height:40px;color:#999;font-size:14px;line-height:39px;text-align:center;border:1px solid #ddd}
 .form_area ul li.gender_li .form_box .gender_box .box input:checked + label{color:#111;border:1px solid #111}
+.form_area ul li.tel_li .form_box .tel_box{margin-top:10px}
+.form_area ul li.tel_li .form_box .tel_box:first-child{margin-top:0}
 .form_area ul li.tel_li .form_box .tel_box .btn_txt{margin-top:10px}
 .form_area ul li.tel_li .form_box .code_box{margin-top:10px}
 .form_area ul li.tel_li .form_box .code_box::after{content:'';display:block;clear:both}
@@ -351,6 +353,7 @@
 .form_area ul li.tel_li .form_box .code_box_2 .btn_txt{float:left;margin-left:5px;width:70px}
 .form_area ul li.tel_li .form_box .code_box_2 .code_time{float:left;margin-left:10px;width:calc(100% - 230px);color:#555;font-size:14px;font-weight:500;line-height:50px;text-align:center}
 .form_area ul li.tel_li .form_box .btn_m_view{float:none;display:block;width:100%;margin:10px 0 0}
+.form_area ul li.id_li .form_box .btn_txt{margin-top:10px}
 .form_area ul li.add_li .form_box .add_box_01::after{content:'';display:block;clear:both}
 .form_area ul li.add_li .form_box .add_box_01 input{float:left;width:calc(100% - 125px)}
 .form_area ul li.add_li .form_box .add_box_01 .btn_txt{float:right;width:120px}
