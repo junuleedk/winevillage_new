@@ -732,7 +732,7 @@
 			input_success(input);
 			return true;
 		},
-        birth_chk:function(input){
+        birth_chk:function(input){      
             if($(input).val()==''){
                 input_error(input, '본인 인증 후 자동으로 기입됩니다.');
                 return false;
