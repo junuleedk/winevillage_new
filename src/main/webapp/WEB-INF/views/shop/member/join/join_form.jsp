@@ -192,7 +192,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
+								<input type="password" id="memberPassword2" name="memberPassword2" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
 								<!-- <p class="input_info_txt">동일한 비밀번호를 입력했습니다.</p> -->
 								<p class="input_info_txt">
 								</p>
@@ -724,7 +724,7 @@
 				input_error(input, '비밀번호 확인을 입력해주세요.');
 				return false;
 			}else{
-				if($(input).val() != $(join_form.user_pass_01).val()){
+				if($(input).val() != $(join_form.memberPassword).val()){
 					input_error(input, '입력하신 비밀번호가 일치하지 않습니다.');
 					return false;
 				}
@@ -919,24 +919,24 @@
             initLayerPosition();
         }
     }
-    $(join_form.user_nm).on('keyup', function(){
+    $(join_form.memberName).on('keyup', function(){
 		form_check.user_nm(this);
 	});
-    $(join_form.user_id).on('keyup', function(){
+    $(join_form.memberId).on('keyup', function(){
 		form_check.user_id_usable = 'W';
 		form_check.user_id(this);
 	});
-    $(join_form.user_pass_01).on('keyup', function(){
-		input_reset(join_form.user_pass_02);
+    $(join_form.memberPassword).on('keyup', function(){
+		input_reset(join_form.memberPassword2);
 		form_check.passwd(this);
 	});
-	$(join_form.user_pass_02).on('keyup', function(){
+	$(join_form.memberPassword2).on('keyup', function(){
 		form_check.passwd_repeat(this);
 	});
-    $(join_form.user_birth).on('keyup', function(){
+    $(join_form.memberBirth).on('keyup', function(){
         form_check.birth_chk(this);
     });
-    $(join_form.phone).on('keyup', function(){
+    $(join_form.memberPhoneNumber).on('keyup', function(){
         form_check.phone(this);
     });
     $('#phone_code_send').click(function(){
@@ -948,7 +948,7 @@
     $('#phone_code_check').click(function(){
 		form_check.phone_code_check(this);
 	});
-    $(join_form.email).on('keyup', function(){
+    $(join_form.memberEmail).on('keyup', function(){
 		form_check.email(this);
 	});
     $('#addr_open').click(function(){
