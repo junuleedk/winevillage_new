@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVIllAGE 2024 ㅣ 와인의 모든 것이 있는 곳 와인빌리지입니다! </title>
+<title>WINEVILLAGE 2024 ㅣ 회원가입 </title>
 <%@ include file="../../common/common.jsp" %>
-<meta name="_csrf" content="${_csrf.token}"/>
-<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <body>
 <!-- skip_menu -->
 <div class="skip_menu" id="skip_menu">
@@ -23,8 +21,9 @@
 <!-- header -->
 <%@ include file="../../common/header.jsp" %>
 <!-- //header -->
+<%@ include file="../../common/layer.jsp" %>
+<%@ include file="../../common/script.jsp" %>
 
-<body>
 <!-- contents -->
 <section id="contents">
 <div class="lnb member_lnb lnb_wrap step_wrap">
@@ -53,11 +52,8 @@
 		<div class="inner">
 			<div class="ok_area">
 				<img src="../../../asset/images/shop/member/join_ok.png" alt="회원가입 완료">
-				<p class="tit">
-					와인빌리지의 진심에 공감해주신 <br class="pc_hidden">
-					고객님을 환영합니다.
-				</p>
-				<!-- <p class="txt">와인빌리지가 준비한 이벤트에 신청해보세요.<br>가입 후 3일 이내에 신청시 인기상품을 100원에 드려요.</p> -->
+				<p class="tit">와인나라의 진심에 공감해주신 <br class="pc_hidden">고객님을 환영합니다.</p>
+				<!-- <p class="txt">와인나라가 준비한 이벤트에 신청해보세요.<br>가입 후 3일 이내에 신청시 인기상품을 100원에 드려요.</p> -->
 				<div class="btn_area col2">
 					<!-- <a href="/shop/event/event_lists" class="btn_txt">이벤트 바로가기</a> -->
 					<button type="button" class="btn_txt btn_black" onclick="location.href='/shop/product/product_lists?sh_category1_cd=10000'" style="float:none;display:inline-block;">쇼핑하러가기</button>
@@ -76,5 +72,37 @@
 <!-- footer -->
 <%@ include file="../../common/footer.jsp" %>
 <!-- //footer -->
+
+<script language=javascript>
+    $(".quick_menu .menu_open").on("click", function () {
+        $(".quick_menu").toggleClass("on")
+    });
+</script>
 </body>
 </html>
+<!--백로그 API-->
+<script type="text/JavaScript">
+	var page = 'join_ok';
+	if( page == false){
+		page = 'main';
+	}
+	if( page !== 'product_view' && page !== 'order_ok'){
+		console.log(page);
+		/*
+        RC_Method({
+            sign_up_data: "",
+            page_type : page, 
+            behavior:"page_view"
+        });
+        */
+	}
+</script>
+<!--백로그 API-->
+<!--lazy_loading-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+<script>
+	const observer = lozad();
+	observer.observe();
+	console.log('test');
+</script>
+<!--lazy_loading-->

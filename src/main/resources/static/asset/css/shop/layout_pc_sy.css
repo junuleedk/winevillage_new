@@ -680,16 +680,16 @@
 .keeping_end_lists_page .o_lists .box.status .txt{float:none;margin-left:0px;line-height:22px;text-align:center}
 .keeping_end_lists_page .o_lists .box.status .date{margin-top:10px;line-height:22px;text-align:center}
 
-/* content member forgoten_id ,forgoten_pw */
-.forgoten_id_page .form_area,.forgoten_pw_page .form_area{margin:60px auto 0;width:700px}
-.forgoten_id_page .btn_area,.forgoten_pw_page .btn_area{margin-top:60px}
-.forgoten_id_page .btn_area .btn_txt,.forgoten_pw_page .btn_area .btn_txt{width:160px}
+/* content member forgotten_id ,forgotten_pw */
+.forgotten_id_page .form_area,.forgotten_pw_page .form_area{margin:60px auto 0;width:700px}
+.forgotten_id_page .btn_area,.forgotten_pw_page .btn_area{margin-top:60px}
+.forgotten_id_page .btn_area .btn_txt,.forgotten_pw_page .btn_area .btn_txt{width:160px}
 
-/* content member forgoten_id_ok, forgoten_pw_ok */
-.content.forgoten_id_ok_page,.content.forgoten_pw_ok_page{padding:100px 60px 120px}
-.forgoten_id_ok_page .top_txt p,.forgoten_id_pw_page .top_txt p{font-size:24px}
-.forgoten_id_ok_page .btn_area,.forgoten_id_pw_page .btn_area{margin-top:80px}
-.forgoten_id_ok_page .btn_area .btn_txt,.forgoten_id_ok_page .btn_area .btn_txt{width:160px}
+/* content member forgotten_id_ok, forgotten_pw_ok */
+.content.forgotten_id_ok_page,.content.forgotten_pw_ok_page{padding:100px 60px 120px}
+.forgotten_id_ok_page .top_txt p,.forgotten_id_pw_page .top_txt p{font-size:24px}
+.forgotten_id_ok_page .btn_area,.forgotten_id_pw_page .btn_area{margin-top:80px}
+.forgotten_id_ok_page .btn_area .btn_txt,.forgotten_id_ok_page .btn_area .btn_txt{width:160px}
 
 /* content member change_pw */
 .change_pw_page .form_area{margin:0 auto;width:700px}
