@@ -4,9 +4,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVILLAGE 1987 ㅣ 회원가입</title>
+<title>WINEVILLAGE 2024 ㅣ 와인의 모든 것이 있는 곳 와인빌리지입니다! </title>
 <%@ include file="../../common/common.jsp" %>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <body>
 <!-- skip_menu -->
 <div class="skip_menu" id="skip_menu">
@@ -100,7 +103,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_nm" name="user_nm" placeholder="이름을 입력해주세요." value="고객">
+								<input type="text" id="memberName" name="memberName" placeholder="이름을 입력해주세요." value="">
 								<p class="input_info_txt">
 								</p>
 							</div>
@@ -112,7 +115,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_birth" name="birthday" readonly placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
+								<input type="text" id="memberBirth" name="memberBirth" placeholder="생년월일을 입력해주세요. (ex yyyymmdd)" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
 								<!--p class="input_info_txt">생년월일을 숫자 8자리로 입력하세요.</p-->
 							</div>
 						</li>
@@ -135,18 +138,18 @@
 						</li>
 						<li class="tel_li">
 							<div class="l_tit">
-								<label for="user_name">휴대폰번호*</label>
+								<label for="phone">휴대폰번호*</label>
 							</div>
 							<div class="form_box">
 								<div class="tel_box">
-									<input type="text" id="phone" name="phone" placeholder="'-'제외한 숫자만 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" readonly value="">
+									<input type="text" id="memberPhoneNumber" name="memberPhoneNumber" placeholder="'-'제외한 숫자만 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
 									<!-- <button type="button" class="btn_txt btn_bgray btn_m_view" onclick="commonUI.layer.open('m_view_layer')">통합회원 조회</button> -->
 									<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">휴대폰 인증</button>
 									<p class="input_info_txt">
 									</p>
 								</div>
 								<div class="tel_box">
-									<input type="text" id="phone" name="phone" placeholder="인증번호를 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" readonly value="">
+									<input type="text" id="phone" name="phone" placeholder="인증번호를 입력해주세요." maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="">
 									<!-- <button type="button" class="btn_txt btn_bgray btn_m_view" onclick="commonUI.layer.open('m_view_layer')">통합회원 조회</button> -->
 									<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">확인</button>
 									<p class="input_info_txt">
@@ -164,7 +167,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_id" name="user_id" placeholder="5~20자의 영문 혹은 영문+숫자 조합" value="gogek1234">
+								<input type="text" id="memberId" name="memberId" placeholder="5~20자의 영문 혹은 영문+숫자 조합" value="">
 								<button type="button" class="btn_txt btn_bgray btn_m_view" onclick="chk_wine_member();">중복확인</button>
 								<p class="input_info_txt" id="id_chk" style="display:none;">
 									입력해 주신 아이디는 사용중인 아이디입니다.
@@ -181,7 +184,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="password" id="user_pass_01" name="user_pass_01" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
+								<input type="password" id="memberPassword" name="memberPassword" placeholder="영문 + 숫자 + 특수문자 조합 8자 이상" autocomplete="off">
 							</div>
 						</li>
 						<li>
@@ -191,7 +194,7 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="password" id="user_pass_02" name="user_pass_02" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
+								<input type="password" id="memberPassword2" name="memberPassword2" placeholder="비밀번호를 한번 더 입력해주세요." autocomplete="off">
 								<!-- <p class="input_info_txt">동일한 비밀번호를 입력했습니다.</p> -->
 								<p class="input_info_txt">
 								</p>
@@ -204,23 +207,23 @@
 							<div class="form_box">
 								<!-- <div class="form_box error">
 							<div class="form_box success"> -->
-								<input type="text" id="user_email" name="email" placeholder="이메일을 입력해주세요." value="gogek1234@gmail.com">
+								<input type="text" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해주세요." value="">
 								<p class="input_info_txt">
 								</p>
 							</div>
 						</li>
 						<li class="add_li">
 							<div class="l_tit">
-								<label for="home_zip">주소</label>
+								<label for="memberPostcode">주소</label>
 							</div>
 							<div class="form_box">
 								<div class="add_box_01">
-									<input type="text" id="home_zip" name="home_zip" placeholder="주소를 입력해주세요." readonly>
+									<input type="text" id="memberPostcode" name="memberPostcode" placeholder="주소를 입력해주세요.">
 									<button type="button" class="btn_txt btn_bgray" id="addr_open">우편번호찾기</button>
 								</div>
 								<div class="add_box_02">
-									<input type="text" id="home_addr1" name="home_addr1">
-									<input type="text" id="home_addr2" name="home_addr2">
+									<input type="text" id="memberAddress1" name="memberAddress1">
+									<input type="text" id="memberAddress2" name="memberAddress2">
 								</div>
 							</div>
 						</li>
@@ -231,22 +234,22 @@
 							<div class="form_box">
 								<div class="marry_box gender_box">
 									<div class="box marry_y">
-										<input type="radio" name="marry_yn" id="marry_y" value="Y">
-										<label for="marry_y">기혼</label>
+										<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_Y" value="Y">
+										<label for="memberMaritalStatus_Y">기혼</label>
 									</div>
 									<div class="box marry_n">
-										<input type="radio" name="marry_yn" id="marry_n" value="N">
-										<label for="marry_n">미혼</label>
+										<input type="radio" name="memberMaritalStatus" id="memberMaritalStatus_N" value="N">
+										<label for="memberMaritalStatus_N">미혼</label>
 									</div>                                
 								</div>
-							</div>                     
-						</li>   
+							</div>
+						</li>
 						<li class="marry_date_li" style="display:none;">
 							<div class="l_tit">
 								<label for="marry_date">결혼기념일</label>
 							</div>
 							<div class="form_box">
-								<input type="text" name="marry_date" id="marry_date" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+								<input type="text" name="memberAnniversary" id="memberAnniversary" placeholder="yyyymmdd 형식으로 입력해주세요." maxlength="8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 								<p class="input_info_txt">결혼기념일을 숫자 8자리로 입력하세요.</p>
 							</div>                     
 						</li>
@@ -255,7 +258,7 @@
 								<label for="store_cd">매장*</label>
 							</div>
 							<div class="form_box">
-								<select name="store_cd" id="store_cd">
+								<select name="memberStore" id="memberStore">
 									<option value="">▒ 선택 ▒</option>
 									<option value="200000784">온라인</option>
 									<option value="200000762">경희궁점</option>
@@ -287,7 +290,7 @@
 								<label for="biz_reference_code">프로모션 인증코드</label>
 							</div>
 							<div class="l_tit">
-								<input type="text" name="biz_reference_code" id="biz_reference_code" placeholder="프로모션 인증코드를 입력해주세요.">
+								<input type="text" name="memberBizReferenceCode" id="memberBizReferenceCode" placeholder="프로모션 인증코드를 입력해주세요.">
 							</div>
 						</li>
 					</ul>
@@ -337,230 +340,241 @@
 	<img src="https://t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 </div>
 <!-- page_script -->
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	$("input[name='marry_yn']:radio").change(function(){
-		if(this.value == 'Y'){
-			$('.marry_date_li').css({'display':'block'});
-		}else{
-			$('.marry_date_li').css({'display':'none'});
-		}
-	})
-	function merge_member(){
-		var no = $("input:radio[name='mem_num']:checked").val();
-		var shop = $("input:radio[name='mem_num']:checked").data('shop');
-		console.log(shop);
-		if(no == 'undefined' || no == "" || no == null){
-			alert('회원 선택 후 통합을 진행해주세요.');
-		}else{
-			Csrf.Set(_CSRF_NAME_); //토큰 초기화
-			$.ajax({
-				type:'POST',
-				url :'/shop/auth/merge_mem',
-				data : {'no':no},
-				dataType:'json',
-				success:function(res){
-					if(res.state == 'Y'){
-						merge_mem_chk = true;
-						commonUI.layer.close();
-						if(shop){$("#store_cd").val(shop).attr("selected", "selected");}
-						alert(res.msg);
-					}else{
-						alert(res.msg);
-					}
-				},error:function(res){
-					alert('회원 통합 중 오류가 발생했습니다.');
-					console.log(res);
-				}
-			})
-		}
-	}
-	function chk_wine_member(){
-		var name = $('#user_nm').val();
-		var phone = $('#phone').val();
-		if(!name || !phone){
-			alert('성인인증을 진행해주세요.');
-			$('#auth_btn').focus();
-			return false;
-		}else{
-			Csrf.Set(_CSRF_NAME_); //토큰 초기화
-			$.ajax({
-				type:'POST',
-				url :'/shop/auth/chk_wine_member',
-				data : {'name':name, 'phone':phone},
-				dataType:'json',
-				success:function(res){
-					if(res.state == 'Y'){
-						wine_mem_chk = true;
-						console.log(res.data);
-						if(res.data.length !== 0){
-							var input="";
-							var i = 1;
-							merge_mem_chk = false;
-							$.each(res.data, function(index, entry){
-								input += "<li>"
-										+ "<div class='checkbox type2'>"
-										+ "<input type='radio' id='m_view0"+i+"' name='mem_num' value='"+entry.q_cst+"' data-shop='"+entry.q_shop+"'>"
-										+ "<label for='m_view0"+i+"'>"
-										+ "<span class='tit'>"
-										+ "<em>"+entry.q_cst_knm+"</em>"
-										+ entry.q_tel_1
-										+ "</span>"
-										+ "<span>"
-										+ "회원번호 : "+entry.q_cst+"<br>"
-										+ "가입매장 : "+entry.q_shop_nm
-										+ "</span>"
-										+ "</label>"
-										+ "</div>"
-										+ "</li>"
-								i++;
-							});
-							$('#wine_mem_list').empty();
-							$('#wine_mem_list').append(input);
-							commonUI.layer.open('m_view_layer');
-						}else{
-							/* if(confirm(res.msg)){
-								location.href = '/shop/main';
-							}
-							return false; */
-							alert(res.msg);
-						}
-					}else{
-						alert('통합회원 조회 중 오류가 발생했습니다.');
-					}
-				},error:function(res){
-					alert('통합회원 조회 중 오류가 발생했습니다.');
-					console.log(res);
-				}
-			})
-		}
-	}
-	var wine_mem_chk = false;
-	var merge_mem_chk = true;
-	function auth_type_check(){
-		var auth_form = document.form_auth;
-		init_orderid();
-		$('#auth_btn').hide();
-		if( auth_form.ordr_idxx.value == "" ){
-			alert( "다시 시도해주세요." );
-			return false;
-		}else{
-			if( ( navigator.userAgent.indexOf("Android") > - 1 || navigator.userAgent.indexOf("iPhone") > - 1 ) == false ){ // 스마트폰이 아닌경우
-				var return_gubun;
-				var width  = 410;
-				var height = 500;
-				var leftpos = screen.width  / 2 - ( width  / 2 );
-				var toppos  = screen.height / 2 - ( height / 2 );
-				var winopts  = "width=" + width   + ", height=" + height + ", toolbar=no,status=no,statusbar=no,menubar=no,scrollbars=no,resizable=no";
-				var position = ",left=" + leftpos + ", top="    + toppos;
-				var AUTH_POP = window.open('/shop/member/join/kcpcert_proc','auth_popup', winopts + position);
-				auth_form.target = "auth_popup";
-			}else{
-				auth_form.target = "kcp_cert";
-				document.getElementById( "kcp_cert"  ).style.display = "";
-			}
-			auth_form.kcp_birth.value = $('#user_birth').val();
-			auth_form.method = "post";
-			auth_form.action = "/shop/member/join/kcpcert_proc_ajax";
-			auth_form.submit();
-			return true;
-		}
-	}
-	// 앱에서 webView는 opener 를 인식하지 못해서, 모바일 별도처리
-	function Mobile(){
-		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-	}
-	var adult_chk = false;
-	function adult_auth(){
-		Csrf.Set(_CSRF_NAME_); //토큰 초기화
-		var site_cd = $('#site_cd').val();
-		var ordr_idxx = $('#ordr_idxx').val();
-		$('#up_hash').val(site_cd + ordr_idxx + "000000");
-		if(Mobile()){
-			var auth_form = document.form_auth;
-			auth_form.veri_up_hash.value = site_cd + ordr_idxx + "000000";
-			adult_chk = true;
-		}
-		$('#form_auth').submit();
-	}
-	function auth_data( frm ){
-		// if(Mobile()){
-		//     location.reload();
-		// }
-		var auth_form     = document.form_auth;
-		if( frm.up_hash.value != auth_form.veri_up_hash.value ){
-			alert("비정상적인 접근입니다."); 
-			console.log('up_hash 변조 위험');
-		}    
-		const today = new Date(); 
-		const birthDate = new Date(parseInt(frm.r_birth.value.substring(0,4)), parseInt(frm.r_birth.value.substring(4,6))-1, parseInt(frm.r_birth.value.substring(6,8)));
-		let age = today.getFullYear() - birthDate.getFullYear();
-		const m = today.getMonth() - birthDate.getMonth();
-		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-			age--;
-		}
-		if(age < 19){
-			alert('만 19세 이상만 가입이 가능합니다.');
-			location.href = "/shop/main";
-		}
-		$('#phone').val(frm.r_phone.value);
-		$('#user_birth').val(frm.r_birth.value);
-		if(frm.r_gender_cd.value == '01'){
-			$('.men').css('display','block');
-			$('#gender_label').css('display','block');
-			$('#gender_men').prop('checked',true);
-		}else if(frm.r_gender_cd.value == '02'){
-			$('.women').css('display','block');
-			$('#gender_label').css('display','block');
-			$('#gender_women').prop('checked',true);
-		}else{
-			$('#gender_label').css('display','none');
-			$('.men').css('display','block');
-			$('.women').css('display','block');
-		}
-		$('#user_nm').val(frm.r_user_name.value);
-		adult_chk = true;
-		$('#auth_div').hide();
-		$('#kcp_cert').hide();
-	}
-	/* 예제 */
-	// document.ready(function(){
-	//     init_orderid();
-	// });
-	function init_orderid(){
-		var today = new Date();
-		var year  = today.getFullYear();
-		var month = today.getMonth()+ 1;
-		var date  = today.getDate();
-		var time  = today.getTime();
-		if(parseInt(month) < 10){
-			month = "0" + month;
-		}
-		var vOrderID = year + "" + month + "" + date + "" + time;
-		document.form_auth.ordr_idxx.value = vOrderID;
-	}
-	var element_layer = document.getElementById('layer');
-	function closeDaumPostcode() {
-		element_layer.style.display = 'none';
-	}
-	function initLayerPosition(){
-		var width = 300; //우편번호서비스가 들어갈 element의 width
-		var height = 400; //우편번호서비스가 들어갈 element의 height
-		var borderWidth = 5; //샘플에서 사용하는 border의 두께
-		// 위에서 선언한 값들을 실제 element에 넣는다.
-		element_layer.style.width = width + 'px';
-		element_layer.style.height = height + 'px';
-		element_layer.style.border = borderWidth + 'px solid';
-		// 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
-		element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
-		element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
-	}
-	function input_reset(input, append){ 
-		var appendTo = typeof appendTo == 'undefined' ? '.form_box' : appendTo;
-		$(input).closest('.form_box').removeClass('error success');
-		$(input).closest(appendTo).find('p').remove();
-	}
-	function input_success(input, msg, appendTo){
+    $("input[name='memberMaritalStatus']:radio").change(function(){
+        if(this.value == 'Y'){
+            $('.marry_date_li').css({'display':'block'});
+        }else{
+            $('.marry_date_li').css({'display':'none'});
+        }
+    })
+    /* 결혼상태 유무 */
+	$(document).ready(function() {
+	    $("input[name='memberMaritalStatus']").change(function() {
+	        if (this.value == 'Y') {
+	            $('.marry_date_li').show();
+	            $('#memberMaritalStatus_Y').next('label').addClass('selected');
+	            $('#memberMaritalStatus_N').next('label').removeClass('selected');
+	        } 
+	        else {
+	            $('.marry_date_li').hide();
+	            $('#marry_date').val('');
+	            $('#memberMaritalStatus_N').next('label').addClass('selected');
+	            $('#memberMaritalStatus_Y').next('label').removeClass('selected');
+	        }
+	    });
+	});
+    function merge_member(){
+        var no = $("input:radio[name='mem_num']:checked").val();
+        var shop = $("input:radio[name='mem_num']:checked").data('shop');
+        console.log(shop);
+        if(no == 'undefined' || no == "" || no == null){
+            alert('회원 선택 후 통합을 진행해주세요.');
+        }else{
+            Csrf.Set(_CSRF_NAME_); //토큰 초기화
+            $.ajax({
+                type:'POST',
+                url :'/shop/auth/merge_mem',
+                data : {'no':no},
+                dataType:'json',
+                success:function(res){
+                    if(res.state == 'Y'){
+                        merge_mem_chk = true;
+                        commonUI.layer.close();
+                        if(shop){$("#store_cd").val(shop).attr("selected", "selected");}
+                        alert(res.msg);
+                    }else{
+                        alert(res.msg);
+                    }
+                },error:function(res){
+                    alert('회원 통합 중 오류가 발생했습니다.');
+                    console.log(res);
+                }
+            })
+        }
+    }
+    function chk_wine_member(){
+        var name = $('#user_nm').val();
+        var phone = $('#phone').val();
+        if(!name || !phone){
+            alert('성인인증을 진행해주세요.');
+            $('#auth_btn').focus();
+            return false;
+        }else{
+            Csrf.Set(_CSRF_NAME_); //토큰 초기화
+            $.ajax({
+                type:'POST',
+                url :'/shop/auth/chk_wine_member',
+                data : {'name':name, 'phone':phone},
+                dataType:'json',
+                success:function(res){
+                    if(res.state == 'Y'){
+                        wine_mem_chk = true;
+                        console.log(res.data);
+                        if(res.data.length !== 0){
+                            var input="";
+                            var i = 1;
+                            merge_mem_chk = false;
+                            $.each(res.data, function(index, entry){
+                                input += "<li>"
+                                        + "<div class='checkbox type2'>"
+                                        + "<input type='radio' id='m_view0"+i+"' name='mem_num' value='"+entry.q_cst+"' data-shop='"+entry.q_shop+"'>"
+                                        + "<label for='m_view0"+i+"'>"
+                                        + "<span class='tit'>"
+                                        + "<em>"+entry.q_cst_knm+"</em>"
+                                        + entry.q_tel_1
+                                        + "</span>"
+                                        + "<span>"
+                                        + "회원번호 : "+entry.q_cst+"<br>"
+                                        + "가입매장 : "+entry.q_shop_nm
+                                        + "</span>"
+                                        + "</label>"
+                                        + "</div>"
+                                        + "</li>"
+                                i++;
+                            });
+                            $('#wine_mem_list').empty();
+                            $('#wine_mem_list').append(input);
+                            commonUI.layer.open('m_view_layer.html');
+                        }else{
+                            alert(res.msg);
+                        }
+                    }else{
+                        alert('통합회원 조회 중 오류가 발생했습니다.');
+                    }
+                },error:function(res){
+                    alert('통합회원 조회 중 오류가 발생했습니다.');
+                    console.log(res);
+                }
+            })
+        }
+    }
+    var wine_mem_chk = false;
+    var merge_mem_chk = true;
+    function auth_type_check(){
+        var auth_form = document.form_auth;
+        init_orderid();
+        $('#auth_btn').hide();
+        if( auth_form.ordr_idxx.value == "" ){
+            alert( "다시 시도해주세요." );
+            return false;
+        }else{
+            if( ( navigator.userAgent.indexOf("Android") > - 1 || navigator.userAgent.indexOf("iPhone") > - 1 ) == false ){ // 스마트폰이 아닌경우
+                var return_gubun;
+                var width  = 410;
+                var height = 500;
+                var leftpos = screen.width  / 2 - ( width  / 2 );
+                var toppos  = screen.height / 2 - ( height / 2 );
+                var winopts  = "width=" + width   + ", height=" + height + ", toolbar=no,status=no,statusbar=no,menubar=no,scrollbars=no,resizable=no";
+                var position = ",left=" + leftpos + ", top="    + toppos;
+                var AUTH_POP = window.open('kcpcert_proc.html','auth_popup', winopts + position);
+                auth_form.target = "auth_popup";
+            }else{
+                auth_form.target = "kcp_cert";
+                document.getElementById( "kcp_cert"  ).style.display = "";
+            }
+            auth_form.kcp_birth.value = $('#user_birth').val();
+            auth_form.method = "post";
+            auth_form.action = "/shop/member/join/kcpcert_proc_ajax";
+            auth_form.submit();
+            return true;
+        }
+    }
+    // 앱에서 webView는 opener 를 인식하지 못해서, 모바일 별도처리
+    function Mobile(){
+	    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    var adult_chk = false;
+    function adult_auth(){
+        Csrf.Set(_CSRF_NAME_); //토큰 초기화
+        var site_cd = $('#site_cd').val();
+        var ordr_idxx = $('#ordr_idxx').val();
+        $('#up_hash').val(site_cd + ordr_idxx + "000000");
+        if(Mobile()){
+            var auth_form = document.form_auth;
+            auth_form.veri_up_hash.value = site_cd + ordr_idxx + "000000";
+            adult_chk = true;
+        }
+        $('#form_auth').submit();
+    }
+    function auth_data( frm ){
+        // if(Mobile()){
+        //     location.reload();
+        // }
+        var auth_form     = document.form_auth;
+        if( frm.up_hash.value != auth_form.veri_up_hash.value ){
+            alert("비정상적인 접근입니다."); 
+            console.log('up_hash 변조 위험');
+        }    
+        const today = new Date(); 
+        const birthDate = new Date(parseInt(frm.r_birth.value.substring(0,4)), parseInt(frm.r_birth.value.substring(4,6))-1, parseInt(frm.r_birth.value.substring(6,8)));
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if(age < 19){
+            alert('만 19세 이상만 가입이 가능합니다.');
+            location.href = "../../main.html";
+        }
+        $('#phone').val(frm.r_phone.value);
+        $('#user_birth').val(frm.r_birth.value);
+        if(frm.r_gender_cd.value == '01'){
+            $('.men').css('display','block');
+            $('#gender_label').css('display','block');
+            $('#gender_men').prop('checked',true);
+        }else if(frm.r_gender_cd.value == '02'){
+            $('.women').css('display','block');
+            $('#gender_label').css('display','block');
+            $('#gender_women').prop('checked',true);
+        }else{
+            $('#gender_label').css('display','none');
+            $('.men').css('display','block');
+            $('.women').css('display','block');
+        }
+        $('#user_nm').val(frm.r_user_name.value);
+        adult_chk = true;
+        $('#auth_div').hide();
+        $('#kcp_cert').hide();
+    }
+    /* 예제 */
+    // document.ready(function(){
+    //     init_orderid();
+    // });
+    function init_orderid(){
+        var today = new Date();
+        var year  = today.getFullYear();
+        var month = today.getMonth()+ 1;
+        var date  = today.getDate();
+        var time  = today.getTime();
+        if(parseInt(month) < 10){
+            month = "0" + month;
+        }
+        var vOrderID = year + "" + month + "" + date + "" + time;
+        document.form_auth.ordr_idxx.value = vOrderID;
+    }
+    var element_layer = document.getElementById('layer');
+    function closeDaumPostcode() {
+        element_layer.style.display = 'none';
+    }
+    function initLayerPosition(){
+        var width = 300; //우편번호서비스가 들어갈 element의 width
+        var height = 400; //우편번호서비스가 들어갈 element의 height
+        var borderWidth = 5; //샘플에서 사용하는 border의 두께
+        // 위에서 선언한 값들을 실제 element에 넣는다.
+        element_layer.style.width = width + 'px';
+        element_layer.style.height = height + 'px';
+        element_layer.style.border = borderWidth + 'px solid';
+        // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+        element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+        element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+    }
+    function input_reset(input, append){ 
+        var appendTo = typeof appendTo == 'undefined' ? '.form_box' : appendTo;
+        $(input).closest('.form_box').removeClass('error success');
+        $(input).closest(appendTo).find('p').remove();
+    }
+    function input_success(input, msg, appendTo){
 		var msg = typeof msg == 'undefined' ? '' : msg;
 		var msg = msg ? msg : '정상 입력입니다.';
 		var appendTo = typeof appendTo == 'undefined' ? '.form_box' : appendTo;
@@ -574,176 +588,176 @@
 		$(input).closest('.form_box').addClass('error');
 		$(input).closest(appendTo).append('<p class="input_info_txt">' + msg + '</p>');
 	}
-	function check_reset(id){
-		$(id).css({'color':'#999'});
-		$(id).removeClass('error success');
-	}
-	function check_success(id){
-		check_reset(id);
-		$(id).css({'color':'green'});
-		$(id).addClass('success');
-	}
-	function check_error(id){
-		check_reset(id);
-		$(id).css({'color':'red'});
-		$(id).addClass('error');
-		$(id).focus();
-	}
-	var form_check = {
-		user_nm : function(input){
-			if(!$(input).val()){
-				input_error(input, '이름을 입력해주세요.');
-				return false;
-			}else{
-				if(/^[가-힣]+$/.test($(input).val())){
-					if($(input).val().length < 2 || $(input).val().length > 8){
-						input_error(input, '정확한 이름을 입력해주세요.');
-						return false;
-					}
-				}else if(/^[a-zA-Z ]+$/.test($(input).val())){
-					if($(input).val().length < 8 ){
-						input_error(input, '정확한 이름을 입력해주세요.');
-						return false;
-					}
-				}else{
-					input_error(input, '정확한 이름을 입력해주세요.');
-					return false;
-				}
-				input_success(input);
-				return true;
-			}
-		},
-		user_id : function(input, usable_check_reset){
-			var usable_check_reset = typeof usable_check_reset == 'undefined' ? true : usable_check_reset;
-			if(!$(input).val()){
-				// input_error(input, '아이디를 입력해주세요.');
-				check_error('#id_length_chk');
-				return false;
-			}else{
-				if(!/^[a-zA-Z0-9]+$/.test($(input).val())){
-					check_error('#id_length_chk');
+    function check_reset(id){
+        $(id).css({'color':'#999'});
+        $(id).removeClass('error success');
+    }
+    function check_success(id){
+        check_reset(id);
+        $(id).css({'color':'green'});
+        $(id).addClass('success');
+    }
+    function check_error(id){
+        check_reset(id);
+        $(id).css({'color':'red'});
+        $(id).addClass('error');
+        $(id).focus();
+    }
+    var form_check = {
+        user_nm : function(input){
+            if(!$(input).val()){
+                input_error(input, '이름을 입력해주세요.');
+                return false;
+            }else{
+                if(/^[가-힣]+$/.test($(input).val())){
+                    if($(input).val().length < 2 || $(input).val().length > 8){
+                        input_error(input, '정확한 이름을 입력해주세요.');
+                        return false;
+                    }
+                }else if(/^[a-zA-Z ]+$/.test($(input).val())){
+                    if($(input).val().length < 8 ){
+                        input_error(input, '정확한 이름을 입력해주세요.');
+                        return false;
+                    }
+                }else{
+                    input_error(input, '정확한 이름을 입력해주세요.');
+                    return false;
+                }
+                input_success(input);
+                return true;
+            }
+        },
+        user_id : function(input, usable_check_reset){
+            var usable_check_reset = typeof usable_check_reset == 'undefined' ? true : usable_check_reset;
+            if(!$(input).val()){
+                // input_error(input, '아이디를 입력해주세요.');
+                check_error('#id_length_chk');
+                return false;
+            }else{
+                if(!/^[a-zA-Z0-9]+$/.test($(input).val())){
+                    check_error('#id_length_chk');
 					// input_error(input, '아이디는 영대소문자, 숫자만 입력 가능합니다.');
 					return false;
 				}else if( $(input).val().length < 5 || $(input).val().length > 20 ){
-					check_error('#id_length_chk');
-					return false;
-				}else{
-					check_success('#id_length_chk');
-				}
-			}
-			if(usable_check_reset){
+                    check_error('#id_length_chk');
+                    return false;
+                }else{
+                    check_success('#id_length_chk');
+                }
+            }
+            if(usable_check_reset){
 				form_check.user_id_usable = 'W'
 			}
-			if(form_check.user_id_usable != 'Y'){
-				// input_reset(input);
-				if(form_check.user_id_usable_timeout){
+            if(form_check.user_id_usable != 'Y'){
+                // input_reset(input);
+                if(form_check.user_id_usable_timeout){
 					clearTimeout(form_check.user_id_usable_timeout);
 				}
-				form_check.user_id_usable_timeout = setTimeout(function(){
-					Csrf.Set(_CSRF_NAME_);
+                form_check.user_id_usable_timeout = setTimeout(function(){
+                    Csrf.Set(_CSRF_NAME_);
 					$.ajax({
-						url: 'id_check_ajax',
-						type: 'POST',
-						data: {'id': $(input).val()},
-						dataType: 'json',
-						error: function(){
-						//    input_error(input, '아이디 중복 검사 중 오류가 발생했습니다.');
-						check_error('#id_chk');
-						},
-						success: function(result){
-							if(result.usable){
-								form_check.user_id_usable = 'Y';
-							//    input_success(input);
-								check_reset('#id_chk');
-								$('#id_chk').css({'display':'none'});
-							}else{
-								form_check.user_id_usable = 'N';
-							//    input_error(input, '사용할 수 없는 아이디입니다.');
-								check_error('#id_chk');
-								$('#id_chk').css({'display':'block'});
-							}
-						}
-					});
+						       url: 'id_check_ajax',
+						       type: 'POST',
+						       data: {'id': $(input).val()},
+						       dataType: 'json',
+						       error: function(){
+							    //    input_error(input, '아이디 중복 검사 중 오류가 발생했습니다.');
+                                check_error('#id_chk');
+						       },
+						       success: function(result){
+							       if(result.usable){
+								       form_check.user_id_usable = 'Y';
+								    //    input_success(input);
+                                        check_reset('#id_chk');
+                                        $('#id_chk').css({'display':'none'});
+							       }else{
+								       form_check.user_id_usable = 'N';
+								    //    input_error(input, '사용할 수 없는 아이디입니다.');
+                                        check_error('#id_chk');
+                                        $('#id_chk').css({'display':'block'});
+							       }
+						       }
+					       });
 				}, 1000);
-			}
-			return true;
-		},
-		user_id_usable: 'N',
+            }
+            return true;
+        },
+        user_id_usable: 'N',
 		user_id_usable_timeout: '',
-		passwd:function(input){
-			if($(input).val()==""){
-				check_error('#pw_chk');
+        passwd:function(input){
+            if($(input).val()==""){
+                check_error('#pw_chk');
 				return false;
-			}else{
-				if(/(.)\1{3,}/.test($(input).val())){
-					input_error(input, '동일문자 3자 이상 연속 입력할 수 없습니다.');
-					return false;
-				}else{
-					if(!/^.{8,}$/.test($(input).val())){
-						// input_error(input, '8자 이상 20자 이하로 입력되어야 합니다.');
-						check_error('#pw_chk');
-						return false;
-					}else{
-						if(!/[a-zA-Z]+/.test($(input).val())){
-							// input_error(input, '영문이 반드시 포함되어야 합니다.');
-							check_error('#pw_chk');
-							return false;
-						}else{
-							if(!/[0-9]+/.test($(input).val())){
-								// input_error(input, '숫자가 반드시 포함되어야 합니다.');
-								check_error('#pw_chk');
-								return false;
-							}else{
-								if(!/[^ㄱ-ㅎㅏ-ㅣ가-힣0-9a-zA-Z]+/.test($(input).val())){
-									// input_error(input, '특수문자가 반드시 사용되어야 합니다.');
-									check_error('#pw_chk');
-									return false;
-								}
-							}
-						}
-					}
-				}
-			}
-			check_success('#pw_chk');
+            }else{
+                if(/(.)\1{3,}/.test($(input).val())){
+                    input_error(input, '동일문자 3자 이상 연속 입력할 수 없습니다.');
+                    return false;
+                }else{
+                    if(!/^.{8,}$/.test($(input).val())){
+                        // input_error(input, '8자 이상 20자 이하로 입력되어야 합니다.');
+                        check_error('#pw_chk');
+                        return false;
+                    }else{
+                        if(!/[a-zA-Z]+/.test($(input).val())){
+                            // input_error(input, '영문이 반드시 포함되어야 합니다.');
+                            check_error('#pw_chk');
+                            return false;
+                        }else{
+                            if(!/[0-9]+/.test($(input).val())){
+                                // input_error(input, '숫자가 반드시 포함되어야 합니다.');
+                                check_error('#pw_chk');
+                                return false;
+                            }else{
+                                if(!/[^ㄱ-ㅎㅏ-ㅣ가-힣0-9a-zA-Z]+/.test($(input).val())){
+                                    // input_error(input, '특수문자가 반드시 사용되어야 합니다.');
+                                    check_error('#pw_chk');
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            check_success('#pw_chk');
 			return true;
-		},
-		passwd_repeat: function(input){
+        },
+        passwd_repeat: function(input){
 			if($(input).val() == ''){
 				input_error(input, '비밀번호 확인을 입력해주세요.');
 				return false;
 			}else{
-				if($(input).val() != $(join_form.user_pass_01).val()){
+				if($(input).val() != $(join_form.memberPassword).val()){
 					input_error(input, '입력하신 비밀번호가 일치하지 않습니다.');
 					return false;
 				}
-			}
+            }
 			input_success(input);
 			return true;
 		},
-		birth_chk:function(input){
-			if($(input).val()==''){
-				input_error(input, '본인 인증 후 자동으로 기입됩니다.');
-				return false;
-			}else{
-				var birth = $(input).val();
-				var year = birth.substr(0,2);
-				var month = birth.substr(4,2);
-				var day = birth.substr(6,2);
-				if(year == '19' || year == '20'){
-					if(month > 0 && month < 13 && day > 0 && day < 32){
-						input_success(input);
-						return true;
-					}else{
-						input_error(input, '올바른 생년월일을 입력해주세요.');
-						return false;
-					}
-				}else{
-					input_error(input, '올바른 년도를 입력해주세요.');
-					return false;
-				}
-			}
-		},
-		phone: function(input){
+        birth_chk:function(input){      
+            if($(input).val()==''){
+                input_error(input, '본인 인증 후 자동으로 기입됩니다.');
+                return false;
+            }else{
+                var birth = $(input).val();
+                var year = birth.substr(0,2);
+                var month = birth.substr(4,2);
+                var day = birth.substr(6,2);
+                if(year == '19' || year == '20'){
+                    if(month > 0 && month < 13 && day > 0 && day < 32){
+                        input_success(input);
+			            return true;
+                    }else{
+                        input_error(input, '올바른 생년월일을 입력해주세요.');
+                        return false;
+                    }
+                }else{
+                    input_error(input, '올바른 년도를 입력해주세요.');
+                    return false;
+                }
+            }
+        },
+        phone: function(input){
 			if($(input).val() == ''){
 				input_error(input, '본인 인증 후 자동으로 기입됩니다.', '.tel_box');
 				return false;
@@ -752,97 +766,97 @@
 					input_error(input, '휴대폰번호 양식이 정확하지 않습니다.', '.tel_box');
 					return false;
 				}
-			}
+            }
 			input_success(input, '', '.tel_box');
 			return true;
 		},
-		phone_code_send:function(button){
-			if(!form_check.phone(join_form.phone)){
+        phone_code_send:function(button){
+            if(!form_check.phone(join_form.phone)){
+                return false;
+            }
+            Csrf.Set(_CSRF_NAME_);
+            $.ajax({
+                url: '/shop/member/join/phone_code_send_ajax',
+                type: 'POST',
+                data: {'phone': $(join_form.phone).val()},
+                dataType: 'json',
+                beforeSend: function(){
+                    $(button).prop('disabled', true);
+                },
+                error: function(){
+                    input_error(join_form.phone, '인증번호 발송 중 오류가 발생했습니다.', '.code_box');
+                },
+                success: function(result){
+                    if(result.send){
+                        input_success(join_form.phone, '인증번호를 확인해 주시기 바랍니다.', '.code_box');
+                        alert('인증번호 : ' + result.tmp_code);
+                        // $('#time').css('display','block');
+                        // var display = $('#time');
+                        // var leftSec = 180;
+                        // if(isRunning){
+                        //     clearInterval(timer);
+                        //     display.html("");
+                        //     startTimer(leftSec, display);
+                        // }else{
+                        //     startTimer(leftSec, display);
+                        // }
+                    }else{
+                        input_error(join_form.phone, '인증번호 발송 중 오류가 발생했습니다.', '.code_box');
+                    }
+                },
+                complete: function(){
+                    $(button).prop('disabled', false);
+                }
+            });
+        },
+        phone_code : function(input){
+            if($(input).val() == ''){
+                input_error(input, '인증번호를 확인해 주시기 바랍니다.', '.code_box');
 				return false;
-			}
-			Csrf.Set(_CSRF_NAME_);
-			$.ajax({
-				url: '/shop/member/join/phone_code_send_ajax',
-				type: 'POST',
-				data: {'phone': $(join_form.phone).val()},
-				dataType: 'json',
-				beforeSend: function(){
-					$(button).prop('disabled', true);
-				},
-				error: function(){
-					input_error(join_form.phone, '인증번호 발송 중 오류가 발생했습니다.', '.code_box');
-				},
-				success: function(result){
-					if(result.send){
-						input_success(join_form.phone, '인증번호를 확인해 주시기 바랍니다.', '.code_box');
-						alert('인증번호 : ' + result.tmp_code);
-						// $('#time').css('display','block');
-						// var display = $('#time');
-						// var leftSec = 180;
-						// if(isRunning){
-						//     clearInterval(timer);
-						//     display.html("");
-						//     startTimer(leftSec, display);
-						// }else{
-						//     startTimer(leftSec, display);
-						// }
-					}else{
-						input_error(join_form.phone, '인증번호 발송 중 오류가 발생했습니다.', '.code_box');
-					}
-				},
-				complete: function(){
-					$(button).prop('disabled', false);
-				}
-			});
-		},
-		phone_code : function(input){
-			if($(input).val() == ''){
-				input_error(input, '인증번호를 확인해 주시기 바랍니다.', '.code_box');
-				return false;
-			}
-			return true;
-		},
-		phone_code_check: function(button){
+            }
+            return true;
+        },
+        phone_code_check: function(button){
 			if(!form_check.phone_code(join_form.phone_code)){
 				return false;
 			}
 			$.ajax({
-				url: '/shop/member/join/phone_code_check_ajax',
-				type: 'GET',
-				data: {
-					'phone': $(join_form.phone).val(),
-					'phone_code': $(join_form.phone_code).val()
-				},
-				dataType: 'json',
-				beforeSend: function(){
-					form_check.phone_code_checked = 'W';
-					$(button).prop('disabled', true);
-				},
-				error: function(){
-					input_error(input, '인증번호 확인 중 오류가 발생했습니다.', '.code_box');
-				},
-				success: function(result){
-					if(result.checked){
-						form_check.phone_code_checked = 'Y';
-						input_success(join_form.phone_code, '', '.code_box');
-						// if(time_chk){
-						//     phone_code_time_chk = true;
-						// }else{
-						//     phone_code_time_chk = false;
-						// }
-						// clearInterval(timer);
-					}else{
-						form_check.phone_code_checked = 'N';
-						input_error(join_form.phone_code, '잘못된 인증번호입니다.', '.code_box');
-					}
-				},
-				complete: function(){
-					$(button).prop('disabled', false);
-				}
-			});
+                url: '/shop/member/join/phone_code_check_ajax',
+                type: 'GET',
+                data: {
+                    'phone': $(join_form.phone).val(),
+                    'phone_code': $(join_form.phone_code).val()
+                },
+                dataType: 'json',
+                beforeSend: function(){
+                    form_check.phone_code_checked = 'W';
+                    $(button).prop('disabled', true);
+                },
+                error: function(){
+                    input_error(input, '인증번호 확인 중 오류가 발생했습니다.', '.code_box');
+                },
+                success: function(result){
+                    if(result.checked){
+                        form_check.phone_code_checked = 'Y';
+                        input_success(join_form.phone_code, '', '.code_box');
+                        // if(time_chk){
+                        //     phone_code_time_chk = true;
+                        // }else{
+                        //     phone_code_time_chk = false;
+                        // }
+                        // clearInterval(timer);
+                    }else{
+                        form_check.phone_code_checked = 'N';
+                        input_error(join_form.phone_code, '잘못된 인증번호입니다.', '.code_box');
+                    }
+                },
+                complete: function(){
+                    $(button).prop('disabled', false);
+                }
+            });
 		},
-		phone_code_checked: 'N',
-		email: function(input){
+        phone_code_checked: 'N',
+        email: function(input){
 			if($(input).val() == ''){
 				input_error(input, '이메일을 입력해주세요.');
 				return false;
@@ -854,101 +868,106 @@
 			input_success(input);
 			return true;
 		},
-		addr_open:function(button){
-			new daum.Postcode({
-				oncomplete: function(data) {
-					var addr = ''; // 주소 변수
-					var extraAddr = ''; // 참고항목 변수
-					$('#zip_code').val(data.zonecode);
-					$('#addr_first').val(data.roadAddress);
-					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						addr = data.roadAddress;
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						addr = data.jibunAddress;
-					}
-					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-					if(data.userSelectedType === 'R'){
-						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-						if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-							extraAddr += data.bname;
-						}
-						// 건물명이 있고, 공동주택일 경우 추가한다.
-						if(data.buildingName !== '' && data.apartment === 'Y'){
-							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-						}
-						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-						if(extraAddr !== ''){
-							extraAddr = ' (' + extraAddr + ')';
-						}
-						// 조합된 참고항목을 해당 필드에 넣는다.
-						// console.log('extraAddr : ' + extraAddr);
-						// document.getElementById("sample2_extraAddress").value = extraAddr;
-					} else {
-						// document.getElementById("sample2_extraAddress").value = '';
-					}
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('home_zip').value = data.zonecode;
-					document.getElementById("home_addr1").value = addr;
-					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById("home_addr2").focus();
-					// iframe을 넣은 element를 안보이게 한다.
-					// (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
-					element_layer.style.display = 'none';
-				},
-			width : '100%',
-			height : '100%',
-			maxSuggestItems : 5
-			}).embed(element_layer);
-			// iframe을 넣은 element를 보이게 한다.
-			element_layer.style.display = 'block';
-			// iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
-			initLayerPosition();
-		}
-	}
-	$(join_form.user_nm).on('keyup', function(){
+        addr_open:function(button){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = ''; // 주소 변수
+                    var extraAddr = ''; // 참고항목 변수
+                    $('#zip_code').val(data.zonecode);
+                    $('#addr_first').val(data.roadAddress);
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+                    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                    if(data.userSelectedType === 'R'){
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if(extraAddr !== ''){
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+                        // 조합된 참고항목을 해당 필드에 넣는다.
+                        // console.log('extraAddr : ' + extraAddr);
+                        // document.getElementById("sample2_extraAddress").value = extraAddr;
+                    } else {
+                        // document.getElementById("sample2_extraAddress").value = '';
+                    }
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('memberPostcode').value = data.zonecode;
+                    document.getElementById("memberAddress1").value = addr;
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById("memberAddress2").focus();
+                    // iframe을 넣은 element를 안보이게 한다.
+                    // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+                    element_layer.style.display = 'none';
+                },
+            width : '100%',
+            height : '100%',
+            maxSuggestItems : 5
+            }).embed(element_layer);
+            // iframe을 넣은 element를 보이게 한다.
+            element_layer.style.display = 'block';
+            // iframe을 넣은 element의 위치를 화면의 가운데로 이동시킨다.
+            initLayerPosition();
+        }
+    }
+    $(join_form.memberName).on('keyup', function(){
 		form_check.user_nm(this);
 	});
-	$(join_form.user_id).on('keyup', function(){
+    $(join_form.memberId).on('keyup', function(){
 		form_check.user_id_usable = 'W';
 		form_check.user_id(this);
 	});
-	$(join_form.user_pass_01).on('keyup', function(){
-		input_reset(join_form.user_pass_02);
+    $(join_form.memberPassword).on('keyup', function(){
+		input_reset(join_form.memberPassword2);
 		form_check.passwd(this);
 	});
-	$(join_form.user_pass_02).on('keyup', function(){
+	$(join_form.memberPassword2).on('keyup', function(){
 		form_check.passwd_repeat(this);
 	});
-	$(join_form.user_birth).on('keyup', function(){
-		form_check.birth_chk(this);
-	});
-	$(join_form.phone).on('keyup', function(){
-		form_check.phone(this);
-	});
-	$('#phone_code_send').click(function(){
+    $(join_form.memberBirth).on('keyup', function(){
+        form_check.birth_chk(this);
+    });
+    $(join_form.memberPhoneNumber).on('keyup', function(){
+        form_check.phone(this);
+    });
+    $('#phone_code_send').click(function(){
 		form_check.phone_code_send(this);
 	});
-	$(join_form.phone_code).on('keyup', function(){
+    $(join_form.phone_code).on('keyup', function(){
 		form_check.phone_code(this);
 	});
-	$('#phone_code_check').click(function(){
+    $('#phone_code_check').click(function(){
 		form_check.phone_code_check(this);
 	});
-	$(join_form.email).on('keyup', function(){
+    $(join_form.memberEmail).on('keyup', function(){
 		form_check.email(this);
 	});
-	$('#addr_open').click(function(){
-		form_check.addr_open(this);
-	})
-	function submit_join(){
+    $('#addr_open').click(function(){
+        form_check.addr_open(this);
+    })
+    
+
+    /* submit_join */
+    function submit_join(){
 		var check = true;
-		if(!adult_chk){
-			alert('성인인증을 진행해주세요.');
-			$('#auth_btn').focus();
-			return false;
-		}
+		/*
+        if(!adult_chk){
+            alert('성인인증을 진행해주세요.');
+            $('#auth_btn').focus();
+            return false;
+        }
+		*/
 		if(!form_check.user_nm(join_form.user_nm)){
 			check = false;
 		}
@@ -959,11 +978,11 @@
 				check = false;
 				if(form_check.user_id_usable == 'W'){
 					// input_error(join_form.user_id, '아이디 검사 중입니다. 잠시 후에 다시 시도해주세요.');
-					check_error('#id_chk');
+                    check_error('#id_chk');
 				}else
 					if(form_check.user_id_usable == 'N'){
 						// input_error(join_form.user_id, '사용할 수 없는 아이디입니다.');
-						check_error('#id_chk');
+                        check_error('#id_chk');
 					}
 			}
 		}
@@ -990,27 +1009,79 @@
 		if(!form_check.email(join_form.email)){
 			check = false;
 		}
-		if(form_check.user_id_usable=='N'){
-			alert("아이디를 확인해주세요");
-		}
-		if(!wine_mem_chk){
-			alert('통합회원 조회를 진행해주세요.');
-			return false;
-		}
-		if(!merge_mem_chk){
-			alert('회원통합을 진행해주세요.');
-			return false;
-		}
-		if(!$("#store_cd option:selected").val()){
-			alert('매장을 선택해주세요.');
-			return false;
-		}
-		if(!check || !adult_chk || !wine_mem_chk || !merge_mem_chk){
-			return false;
-		}else{
-			Csrf.Set(_CSRF_NAME_);
-			$('#join_form').submit();
-		}
+		
+		/*
+        if(!wine_mem_chk){
+            alert('통합회원 조회를 진행해주세요.');
+            return false;
+        }
+        if(!merge_mem_chk){
+            alert('회원통합을 진행해주세요.');
+            return false;
+        }
+        */
+        
+        if(!$("#memberStore option:selected").val()){
+        	alert('매장을 선택해주세요.');
+            return false;
+        }
+		
+        var form = document.getElementById("join_form");
+        var formData = new FormData(form);
+        
+        var memberId = document.getElementById("memberId").value.trim();
+        var memberBirth = document.getElementById("memberBirth").value.trim();
+        var memberPhoneNumber = document.getElementById("memberPhoneNumber").value;
+        var memberName = document.getElementById("memberName").value.trim();
+        var memberPassword = document.getElementById("memberPassword").value.trim();
+        var memberEmail = document.getElementById("memberEmail").value.trim();
+        var memberAddress1 = document.getElementById("memberAddress1").value.trim();
+        var memberAddress2 = document.getElementById("memberAddress2").value.trim();
+        var memberPostcode = document.getElementById("memberPostcode").value.trim();
+        var memberMaritalStatus = $("input[name='memberMaritalStatus']:checked").val();
+        var memberAnniversary = "";
+        // 기혼 선택시 결혼기념일 값을 가져옴
+        if (memberMaritalStatus === 'Y') {
+            var anniversaryElement = document.getElementById("marry_date");
+            if (anniversaryElement) {
+                memberAnniversary = anniversaryElement.value.trim();
+            }
+        }
+        var memberStore = document.getElementById("memberStore").value.trim();
+        var memberBizReferenceCode = document.getElementById("memberBizReferenceCode").value.trim();
+        
+        
+     // AJAX 요청
+	     $.ajax({
+		    type: "POST",
+		    url: "/join_submit.do",
+		    contentType: "application/json",
+		    data: JSON.stringify(Object.fromEntries(new Map(formData))),
+		    success: function(response) {
+		        console.log("서버 응답:", response);  // 응답 전체를 로깅
+		        if (response.result === true) {
+		            alert("회원 가입이 완료되었습니다.");
+		            window.location.href = "/shop/member/join/join_ok.do";
+		        } else {
+		            alert("회원 가입에 실패했습니다. 이유: " + (response.message || "알 수 없는 오류"));
+		        }
+		    },
+		    error: function() {
+		        alert("서버와의 통신 중 오류가 발생했습니다.");
+		    }
+		});
+        
+		
+		if (!$("input[name='memberMaritalStatus']:checked").val()) {
+	        alert('결혼여부를 선택해주세요.');
+	        check = false;
+	    } 
+		else if ($("input[name='memberMaritalStatus']:checked").val() == 'Y') {
+	        if (!checkWeddingDate('#marry_date')) {
+	            check = false;
+	        }
+	    }
+		
 	}
 </script>
 <!-- //page_script -->
@@ -1020,37 +1091,29 @@
 <!-- footer -->
 <%@ include file="../../common/footer.jsp" %>
 <!-- //footer -->
-
-<script language=javascript>
-    $(".quick_menu .menu_open").on("click", function () {
-        $(".quick_menu").toggleClass("on")
-    });
-</script>
 </body>
+
+<!-- 기혼, 미혼 스타일 추가 적용 -->
+<style>
+    .marry_box .box input[type="radio"] {
+        display: none;
+    }
+    .form_area ul li.gender_li .form_box .gender_box .box label {
+        display: flex;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        align-items: center;
+   		justify-content: center;
+    }
+    .marry_box .box input[type="radio"]:checked + label {
+        background-color: #555;
+        color: #ddd;
+        border-color: #555;
+    }
+   .form_area ul li.gender_li .form_box .gender_box .box input:checked + label {
+    	color: white;
+}
+</style>
 </html>
-<!--백로그 API-->
-<script type="text/JavaScript">
-	var page = 'join_form';
-	if( page == false){
-		page = 'main';
-	}
-	if( page !== 'product_view' && page !== 'order_ok'){
-		console.log(page);
-		/*
-		RC_Method({
-			sign_up_data: "",
-			page_type : page, 
-			behavior:"page_view"
-		});
-		*/
-	}
-</script>
-<!--백로그 API-->
-<!--lazy_loading-->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-<script>
-	const observer = lozad();
-	observer.observe();
-	console.log('test');
-</script>
-<!--lazy_loading-->

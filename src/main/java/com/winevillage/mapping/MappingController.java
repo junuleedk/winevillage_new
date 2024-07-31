@@ -185,10 +185,10 @@ public class MappingController {
 		return "shop/common/footer";
 	}
 	
-	@GetMapping("shop/member/join/join_form1.do")
-	public String join_form1() {
-		return "shop/member/join/join_form1";
-	}
+//	@GetMapping("shop/member/join/join_form1.do")
+//	public String join_form1() {
+//		return "shop/member/join/join_form1";
+//	}
 	
 	
 }
