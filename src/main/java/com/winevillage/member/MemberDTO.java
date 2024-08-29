@@ -3,7 +3,7 @@ package com.winevillage.member;
 import lombok.Data;
 
 @Data
-public class MemberDTO {
+public class MemberDTO {	
 	private int memberNo;
 	private String memberId;
 	private String memberName;
@@ -18,7 +18,7 @@ public class MemberDTO {
 	private java.sql.Date memberJoinDate;
 	private int memberPoints;
 	private String memberRole;
-	private String memberEnabled;
+	private boolean memberEnabled;
 	private String memberMaritalStatus;
 	private String memberAnniversary;
 	private String memberStore;

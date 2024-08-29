@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVILLAGE 2024 ㅣ 와인의 모든 것이 있는 곳 와인빌리지입니다! </title>
+<title>WINEVILLAGE 2024 ㅣ 회원가입</title>
 <%@ include file="../../common/common.jsp" %>
-<meta name="_csrf" content="${_csrf.token}"/>
-<meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <body>
@@ -22,7 +20,12 @@
 <!-- //skip_menu -->
 
 <!-- header -->
+<sec:authorize access="!isAuthenticated()">
 <%@ include file="../../common/header.jsp" %>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+<%@ include file="../../common/header_loggedin.jsp" %>
+</sec:authorize>
 <!-- //header -->
 <%@ include file="../../common/layer.jsp" %>
 <%@ include file="../../common/script.jsp" %>
@@ -51,7 +54,7 @@
 	</div>
 </div>
 <div class="wrap">
-	<form action="https://www.winenara.com/shop/member/join/join_proc" name='join_form' id='join_form' method="post" accept-charset="utf-8">
+	<form action="<c:url value='/shop/member/join/join_proc' />" name='join_form' id='join_form' method="post" accept-charset="utf-8">
 		<input type="hidden" name="join_agreement_age" value="true"/>
 		<input type="hidden" name="join_agreement_service" value="true"/>
 		<input type="hidden" name="join_agreement_private" value="true"/>
@@ -1051,7 +1054,7 @@
         var memberBizReferenceCode = document.getElementById("memberBizReferenceCode").value.trim();
         
         
-     // AJAX 요청
+     	// AJAX 요청
 	     $.ajax({
 		    type: "POST",
 		    url: "/join_submit.do",

@@ -22,7 +22,7 @@ repositories {
 	mavenCentral()
 }
 //다이나믹 웹 모듈 5.0으로 고정
-eclipse.wtp.facet {
+ eclipse.wtp.facet {
     // Change the version of the Dynamic Web Module facet
     facet name: 'jst.web', version: '5.0'
 }
@@ -47,7 +47,8 @@ dependencies {
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	
+	//Spring Security Taglibs
+	implementation 'org.springframework.security:spring-security-taglibs'
 }
 
 tasks.named('test') {

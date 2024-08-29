@@ -2,6 +2,7 @@ package com.winevillage.mapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MappingController {
@@ -49,11 +50,6 @@ public class MappingController {
 	@GetMapping("shop/member/join/join_form.do")
 	public String join_form() {
 		return "shop/member/join/join_form";
-	}
-	//회원가입 완료
-	@GetMapping("shop/member/join/join_ok.do")
-	public String join_success() {
-		return "shop/member/join/join_ok";
 	}
 	
 	/* 주문 */
@@ -184,6 +180,49 @@ public class MappingController {
 	public String footer() {
 		return "shop/common/footer";
 	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
+	@RequestMapping("/guest")
+	public String welcome1() {
+		return "guest";
+	}
+	@RequestMapping("/member")
+	public String welcome2() {
+		return "member";
+	}
+	@RequestMapping("/admin")
+	public String welcome3() {
+		return "admin";
+	}
+//	@RequestMapping("/auth/login")
+//	public String login1(Principal principal, Model model) {
+//		try {
+//			String user_id = principal.getName();
+//			model.addAttribute("user_id", user_id);
+//		}
+//		catch (Exception e) {
+//			System.out.println("로그인 전입니다.");
+//		}
+//		return "auth/login";
+//	}
+	@RequestMapping("/auth/error")
+	public String login2() {
+		return "auth/error";
+	}
+	@RequestMapping("/auth/denied")
+	public String login3() {
+		return "auth/denied";
+	}
+	
+//	@GetMapping("shop/main.do")
+//	public String main(HttpServletRequest request) {
+//		String currentUrl = request.getRequestURL().toString();
+//	    request.getSession().setAttribute("currentUrl", currentUrl);
+//		return "shop/main";
+//	}
 	
 //	@GetMapping("shop/member/join/join_form1.do")
 //	public String join_form1() {

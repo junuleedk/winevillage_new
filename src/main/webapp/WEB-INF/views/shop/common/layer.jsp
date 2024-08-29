@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 와인 프로파일 레이어 -->
 <!-- /shop/mypage/shopping/wine_profile_ajax.php LOAD -->
 <div class="layer wine_profile_layer">

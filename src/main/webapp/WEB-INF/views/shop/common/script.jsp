@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 //배너 슬라이드
 $('.top_banner .top_banner_slide').slick({
@@ -100,44 +99,64 @@ $(document).ready(function () {
             $("#login_passwd").focus();
             return false;
         }
-        Csrf.Set(_CSRF_NAME_); //토큰 초기화
+        //Csrf.Set(_CSRF_NAME_); //토큰 초기화
         $.ajax({
             type: 'POST',
             url: "/shop/auth/login_check",
-            dataType: 'json',
-            data: $("#LoginPostFrm").serialize(),
-            success: function (res) {
-                console.log(res);
-                if (res.status == 'Y') {
-                    console.log(JSON.stringify(res.data));
-                    // alert(res.msg);
-                    location.href = res.url;
-                } else if (res.status == "N") {
-                    alert(res.msg);
-                    if (res.pass_err_cnt >= 5) {
-                        recaptcha_load();
-                    }
-                } else if (res.status === 'AUTH_DENIED') {
-                    alert(res.msg);
-                    location.href = res.url;
-                } else if (res.status === 'OUT_YN') {
-                    alert(res.msg);
-                    return false;
-                } else if (res.status === 'TOKEN_ERROR') {
-                    alert(res.msg);
-                    return false;
-                } else if (res.status == 'D') {
-                    if (confirm(res.msg)) {
+            contentType: "application/x-www-form-urlencoded",  // URL-encoded 형식으로 전송
+            data: $("#LoginPostFrm").serialize(),  // Form 데이터를 URL-encoded 형식으로 직렬화
+            success: function (response) {
+                if (response.result === true) {
+                    location.reload();  // 로그인 성공 시 페이지 새로고침
+                }
+            },
+            error: function(xhr) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.status === 'AUTH_DENIED') {
+					alert(response.message);
+				} else if (response.status === 'ACCOUNT_DISABLED') {
+					if (confirm(response.message)) {
                         // location.href = res.url;
                         $('#dormant_layer').show();
                     }
-                } else {
-                    alert(res.msg);
-                }
+				} else {
+					alert(response.message);
+				}
+				//if (response.pass_error_count >= 5) {
+                //    recaptcha_load();
+                //}
             }
         });
     });
+    $("#logoutBtn").on('click', function() {
+        $.ajax({
+            url: '/shop/auth/logout',
+            type: 'POST',
+            success: function(result) {
+                // 로그아웃 성공시 페이지 리로드 또는 리다이렉트
+            	location.reload();
+            },
+            error: function(err) {
+                // 에러 발생시 처리할 작업
+                console.error('다시 시도해주세요.', err);
+            },
+        });
+    });
 });
+function logout() {
+	$.ajax({
+        url: '/shop/auth/logout',
+        type: 'POST',
+        success: function(result) {
+            // 로그아웃 성공시 페이지 리로드 또는 리다이렉트
+        	location.reload();
+        },
+        error: function(err) {
+            // 에러 발생시 처리할 작업
+            console.error('다시 시도해주세요.', err);
+        },
+    });
+}
 $(document).ready(function () {
     get_keyword_list_ajax();
 });

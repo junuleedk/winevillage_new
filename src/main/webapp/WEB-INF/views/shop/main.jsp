@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +19,12 @@
 <!-- //skip_menu -->
 
 <!-- header -->
+<sec:authorize access="!isAuthenticated()">
 <%@ include file="common/header.jsp" %>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+<%@ include file="common/header_loggedin.jsp" %>
+</sec:authorize>
 <!-- //header -->
 <%@ include file="common/layer.jsp" %>
 <%@ include file="common/script.jsp" %>
@@ -38,7 +44,7 @@
 						<!-- pc이미지 -->
 						<source srcset="../uploads/banner/670/419a53a424e899fe842dec1aac367077.jpg" media="(max-width:1023px)">
 						<!-- mb이미지 -->
-						<img data-lazy="uploads/banner/590/32da729cf63572f899d8a3c9dde84620.jpg" alt="">
+						<img data-lazy="../uploads/banner/590/32da729cf63572f899d8a3c9dde84620.jpg" alt="">
 						<!-- pc이미지 -->
 					</picture>
 					<p class="visual_category"></p>
@@ -55,7 +61,7 @@
 						<!-- pc이미지 -->
 						<source srcset="../uploads/banner/670/b8649da303716cb8838b0e757e01b3bc.jpg" media="(max-width:1023px)">
 						<!-- mb이미지 -->
-						<img data-lazy="uploads/banner/590/0717b6fb749a4a811134c9d5a39db515.jpg" alt="">
+						<img data-lazy="../uploads/banner/590/0717b6fb749a4a811134c9d5a39db515.jpg" alt="">
 						<!-- pc이미지 -->
 					</picture>
 					<p class="visual_category"></p>
@@ -72,7 +78,7 @@
 						<!-- pc이미지 -->
 						<source srcset="../uploads/banner/670/9691b9b6c577e987819ade9dcc0cb329.jpg" media="(max-width:1023px)">
 						<!-- mb이미지 -->
-						<img data-lazy="uploads/banner/590/298c0e2e0fbf4b677604142b661e63cf.jpg" alt="">
+						<img data-lazy="../uploads/banner/590/298c0e2e0fbf4b677604142b661e63cf.jpg" alt="">
 						<!-- pc이미지 -->
 					</picture>
 					<p class="visual_category"></p>
@@ -89,7 +95,7 @@
 						<!-- pc이미지 -->
 						<source srcset="../uploads/banner/670/39085b15d5c6342bfcb85f196814f0da.jpg" media="(max-width:1023px)">
 						<!-- mb이미지 -->
-						<img data-lazy="uploads/banner/590/f470d619d44ec424f9e1939994a1f27e.jpg" alt="">
+						<img data-lazy="../uploads/banner/590/f470d619d44ec424f9e1939994a1f27e.jpg" alt="">
 						<!-- pc이미지 -->
 					</picture>
 					<p class="visual_category"></p>
@@ -106,7 +112,7 @@
 						<!-- pc이미지 -->
 						<source srcset="../uploads/banner/670/8f6812328c102477d139a0c1c96e9eea.jpg" media="(max-width:1023px)">
 						<!-- mb이미지 -->
-						<img data-lazy="uploads/banner/590/07d1a152ce4e9c2ad5702b7eaa774939.jpg" alt="">
+						<img data-lazy="../uploads/banner/590/07d1a152ce4e9c2ad5702b7eaa774939.jpg" alt="">
 						<!-- pc이미지 -->
 					</picture>
 					<p class="visual_category"></p>
@@ -123,7 +129,7 @@
 						<!-- pc이미지 -->
 						<source srcset="../uploads/banner/670/e0b0855c2291eef7bba2bbe1a4ca5c59.jpg" media="(max-width:1023px)">
 						<!-- mb이미지 -->
-						<img data-lazy="uploads/banner/590/a6abc637620e1565ea36e6d6782ec92e.jpg" alt="">
+						<img data-lazy="../uploads/banner/590/a6abc637620e1565ea36e6d6782ec92e.jpg" alt="">
 						<!-- pc이미지 -->
 					</picture>
 					<p class="visual_category"></p>
@@ -140,7 +146,7 @@
 					<!-- pc이미지 -->
 					<source srcset="../uploads/banner/670/263675998facc3622f0d0d55cf89ffb9.jpg" media="(max-width:1023px)">
 					<!-- mb이미지 -->
-					<img data-lazy="uploads/banner/590/288ea716d489b85606ddbb9e1b21f869.jpg" alt="">
+					<img data-lazy="../uploads/banner/590/288ea716d489b85606ddbb9e1b21f869.jpg" alt="">
 					<!-- pc이미지 -->
 				</picture>
 				<p class="visual_category"></p>
@@ -157,7 +163,7 @@
 					<!-- pc이미지 -->
 					<source srcset="../uploads/banner/670/1282750184ae76609929a4fed7da8efc.jpg" media="(max-width:1023px)">
 					<!-- mb이미지 -->
-					<img data-lazy="uploads/banner/590/12f2f41eceb0bf95b580e6e462514749.jpg" alt="">
+					<img data-lazy="../uploads/banner/590/12f2f41eceb0bf95b580e6e462514749.jpg" alt="">
 					<!-- pc이미지 -->
 				</picture>
 				<p class="visual_category"></p>
@@ -174,7 +180,7 @@
 					<!-- pc이미지 -->
 					<source srcset="../uploads/banner/670/c959e769e6b1f13cbee29829ab0903cb.jpg" media="(max-width:1023px)">
 					<!-- mb이미지 -->
-					<img data-lazy="uploads/banner/590/23b88dabbb21357519359a0540cfa854.jpg" alt="">
+					<img data-lazy="../uploads/banner/590/23b88dabbb21357519359a0540cfa854.jpg" alt="">
 					<!-- pc이미지 -->
 				</picture>
 				<p class="visual_category"></p>
@@ -191,7 +197,7 @@
 					<!-- pc이미지 -->
 					<source srcset="../uploads/banner/670/6274164e9bd7edddfc3ed8d7cfde2c7b.jpg" media="(max-width:1023px)">
 					<!-- mb이미지 -->
-					<img data-lazy="uploads/banner/590/32f3c2887c43c2a85be59c77d265a7cc.jpg" alt="">
+					<img data-lazy="../uploads/banner/590/32f3c2887c43c2a85be59c77d265a7cc.jpg" alt="">
 					<!-- pc이미지 -->
 				</picture>
 				<p class="visual_category"></p>

@@ -1,8 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%
+    // memberId와 memberName은 @ModelAttribute를 통해 설정된 속성
+    String memberId = (String) request.getAttribute("memberId");
+    String memberName = (String) request.getAttribute("memberName");
+    int memberPoints = (Integer) request.getAttribute("memberPoints");
+%>
 <header id="header" class="header mypage_index_header">
 <!-- 로딩바 -->
-<input type="hidden" id="session_id" value="gogek1234">
+<div class="loading">
+    <div class="loading_bar">
+        <div class="loading_img">
+            <img src="<c:url value='/asset/images/shop/default/ico_loading.svg' />" alt="">
+        </div>
+    </div>
+    <script type="text/javascript">
+    var loding = setInterval(function () {
+        // $('.loading_bar').animate({'width' : '100%' }, 2000, function(){
+        //     $('.loading_bar').css({ 'width' : '0%' });
+        // });
+    }, 2100);
+    window.onload = function () {
+        clearInterval(loding);
+        $(".loading").fadeOut(function () {
+            $(".loading").remove();
+        });
+    }
+    </script>
+</div>
+<input type="hidden" id="session_id" value="${ memberId }">
 <!-- 최상단 배너 -->
 <!-- <div class="top_banner time_out">
 	<div class="top_banner_slide">
@@ -19,8 +46,22 @@
 <div class="top">
 	<div class="wrap">
 		<ul class="left_menu">
-			<li class="language mb_hidden"><button type="button"><span><img class="langg" src="../../asset/images/shop/default/pc_icon_flag_korea_sq.png" alt=""></span><span class="txt">KOR</span></button></li>
-			<li class="language mb_hidden"><button type="button" onclick="location.href='/en/main'"><span class="langg"><img class="langg" src="../../asset/images/shop/default/pc_icon_flag_usa_sq.png" alt=""></span><span class="txt">ENG</span></button></li>
+			<li class="language mb_hidden">
+				<button type="button">
+					<span>
+						<img class="langg" src="<c:url value='/asset/images/shop/default/pc_icon_flag_korea_sq.png' />" alt="">
+					</span>
+					<span class="txt">KOR</span>
+				</button>
+			</li>
+			<li class="language mb_hidden">
+				<button type="button" onclick="location.href='/en/main'">
+					<span class="langg">
+						<img class="langg" src="<c:url value='/asset/images/shop/default/pc_icon_flag_usa_sq.png' />" alt="">
+					</span>
+					<span class="txt">ENG</span>
+				</button>
+			</li>
 			<li class="sns_area mb_hidden">
 			<!-- <button type="button" class="btn_sel" onclick="$(this).parent().toggleClass('on');"><span class="ico_kakao">카카오톡채널</span></button> -->
 			<ul>
@@ -50,38 +91,48 @@
 			<li class="mb_search_btn mb_hidden"><button type="button" onclick="commonUI.header.Search.clickFn()">Mobile Search</button></li>
 		</ul>
 		<h1 class="logo">
-			<a href="/shop/main">
+			<a href="../main.html">
 				<picture>
 					<!--[if IE 9]><video style="display: none;"><![endif]-->
-					<source srcset="../../asset/images/shop/default/pc_logo.png" media="(min-width:768px)">
+					<source srcset="<c:url value='/asset/images/shop/default/logo_header_pc.svg' />" media="(min-width:768px)">
 					<!-- pc이미지 -->
-					<source srcset="../../asset/images/shop/default/mb_logo.png" media="(max-width:767px)">
+					<source srcset="<c:url value='/asset/images/shop/default/logo_header_mb.svg' />" media="(max-width:767px)">
 					<!-- mb이미지 -->
 					<!--[if IE 9]></video><![endif]-->
-					<img src="../../asset/images/shop/default/pc_logo.png" alt="WINENARA 1987" draggable="false">
+					<img src="<c:url value='/asset/images/shop/default/logo_header_pc.svg' />" alt="WINEVILLAGE 2024" draggable="false">
 					<!-- pc이미지 -->
 				</picture>
 			</a>
 		</h1>
 		<ul class="right_menu">
-			<li class="cart"><a href="/shop/cart/cart_lists"><span>Cart List</span></a></li>
+			<li class="cart">
+				<a href="/shop/cart/cart_lists">
+					<span>Cart List</span>
+				</a>
+			</li>
 			<!-- <li class="mobile_mypage pc_hidden">
-					<a href="/shop/mypage/shopping/mypage"><img src="/asset/images/shop/default/pc_icon_mypage.png" alt="My Page"></a>
+					<a href="/shop/mypage/shopping/mypage"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
 			</li> -->
-			<li class="mb_hidden wish"><a href="/shop/mypage/note/wish_lists"><img src="../../asset/images/shop/default/pc_icon_wish.png" alt="Wish List"></a></li>
+			<li class="mb_hidden wish">
+				<a href="/shop/mypage/note/wish_lists">
+					<img src="<c:url value='/asset/images/shop/default/pc_icon_wish.png' />" alt="Wish List">
+				</a>
+			</li>
 			<!-- <li class="pc_search_btn mb_hidden"><button type="button" onclick="commonUI.header.Search.clickFn()">PC Search</button></li>-->
 			<li class="mypage mb_hidden">
-				<button type="button" onclick="commonUI.header.Mypage.clickFn()"><img src="../../asset/images/shop/default/pc_icon_mypage.png" alt="My Page"></button>
+				<button type="button" onclick="commonUI.header.Mypage.clickFn()">
+					<img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page">
+				</button>
 				<div class="mypage_layer">
 					<div class="on_login">
 						<ul>
 							<li>
-								<h3>고객님 </h3>
+								<h3><%= memberName %>님 </h3>
 								<p class="info">실버</p>
 							</li>
 							<li>
 								<h3>가용 마일리지</h3>
-								<p class="info">0P</p>
+								<p class="info"><%= memberPoints %>P</p>
 								<!-- <p class="sub_info">소멸예정 : 0P (2024.5<em>.01</em>)</p> -->
 								<p class="sub_info">
 									소멸예정 : 0P (<em>
@@ -98,16 +149,21 @@
 								<h3><a href="/shop/mypage/note/giftcard_lists">기프트카드</a></h3>
 							</li>
 						</ul>
-						<button type="button" class="btn_txt btn_black logout_btn on" onclick="location.href='/shop/auth/logout'">로그아웃</button>
+						<button type="button" class="btn_txt btn_black logout_btn on" id="logoutBtn">로그아웃</button>
+						<!-- <button type="button" class="btn_txt btn_black logout_btn on" onclick="location.href='/shop/auth/logout'">로그아웃</button> -->
 					</div>
 				</div>
 			</li>
-			<li class="mb_hidden"><a href="/shop/cs/notice_lists"><img src="../../asset/images/shop/default/pc_icon_center.png" alt="Info Center"></a></li>
+			<li class="mb_hidden">
+				<a href="/shop/cs/notice_lists">
+					<img src="<c:url value='/asset/images/shop/default/pc_icon_center.png' />" alt="Info Center">
+				</a>
+			</li>
 		</ul>
 		<!-- 로그인했을 경우 나타나는 GNB 메뉴 -->
 		<div class="summary_menu">
 			<p><a href="/shop/mypage/shopping/mypage">고객님</a></p>
-			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em>0P</em></a></p>
+			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em><%= memberPoints %>P</em></a></p>
 			<p><a href="/shop/mypage/note/coupon_lists">쿠폰<em>1</em></a></p>
 		</div>
 	</div>
@@ -115,7 +171,7 @@
 <div class="bottom">
 	<h1 class="fixed_logo" style="display:none;">
 		<a href="/shop/main">
-			<img src="../../asset/images/shop/default/pc_fixed_logo.png" alt="WINENARA 1987" draggable="false">
+			<img src="<c:url value='/asset/images/shop/default/pc_fixed_logo.png' />" alt="WINENARA 1987" draggable="false">
 		</a>
 	</h1>
 	<div class="wrap">
@@ -332,9 +388,8 @@
 		</div>
 	</div>
 	<button type="button" onclick="commonUI.header.Search.clickFn()" class="fixed_search_btn">PC Search</button>
-	<a href="/shop/mypage/shopping/mypage" class="fixed_mypage"><img src="../../asset/images/shop/default/pc_icon_mypage.png" alt="My Page"></a>
-	<a href="/shop/cart/cart_lists" class="fixed_cart">
-	</a>
+	<a href="/shop/mypage/shopping/mypage" class="fixed_mypage"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
+	<a href="/shop/cart/cart_lists" class="fixed_cart"></a>
 </div>
 <!-- mb_lnb -->
 <div class="mb_lnb pc_hidden">
@@ -398,70 +453,4 @@
 	</div>
 </form>
 </header>
-<form action="https://www.winenara.com/shop/login" id="LoginPostFrm" onkeydown="javascript:onEnterLogin();" method="post" accept-charset="utf-8">
-<input type="hidden" name="witplus_csrf_token" value="be7b38b9302ff3c05cc7f68a617d7dd7"/>
-<div class="layer login_layer" id="login_layer">
-	<div class="display_table">
-		<div class="table_cell">
-			<div class="layer_area">
-				<h2 class="layer_tit">
-				회원서비스 
-				<!-- <p class="check"><span>로그인</span></p>
-                   <p><span><a href="/shop/member/join/law_agreement">회원가입</a></span></p> -->
-				</h2>
-				<button type="button" class="layer_close" onclick="commonUI.layer.close()">닫기</button>
-				<div class="layer_con">
-					<div class="login_tab">
-						<p class="check"><span>기존회원</span></p>
-						<p>
-							<span><a href="/shop/member/join/law_agreement">신규회원가입</a></span>
-						</p>
-					</div>
-					<div class="social_login">
-						<h2 class="social_tit">소셜아이디로 로그인</h2>
-						<ul>
-							<li><a href="#none" class="social_btn naver">네이버</a></li>
-							<li><a href="#none" class="social_btn kakao">카카오</a></li>
-							<li><a href="#none" class="social_btn google">구글</a></li>
-							<!-- <li><a href="#none" class="social_btn apple">애플</a></li> -->
-						</ul>
-					</div>
-					<div class="form_area">
-						<ul>
-							<li>
-								<div class="form_box">
-									<input type="text" id="login_user_id" name="login_user_id" value="" placeholder="아이디를 입력하세요">
-								</div>
-							</li>
-							<li>
-								<div class="form_box">
-									<input type="password" id="login_passwd" name="login_passwd" placeholder="비밀번호를 입력하세요">
-								</div>
-							</li>
-						</ul>
-					</div>
-					<input type="hidden" id="login_return_url_param" name="login_return_url_param">
-					<div class="save_box">
-						<div class="checkbox">
-							<input type="checkbox" name="login_auto" id="login_auto" value="Y" checked>
-							<label for="login_auto">로그인유지</label>
-						</div>
-						<div class="checkbox">
-							<input type="checkbox" name="id_save" id="id_save" value="Y">
-							<label for="id_save">아이디저장</label>
-						</div>
-						<p class="input_info_txt">※ 공공장소에서는 꺼주세요.</p>
-					</div>
-					<div class="btn_area">
-						<button type="button" class="btn_txt btn_black" id="loginBtn"><span>로그인</span></button>
-					</div>
-					<div class="login_sub_btn">
-						<a href="/shop/member/forgotten/forgotten_id" class="btn">아이디 찾기</a>
-						<a href="/shop/member/forgotten/forgotten_pw" class="btn">비밀번호 재발급</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</form>
+<%@ include file="login_post_frm.jsp" %>

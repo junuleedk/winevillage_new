@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +19,12 @@
 <!-- //skip_menu -->
 
 <!-- header -->
+<sec:authorize access="!isAuthenticated()">
 <%@ include file="../../common/header.jsp" %>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+<%@ include file="../../common/header_loggedin.jsp" %>
+</sec:authorize>
 <!-- //header -->
 <%@ include file="../../common/layer.jsp" %>
 <%@ include file="../../common/script.jsp" %>
@@ -49,6 +54,7 @@
                     <li><a href="/shop/mypage/account/sns_connect">SNS 연동관리</a></li>
                     <li><a href="/shop/mypage/account/change_password">비밀번호 변경</a></li>
                     <li><a href="/shop/mypage/account/withdrawal">회원탈퇴</a></li>
+                    <li><a href="<c:url value='/shop/main.do' />" onclick="logout();" id="logoutBtn">로그아웃</a></li>
                 </ul>
             </div>
         </div>

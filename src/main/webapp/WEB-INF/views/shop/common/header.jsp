@@ -71,7 +71,7 @@
                     <source srcset="<c:url value='/asset/images/shop/default/logo_header_mb.svg' />" media="(max-width:767px)">
                     <!-- mb이미지 -->
                     <!--[if IE 9]></video><![endif]-->
-                    <img src="<c:url value='/asset/images/shop/default/logo_header_pc.svg' />" alt="WINENARA 1987" draggable="false">
+                    <img src="<c:url value='/asset/images/shop/default/logo_header_pc.svg' />" alt="WINEVILLAGE 2024" draggable="false">
                     <!-- pc이미지 -->
                 </picture>
             </a>
@@ -121,115 +121,87 @@
         <!-- <button type="button" class="pc_category" onclick="$('.category_gnb').toggleClass('on');"><span>CATEGORY</span></button> -->
         <div class="gnb">
             <ul>
-                <!-- <li>
-                    <a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100">WINE</a>
-                </li>
-                <li>
-                    <a href="/shop/product/product_lists?sh_category1_cd=20000">BEER&LIQUOR</a>
-                </li>
-                <li>
-                    <a href="/shop/product/product_lists?sh_category1_cd=50000">TICKET</a>
-                </li>
-                <li>
-                    <a href="/shop/product/product_lists?sh_category1_cd=40000">OTHER</a>
-                </li> -->
+                <!-- <li><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100">WINE</a></li>
+                <li><a href="/shop/product/product_lists?sh_category1_cd=20000">BEER&LIQUOR</a></li>
+                <li><a href="/shop/product/product_lists?sh_category1_cd=50000">TICKET</a></li>
+                <li><a href="/shop/product/product_lists?sh_category1_cd=40000">OTHER</a></li> -->
                 <li class="">
-                <a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100">WINE</a>
-                <div class="pc_category_gnb">
-                    <div class="flex_box">
-                        <div class="box wine">
-                            <ul>
-                                <li class="ico_red"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10101">레드</a>
-                                </li>
-                                <li class="ico_white"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10102">화이트</a>
-                                </li>
-                                <li class="ico_rose"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10108">로제</a>
-                                </li>
-                                <li class="ico_sparkling"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10103">스파클링</a>
-                                </li>
-                                <li class="ico_spirits"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10105">주정강화</a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li class="ico_france"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10201">프랑스</a>
-                                </li>
-                                <li class="ico_italia"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10202">이탈리아</a>
-                                </li>
-                                <li class="ico_spain"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10203">스페인</a>
-                                </li>
-                                <li class="ico_germ"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10204">독일</a>
-                                </li>
-                                <li class="ico_usa"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10206">미국</a>
-                                </li>
-                                <li class="ico_chile"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10205">칠레</a>
-                                </li>
-                                <li class="ico_argentina"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10209">아르헨티나</a>
-                                </li>
-                                <li class="ico_aus"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10207">호주</a>
-                                </li>
-                                <li class="ico_etc"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10210">기타 구대륙</a></li>
-                                <li class="ico_etc"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10211">기타 신대륙</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+	                <a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100">WINE</a>
+	                <div class="pc_category_gnb">
+	                    <div class="flex_box">
+	                        <div class="box wine">
+	                            <ul>
+	                                <li class="ico_red"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10101">레드</a></li>
+	                                <li class="ico_white"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10102">화이트</a></li>
+	                                <li class="ico_rose"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10108">로제</a></li>
+	                                <li class="ico_sparkling"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10103">스파클링</a></li>
+	                                <li class="ico_spirits"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10105">주정강화</a></li>
+	                            </ul>
+	                            <ul>
+	                                <li class="ico_france"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10201">프랑스</a></li>
+	                                <li class="ico_italia"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10202">이탈리아</a></li>
+	                                <li class="ico_spain"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10203">스페인</a></li>
+	                                <li class="ico_germ"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10204">독일</a></li>
+	                                <li class="ico_usa"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10206">미국</a></li>
+	                                <li class="ico_chile"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10205">칠레</a></li>
+	                                <li class="ico_argentina"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10209">아르헨티나</a></li>
+	                                <li class="ico_aus"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10207">호주</a></li>
+	                                <li class="ico_etc"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10210">기타 구대륙</a></li>
+	                                <li class="ico_etc"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10211">기타 신대륙</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div>
                 </li>
                 <li class="">
-                <a href="/shop/product/product_lists?sh_category1_cd=20000">BEER&LIQUOR</a>
-                <div class="pc_category_gnb">
-                    <div class="flex_box">
-                        <div class="box other">
-                            <ul>
-                                <li class="ico_whiskey"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20101">위스키</a>
-                                </li>
-                                <li class="ico_cognac"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20102">꼬냑</a>
-                                </li>
-                                <li class="ico_tequila"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20105">데킬라</a>
-                                </li>
-                                <li class="ico_jin"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20103">진</a>
-                                </li>
-                                <li class="ico_rum"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20106">럼</a>
-                                </li>
-                                <li class="ico_beer"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20200&sh_category3_cd=20201">맥주</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+	                <a href="/shop/product/product_lists?sh_category1_cd=20000">BEER&LIQUOR</a>
+	                <div class="pc_category_gnb">
+	                    <div class="flex_box">
+	                        <div class="box other">
+	                            <ul>
+	                                <li class="ico_whiskey"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20101">위스키</a></li>
+	                                <li class="ico_cognac"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20102">꼬냑</a></li>
+	                                <li class="ico_tequila"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20105">데킬라</a></li>
+	                                <li class="ico_jin"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20103">진</a></li>
+	                                <li class="ico_rum"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20106">럼</a></li>
+	                                <li class="ico_beer"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20200&sh_category3_cd=20201">맥주</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div>
                 </li>
                 <li class="">
-                <a href="/shop/product/product_lists?sh_category1_cd=40000">OTHER</a>
-                <!-- <div class="pc_category_gnb">
-                    <div class="flex_box">
-                        <div class="box other">
-                            <ul>
-                                <li class="ico_acc"><a href="/shop/product/product_lists?sh_category1_cd=40000&sh_category2_cd=40100&sh_category3_cd=40101">액세서리</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> -->
+	                <a href="/shop/product/product_lists?sh_category1_cd=40000">OTHER</a>
+	                <!-- <div class="pc_category_gnb">
+	                    <div class="flex_box">
+	                        <div class="box other">
+	                            <ul>
+	                                <li class="ico_acc"><a href="/shop/product/product_lists?sh_category1_cd=40000&sh_category2_cd=40100&sh_category3_cd=40101">액세서리</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div> -->
                 </li>
-                <!-- <li class=" pc_hidden ">
-                <a href="/shop/product/product_lists?sh_category1_cd=50000">티켓</a>
-                </li> -->
+	                <!-- <li class=" pc_hidden ">
+	                <a href="/shop/product/product_lists?sh_category1_cd=50000">티켓</a>
+	                </li> -->
                 <li style="display:none !important" class="mb_hidden opacity">
-                <a href="/shop/product/best_product_lists?group_cd=20240206">En Primeur</a>
+	                <a href="/shop/product/best_product_lists?group_cd=20240206">En Primeur</a>
                 </li>
                 <li class="mb_hidden opacity">
-                <a href="/shop/event/event_lists">PROMOTION</a>
+	                <a href="/shop/event/event_lists">PROMOTION</a>
                 </li>
                 <li class="opacity">
-                <a href="/shop/company/store">SHOP</a>
+	                <a href="/shop/company/store">SHOP</a>
                 </li>
                 <li class="mb_hidden opacity">
-                <a href="/shop/company/member_benefit">MEMBERSHIP</a>
+	                <a href="/shop/company/member_benefit">MEMBERSHIP</a>
                 </li>
                 <!-- <li class="opacity">
                     <a href="/shop/community/video_lists">VIDEO</a>
                 </li> -->
                 <li class="mb_hidden opacity">
-                <a href="/shop/company/about_us">ABOUT US</a>
+	                <a href="/shop/company/about_us">ABOUT US</a>
                 </li>
             </ul>
             <button type="button" class="pc_category" onclick="$(this).toggleClass('on');$('.bottom .wrap>.pc_category_gnb').toggleClass('on');"><span></span></button>
@@ -241,34 +213,21 @@
                         <strong>WINE</strong>
                     </p>
                     <ul>
-                        <li class="ico_red"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10101">레드</a>
-                        </li>
-                        <li class="ico_white"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10102">화이트</a>
-                        </li>
-                        <li class="ico_rose"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10108">로제</a>
-                        </li>
-                        <li class="ico_sparkling"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10103">스파클링</a>
-                        </li>
-                        <li class="ico_spirits"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10105">주정강화</a>
-                        </li>
+                        <li class="ico_red"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10101">레드</a></li>
+                        <li class="ico_white"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10102">화이트</a></li>
+                        <li class="ico_rose"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10108">로제</a></li>
+                        <li class="ico_sparkling"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10103">스파클링</a></li>
+                        <li class="ico_spirits"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10100&sh_category3_cd=10105">주정강화</a></li>
                     </ul>
                     <ul>
-                        <li class="ico_france"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10201">프랑스</a>
-                        </li>
-                        <li class="ico_italia"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10202">이탈리아</a>
-                        </li>
-                        <li class="ico_spain"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10203">스페인</a>
-                        </li>
-                        <li class="ico_germ"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10204">독일</a>
-                        </li>
-                        <li class="ico_usa"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10206">미국</a>
-                        </li>
-                        <li class="ico_chile"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10205">칠레</a>
-                        </li>
-                        <li class="ico_argentina"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10209">아르헨티나</a>
-                        </li>
-                        <li class="ico_aus"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10207">호주</a>
-                        </li>
+                        <li class="ico_france"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10201">프랑스</a></li>
+                        <li class="ico_italia"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10202">이탈리아</a></li>
+                        <li class="ico_spain"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10203">스페인</a></li>
+                        <li class="ico_germ"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10204">독일</a></li>
+                        <li class="ico_usa"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10206">미국</a></li>
+                        <li class="ico_chile"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10205">칠레</a></li>
+                        <li class="ico_argentina"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10209">아르헨티나</a></li>
+                        <li class="ico_aus"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10207">호주</a></li>
                         <li class="ico_etc"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10210">기타 구대륙</a></li>
                         <li class="ico_etc"><a href="/shop/product/product_lists?sh_category1_cd=10000&sh_category2_cd=10200&sh_category3_cd=10211">기타 신대륙</a></li>
                     </ul>
@@ -278,18 +237,12 @@
                         <strong>BEER & LIQUOR</strong>
                     </p>
                     <ul>
-                        <li class="ico_whiskey"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20101">위스키</a>
-                        </li>
-                        <li class="ico_cognac"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20102">꼬냑</a>
-                        </li>
-                        <li class="ico_tequila"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20105">데킬라</a>
-                        </li>
-                        <li class="ico_jin"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20103">진</a>
-                        </li>
-                        <li class="ico_rum"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20106">럼</a>
-                        </li>
-                        <li class="ico_beer"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20200&sh_category3_cd=20201">맥주</a>
-                        </li>
+                        <li class="ico_whiskey"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20101">위스키</a></li>
+                        <li class="ico_cognac"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20102">꼬냑</a></li>
+                        <li class="ico_tequila"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20105">데킬라</a></li>
+                        <li class="ico_jin"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20103">진</a></li>
+                        <li class="ico_rum"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20100&sh_category3_cd=20106">럼</a></li>
+                        <li class="ico_beer"><a href="/shop/product/product_lists?sh_category1_cd=20000&sh_category2_cd=20200&sh_category3_cd=20201">맥주</a></li>
                     </ul>
                     <p class="tit">
                         <strong>TICKET</strong>
@@ -301,8 +254,7 @@
                         <strong>OTHER</strong>
                     </p>
                     <ul>
-                        <li class="ico_acc"><a href="/shop/product/product_lists?sh_category1_cd=40000&sh_category2_cd=40100&sh_category3_cd=40101">액세서리</a>
-                        </li>
+                        <li class="ico_acc"><a href="/shop/product/product_lists?sh_category1_cd=40000&sh_category2_cd=40100&sh_category3_cd=40101">액세서리</a></li>
                     </ul>
                 </div>
                 <div class="box">
@@ -370,8 +322,7 @@
     </div>
     <button type="button" onclick="commonUI.header.Search.clickFn()" class="fixed_search_btn">PC Search</button>
     <a href="/shop/mypage/shopping/mypage" class="fixed_mypage"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
-    <a href="/shop/cart/cart_lists" class="fixed_cart">
-    </a>
+    <a href="/shop/cart/cart_lists" class="fixed_cart"></a>
 </div>
 <!-- mb_lnb -->
 <div class="mb_lnb pc_hidden">
