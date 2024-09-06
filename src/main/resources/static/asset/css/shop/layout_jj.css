@@ -299,14 +299,25 @@
 .n_prd_list li .item .info .price_area .price.regular_price{width:100%;margin:0 0 6px}
 .n_prd_list li .item .info .price_area .price.regular_price i{font-weight:500}
 .n_prd_list li .item .info .price_area .price.regular_price ins{font-weight:500}
-.product_lists_page .pagination{display:flex;align-items:center;justify-content:center;margin:60px auto 0}
+/* .product_lists_page .pagination{display:flex;align-items:center;justify-content:center;margin:60px auto 0}
 .product_lists_page .pagination>a{font-size:20px}
 .product_lists_page .pagination .arrow{width:40px;height:40px;line-height:40px;border:1px solid #ddd;background:url(../../images/shop/default/icon_page_prev.png) no-repeat center/6px;text-align:center;text-indent:-9999px}
 .product_lists_page .pagination .arrow.next{background-image:url(../../images/shop/default/icon_page_next.png)}
 .product_lists_page .pagination .page{margin:0 30px}
 .product_lists_page .pagination .page>a{font-size:20px;font-weight:350;color:#999}
 .product_lists_page .pagination .page>a:not(:last-of-type){margin-right:25px}
-.product_lists_page .pagination .page>a.on{color:#333}
+.product_lists_page .pagination .page>a.on{color:#333} */
+.product_lists_page .pagination{display:flex;align-items:center;justify-content:center;margin:60px auto 0}
+.product_lists_page .pagination ul{text-align:center}
+.product_lists_page .pagination ul>li{display:inline-block;min-width:30px;height:30px;vertical-align:middle}
+.product_lists_page .pagination li a, .product_lists_page .pagination li span{vertical-align:middle;font-family:'Spoqa Han Sans Neo',sans-serif;font-size:18px;height:24px}
+.product_lists_page .pagination li.on{padding-top:1px;background:#7a7d81}
+.product_lists_page .pagination li.on span{border-radius:0;font-weight:bold;color:#fff}
+.product_lists_page .pagination .btn_page{padding-top:1px}
+.product_lists_page .pagination .btn_page a{height:30px}
+.product_lists_page .pagination .btn_page a>img{width:20px;vertical-align:middle}
+.product_lists_page .pagination .btn_page_prev{margin-right:10px}
+.product_lists_page .pagination .btn_page_next{margin-left:10px}
 
 .search_product_lists_page .tab_area{margin-bottom:30px}
 .search_product_lists_page .prd_search{margin-bottom:40px}

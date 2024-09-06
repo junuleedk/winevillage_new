@@ -158,7 +158,7 @@ function logout() {
     });
 }
 $(document).ready(function () {
-    get_keyword_list_ajax();
+    //get_keyword_list_ajax();
 });
 function html_escape(str) {
     /**

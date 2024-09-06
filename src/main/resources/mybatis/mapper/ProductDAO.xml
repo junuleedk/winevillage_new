@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winevillage.product.IProductService">
+	<!-- (USER측)상품 리스트 출력 -->
+	<select id="listProduct"
+		resultType="com.winevillage.product.ProductDTO"
+		parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT bg_color, product_code, category, category_type, category_country, 
+				product_name, product_en_name, thumbnail, label_thumbnail,
+				label_type, label_country, label_grapevariety,
+				price_discount_rate, price_discount, price_original,
+				price_deal, price_deal_rate, price_deal_price, price_deal_amount,
+				vivino_score FROM product WHERE 1=1
+				<if test="classified == 'value'">
+					AND classified = 'value'
+				</if>
+				<if test="classified == 'exclusive'">
+					AND classified = 'exclusive'
+				</if>
+				<if test="classified == 'all'">
+					AND (classified = 'value' OR classified = 'exclusive' OR classified IS NULL)
+				</if>
+				<if test="category != null">
+					AND category = #{category}
+				</if>
+				<if test="category_type != null">
+					AND category_type = #{category_type}
+				</if>
+				<if test="category_country != null">
+					AND category_country = #{category_country}
+				</if>
+	            ORDER BY
+	            <choose>
+	                <when test="sort == null or sort == ''">
+	                    product_no DESC
+	                </when>
+	                <when test="sort == 'recent'">
+	                    product_no DESC
+	                </when>
+	                <when test="sort == 'price_asc'">
+	                    price_original ASC
+	                </when>
+	                <when test="sort == 'price_desc'">
+	                    price_original DESC
+	                </when>
+	            </choose>
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{start}
+		AND rNum<![CDATA[<=]]>#{end}
+	</select>
+
+	<!-- (USER측)상품 리스트 출력 개수 -->
+	<select id="getTotalCount" resultType="int"
+		parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT COUNT(*) FROM product WHERE 1=1
+	    <if test="classified == 'value'">
+	    	AND classified = 'value'
+	    </if>
+	    <if test="classified == 'exclusive'">
+	    	AND classified = 'exclusive'
+	    </if>
+	    <if test="classified == 'all'">
+	    	AND (classified = 'value' OR classified = 'exclusive' OR classified IS NULL)
+	    </if>
+	    <if test="category != null and category != ''">
+	        AND category = #{category}
+	    </if>
+	    <if test="category_type != null and category_type != ''">
+	        AND category_type = #{category_type}
+	    </if>
+	    <if test="category_country != null and category_country != ''">
+	        AND category_country = #{category_country}
+	    </if>
+	</select>
+</mapper>

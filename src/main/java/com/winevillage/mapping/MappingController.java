@@ -19,10 +19,10 @@ public class MappingController {
 	}
 	
 	/* 제품정보 */
-	@GetMapping("shop/product/product_lists.do")
-	public String product_lists() {
-		return "shop/product/product_lists";
-	}
+//	@GetMapping("shop/product/product_lists.do")
+//	public String product_lists() {
+//		return "shop/product/product_lists";
+//	}
 	@GetMapping("shop/product/product_view.do")
 	public String product_view() {
 		return "shop/product/product_view";
