@@ -19,9 +19,16 @@
 </div>
 <!-- //skip_menu -->
 
+<sec:authorize access="!isAuthenticated()">
 <!-- header -->
 <%@ include file="../common/header.jsp" %>
 <!-- //header -->
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+<!-- header - 로그인 상태 -->
+<%@ include file="../common/header_loggedin.jsp" %>
+<!-- //header - 로그인 상태 -->
+</sec:authorize>
 <%@ include file="../common/layer.jsp" %>
 <%@ include file="../common/script.jsp" %>
 
