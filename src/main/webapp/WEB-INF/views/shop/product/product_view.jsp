@@ -1,5 +1,11 @@
+<%@ page import="com.winevillage.product.ProductDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+	ProductDTO productDTO = (ProductDTO) request.getAttribute("product");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -42,7 +48,7 @@
 	<div class="pc_hidden">
 		<a href="javascript:history.go(-1);" class="prev">이전</a>
 		<div class="select_brand" id="select_brand">
-			<h2 class="my_value js_selectBtn">알파박스 앤 다이스 솔라 </h2>
+			<h2 class="my_value js_selectBtn">${product.product_name}</h2>
 		</div>
 		<p class="cart">
 			<a href="/shop/cart/cart_lists"><span>Cart List</span>
@@ -61,16 +67,32 @@
 		</div>
 		<div class="product_view_wrap">
 			<div class="main_prd_detail">
-				<div class="main_img_area" style="background:#E0D8EA">
+				<div class="main_img_area" style="background:${product.bg_color}">
 					<div class="main_img js_main_img easyzoom easyzoom--overlay easyzoom--with-toggle">
-						<img data-src="../../uploads/product/550/2783_detail_030.png" alt="" class="lozad">
+						<img data-src="../../uploads/product/550/${product.thumbnail}" alt="" class="lozad">
 						<!-- 일반 이미지 경로가 들어가야합니다. -->
 						<!-- 아래에도 확대이미지 경로를 넣어주셔야합니다. -->
 						<div class="easyzoom-flyout zoom_btn_active lozad" style="display:none">
-							<img data-src="../../uploads/product/550/2783_detail_030.png" style="position: absolute; top: 0px; left: 0px;">
+							<img data-src="../../uploads/product/550/${product.thumbnail}" style="position: absolute; top: 0px; left: 0px;">
 						</div>
 					</div>
 					<div class="label_wrap">
+						<%-- NEW 아이콘 --%>
+						<c:if test="${product.label_thumbnail_1 == 'icon new' || product.label_thumbnail_2 == 'icon new'}">
+						<span class="icon new">NEW</span>
+						</c:if>
+						<%-- SALE 아이콘 --%>
+						<c:if test="${product.label_thumbnail_1 == 'icon sale' || product.label_thumbnail_2 == 'icon sale'}">
+						<span class="icon sale">SALE</span>
+						</c:if>
+						<%-- BEST 아이콘 --%>
+						<c:if test="${product.label_thumbnail_1 == 'icon best' || product.label_thumbnail_2 == 'icon best'}">
+						<span class="icon best">BEST</span>
+						</c:if>
+						<%-- 기타 아이콘 --%>
+						<c:if test="${product.label_thumbnail_2 != null && product.label_thumbnail_2 != 'icon new' && item.label_thumbnail_2 != 'icon sale' && item.label_thumbnail_2 != 'icon best'}">
+						${product.label_thumbnail_2}
+						</c:if>
 					</div>
 				</div>
 				<div class="thumbnail">
@@ -79,12 +101,12 @@
 							<button type="button" class='thumnail_btn_js'>
 							<picture>
 								<!--[if IE 9]><video style="display: none;"><![endif]-->
-								<source srcset="../../uploads/product/550/2783_detail_030.png" media="(min-width:768px)">
+								<source srcset="../../uploads/product/550/${product.thumbnail}" media="(min-width:768px)">
 								<!-- pc이미지 -->
-								<source srcset="../../uploads/product/550/2783_detail_030.png" media="(max-width:767px)">
+								<source srcset="../../uploads/product/550/${product.thumbnail}" media="(max-width:767px)">
 								<!-- mb이미지 -->
 								<!--[if IE 9]></video><![endif]-->
-								<img src="../../uploads/product/550/2783_detail_030.png" alt="">
+								<img src="../../uploads/product/550/${product.thumbnail}" alt="">
 								<!-- pc이미지 -->
 							</picture>
 							</button>
@@ -95,9 +117,9 @@
 			<div class="info_area">
 				<div class="more_info">
 					<div class="over_wrap tit_wrap">
-						<p class="prd_name">알파박스 앤 다이스 솔라</p>
-						<p class="prd_en_name">ALPHA BOX AND DICE XOLA</p>
-						<p class="prd_info">알리아니코 품종이 가진 이중성을 완벽하게 조화시킨 부띠끄 와인</p>
+						<p class="prd_name">${product.product_name}</p>
+						<p class="prd_en_name">${product.product_en_name}</p>
+						<p class="prd_info">${product.product_info}</p>
 						<div class="share_area">
 							<button type="button" class="open">공유</button>
 							<div class="share_layer">
@@ -117,77 +139,163 @@
 						</div>
 					</div>
 					<ul class="cate_label">
-						<li class="label" style="background:#E0D8EA">레드</li>
-						<li class="label" style="background:#E0D8EA">호주</li>
-						<li class="label" style="background:#E0D8EA">기타</li>
+						<c:if test="${not empty product.label_type}">
+						<li class="label" style="background:${product.bg_color}">${product.label_type}</li>
+						</c:if>
+						<c:if test="${not empty product.label_country}">
+						<li class="label" style="background:${product.bg_color}">${product.label_country}</li>
+						</c:if>
+						<c:if test="${not empty product.label_grapevariety}">
+						<li class="label" style="background:${product.bg_color}">${product.label_grapevariety}</li>
+						</c:if>
 					</ul>
 					<div class="price_box">
 						<p class="price info_box">
-							<ins class="out out_price">70,000원</ins><br>
-							<ins class="out tel">매장문의<a href="javascript:commonUI.layer.open('store_layer')">문의 매장정보 열기</a></ins>
+							<c:choose>
+							<c:when test="${product.stock == '0'}">
+							<ins class="out out_price"><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</ins><br>
+							<ins class="out tel">매장문의<a href="javascript:commonUI.layer.open('store_layer')">문의 매장정보 열기</a></ins>							
+							</c:when>
+							<c:otherwise>
+							<c:choose>
+							<c:when test="${product.price_discount != null && product.price_discount != '0'}">
+							<span>${product.price_discount_rate}%</span>
+							<ins><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</ins>
+							<del><fmt:formatNumber value="${product.price_discount}" pattern="#,###"/>원</del>
+							</c:when>
+							<c:otherwise>
+							<ins><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</ins>
+							</c:otherwise>
+							</c:choose>
+							</c:otherwise>
+							</c:choose>
 						</p>
+						<c:if test="${product.price_deal == 1}">
+						<p class="price sale">
+							<span>${product.price_deal_rate}%</span>
+							<em>${product.price_deal_amount}병 이상 구매시</em>
+							<ins><fmt:formatNumber value="${product.price_deal_price}" pattern="#,###"/>원</ins>
+							<em>(1병 기준)</em>
+						</p>
+						</c:if>
 					</div>
 					<!-- 픽업제외매장 -> 픽업가능매장으로 변경 -->
+					<c:if test="${not empty product.exclude}">
+					<p class="exclude">
+						${product.exclude}
+					</p>					
+					</c:if>
 					<!-- //픽업제외매장 -> 픽업가능매장으로 변경 -->
+					<c:if test="${not empty product.sale_txt}">
+					<p class="sale_txt">${product.sale_txt}</p>
+					</c:if>
 					<div class="buy_process">
 						<div class="black_bg">&nbsp;</div>
 						<div class="hide_process">
 						</div>
 						<div class="btn_area">
 							<button type="button" class="btn_txt wish_btn" onclick='commonUI.layer.open("login_layer");'>찜하기</button>
+							<c:choose>
+							<c:when test="${product.stock == '0'}">
 							<!-- 매장문의 -->
-							<button type="button" class="btn_txt cart_btn buy_process_btn" disabled>구매 희망 시, 방문가능한 매장으로 문의해주세요.</button>
+							<button type="button" class="btn_txt cart_btn buy_process_btn" disabled>구매 희망 시, 방문가능한 매장으로 문의해주세요.</button>							
+							</c:when>
+							<c:otherwise>
+							<!--피씨-->
+							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'shopping_basket'}); chklayer();" class="btn_txt cart_btn buy_process_btn">장바구니</button>
+							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'buying'}); chklayer();" class="btn_txt buy_btn btn_black buy_process_btn">바로구매</button>
+							<!--피씨-->
+							</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<dl class="details">
+						<c:set var="bg_color" value="${product.bg_color}" />
+						<c:set var="styleAttr" value=" style=\"background:${bg_color};\"" />
+						<c:if test="${product.sweetness != null && product.sweetness != ''}">
+						<dt>당도</dt>
+						<dd>
+							<span class="label"${product.sweetness == '1' ? styleAttr : ''}>드라이</span>
+							<span class="label"${product.sweetness == '2' ? styleAttr : ''}>미디움드라이</span>
+							<span class="label"${product.sweetness == '3' ? styleAttr : ''}>미디엄</span>
+							<span class="label"${product.sweetness == '4' ? styleAttr : ''}>미디움스윗</span>
+							<span class="label"${product.sweetness == '5' ? styleAttr : ''}>스윗</span>
+						</dd>
+						</c:if>
+						<c:if test="${product.body != null && product.body != ''}">
 						<dt>바디</dt>
 						<dd>
-							<span class="label">가벼움</span>
-							<span class="label">약간가벼움</span>
-							<span class="label" style="background:#E0D8EA">중간</span>
-							<span class="label">약간무거움</span>
-							<span class="label">무거움</span>
+							<span class="label"${product.body == '1' ? styleAttr : ''}>가벼움</span>
+							<span class="label"${product.body == '2' ? styleAttr : ''}>약간가벼움</span>
+							<span class="label"${product.body == '3' ? styleAttr : ''}>중간</span>
+							<span class="label"${product.body == '4' ? styleAttr : ''}>약간무거움</span>
+							<span class="label"${product.body == '5' ? styleAttr : ''}>무거움</span>
 						</dd>
+						</c:if>
+						<c:if test="${product.acidity != null && product.acidity != ''}">
 						<dt>산도</dt>
 						<dd>
-							<span class="label">낮음</span>
-							<span class="label">약간낮음</span>
-							<span class="label" style="background:#E0D8EA">중간</span>
-							<span class="label">약간높음</span>
-							<span class="label">높음</span>
+							<span class="label"${product.acidity == '1' ? styleAttr : ''}>낮음</span>
+							<span class="label"${product.acidity == '2' ? styleAttr : ''}>약간낮음</span>
+							<span class="label"${product.acidity == '3' ? styleAttr : ''}>중간</span>
+							<span class="label"${product.acidity == '4' ? styleAttr : ''}>약간높음</span>
+							<span class="label"${product.acidity == '5' ? styleAttr : ''}>높음</span>
 						</dd>
+						</c:if>
+						<c:if test="${product.tannins != null && product.tannins != ''}">
 						<dt>타닌</dt>
 						<dd>
-							<span class="label">약함</span>
-							<span class="label">약간약함</span>
-							<span class="label">중간</span>
-							<span class="label" style="background:#E0D8EA">약간강함</span>
-							<span class="label">강함</span>
+							<span class="label"${product.tannins == '1' ? styleAttr : ''}>약함</span>
+							<span class="label"${product.tannins == '2' ? styleAttr : ''}>약간약함</span>
+							<span class="label"${product.tannins == '3' ? styleAttr : ''}>중간</span>
+							<span class="label"${product.tannins == '4' ? styleAttr : ''}>약간강함</span>
+							<span class="label"${product.tannins == '5' ? styleAttr : ''}>강함</span>
 						</dd>
+						</c:if>
+						<c:if test="${product.alcohol != null && product.alcohol != ''}">
 						<dt>알코올</dt>
 						<dd>
-							<span class="label">낮음(~11%)</span>
-							<span class="label">중간(12~13%)</span>
-							<span class="label" style="background:#E0D8EA">높음(14%+)</span>
+							<span class="label"${product.alcohol == '1' ? styleAttr : ''}>낮음(~11%)</span>
+							<span class="label"${product.alcohol == '2' ? styleAttr : ''}>중간(12~13%)</span>
+							<span class="label"${product.alcohol == '3' ? styleAttr : ''}>높음(14%+)</span>
 						</dd>
+						</c:if>
 					</dl>
+					<c:if test="${not empty product.vivino_link}">
 					<div class="wn_babel">
 						<div class="box">
-							<a href="https://www.vivino.com/NL/en/alpha-box-and-dice-xola/w/4658173" target="_blank">
+							<a href="${product.vivino_link}" target="_blank">
 							<div class="img">
 								<img src="../../asset/images/shop/default/ico_vivino_small.png" alt="">
 							</div>
 							<div class="info">
-								<strong>4.1</strong>
+								<%
+								// 제품의 vivino_score 값을 가져옵니다.
+								Double vivinoScore = null;
+								if (productDTO != null && productDTO.getVivino_score() != null) {
+									try {
+										vivinoScore = Double.parseDouble(productDTO.getVivino_score());
+									} catch (NumberFormatException e) {
+										vivinoScore = 0.0; // 변환 실패 시 기본값 설정
+									}
+								}
+								// 백분율로 계산합니다. 예를 들어, 10이 최대값이라면 100으로 나누어 100을 곱합니다.
+								int vivino_star = (vivinoScore != null) ? (int) ((vivinoScore / 5.0) * 100) : 0;
+								%>
+								<strong>${product.vivino_score}</strong>
 								<div class="star_area">
-									<div class="star_cover" style="width:82%">&nbsp;</div>
+									<div class="star_cover" style="width:<%= vivino_star %>%">&nbsp;</div>
 									<div class="star">&nbsp;</div>
 								</div>
-								<p>290 ratings</p>
+								<p>${product.vivino_ratings} ratings</p>
 							</div>
 							</a>
 						</div>
 					</div>
+					<c:if test="${product.info_btn == '1'}">
+					<a href="#" onclick="alert('상품 정보가 없습니다.');return false;" class="info_btn">상품정보 다운로드</a>
+					</c:if>
+					</c:if>
 				</div>
 				<!-- 문의 매장정보 레이어 -->
 				<div class="layer store_layer" id="store_layer">
@@ -261,6 +369,7 @@
 					</div>
 				</div>
 				<!-- //문의 매장정보 레이어 -->
+				${product.etc}
 			</div>
 			<div class="tab_area">
 				<div class="tab_btn">
@@ -270,11 +379,13 @@
 								<span>PRODUCT</span>
 							</button>
 						</li>
+						<%-- 차후 변경 --%>
 						<li>
 							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'winery_info'})">
 								<span>RELATED PRODUCT</span>
 							</button>
 						</li>
+						<%-- 차후 변경 --%>
 						<li>
 							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'winery_info'})">
 								<span>REVIEW (1)</span>
@@ -283,552 +394,13 @@
 					</ul>
 				</div>
 				<div class="tab_con detail_con on">
-					<img src="../../uploads/editor/data/editor/goods/210810/102_105204.png" title="102_105204.png" class="js-smart-img">
-					<!-- <p style="text-align: center;" align="center"> <img src=" /uploads/editor/data/editor/goods/210810/9468c676ae990ab30b0fbba4d5d1dafc_100445.png" title="9468c676ae990ab30b0fbba4d5d1dafc_100445.png" class="js-smart-img"> </p> -->
-					<div class="txt_area">
-						<p>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b>
-								<span style="font-family: arial; font-size: 9pt;">&gt;구매예약 안내&lt;</span>
-							</b>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-family: arial; font-size: 9pt;">
-								<b style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif;">
-									<span style="font-family: arial; font-size: 9pt;">·</span>
-								</b>
-								<span style="color: rgb(255, 0, 0);">상품 이미지에 표시된 빈티지는 상품 이해를 돕기 위한 샘플 이미지입니다. 빈티지가 상품명에 별도 표기되지 않은 상품은 특정 빈티지로 입고되지 않습니다.</span>
-							</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">· </span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt; color: rgb(255, 0, 0);">주류통신 판매에 대한 명령위임 고시에 따라 주류상품은 온라인 결제는 가능하나 배송은 불가합니다.</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">· 일부 제품의 경우 수입사의 사정에 따라 취소 및 환불처리가 될 수 있습니다.</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt; color: rgb(255, 0, 0);"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">
-								<span style="color: rgb(0, 0, 0);">인터넷PC와 모바일앱(App)을 통해 신용카드 결제 또는 간편 결제중 하나를 선택하고 </span>
-							</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-family: arial; font-size: 9pt; color: rgb(255, 0, 0);"> 원하시는 수령 매장과 일자를 지정한 후 해당일에 방문 수령 가능합니다.</span>
-							<span style="font-size: 9pt; font-family: arial;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">· </span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">주류가 아닌 상품(악세사리 등)은 온라인 구매와 배송이 가능합니다. (주류가 아닌 상품의 배송 별도 안내)</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 10pt;">
-								<span style="font-family: arial; font-size: 9pt;">* 주류상품의 매장 방문수령</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">· </span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">수령은 예약 당사자에 한하여 가능하며, 제3자 위임은 불가합니다.</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"> 온라인 구매 예약을 통한 방문 수령시 각 매장의 샵마스터는 상품 수령을 돕고자 아래의 항목을 확인합니다.</span>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;"></span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">①</span>
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;"></span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">수령자 본인 확인 (회원가입시 등록된 이름, 연락처 뒷번호 4자리, 본인확인 및 성인인증을 위한 신분증)</span>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<b style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif;">
-									<span style="font-family: arial; font-size: 9pt;"></span>
-								</b>
-							</span>
-							<span style="font-family: arial; font-size: 9pt;">②</span>
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;"></span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">결제 완료시 발송되는 주문번호와 주문내용 SMS 확인</span>
-						</p>
-						<div style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin: 0px; padding: 0px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<p>
-								<span style="font-family: 나눔고딕, NanumGothic; font-size: 10pt;">
-									<b style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif;"><br></b>
-								</span>
-							</p>
-							<p>
-								<span style="font-family: 나눔고딕, NanumGothic; font-size: 10pt;">
-									<b style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif;">
-										<span style="font-family: arial; font-size: 9pt;">* 구매예약시 유의사항 </span>
-									</b>
-								</span>
-							</p>
-						</div>
-						<div style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin: 0px; padding: 0px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">· </span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;">구매예약 상품의 매장별 재고, 상세 빈티지 확인은 해당 매장에 문의주시기 바랍니다.</span>
-							<br>
-						</div>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<b style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif;">
-									<span style="font-family: arial; font-size: 9pt;">·</span>
-								</b>
-							</span>
-							<span style="font-size: 9pt; font-family: arial;"> 구매예약한 상품은 수령 지정일로부터 5일 이내에만 해당 매장에서만 수령이 가능하며, </span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-size: 9pt; font-family: arial;"> 지정일로부터 5일 이후 해당 매장에서 수령이 필요하신 경우 해당 매장에 문의하여 수령 일정을 조정 하여 주시기 바랍니다.</span>
-						</p>
-						<p>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 10pt;">
-								<span style="font-family: arial; font-size: 9pt;">&gt;주류상품&lt;</span>
-							</b>
-							<span style="font-size: 9pt; font-family: arial;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<span style="font-family: arial; font-size: 9pt;">
-								<b style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif;">
-									<span style="font-family: arial; font-size: 9pt;">·</span>
-								</b> 교환 및 반품은 상품 수령 후 7일 이내 가능합니다. 
-							</span>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"> 해당 예약 상품은 타상품으로 교환이 불가능 합니다. </span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"> 증정품이 있을 경우 증정품을 사용한 경우 반품(환불)이 불가합니다.</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"> 주류상품의 교환 및 반품은 와인나라 직영 매장에서만 가능합니다. </span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"> 상품(또는 케이스) 택(tag)제거,전면부 라벨 손상(오염),개봉으로 상품 가치 훼손 시에는 상품수령후 7일 이내라도 교환 및 반품이 불가능합니다.</span>
-						</p>
-						<p style="font-family: Poppins, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', malgun, Apple-Gothic, 애플고딕, Tahoma, dotum, 돋움, gulim, 굴림, sans-serif; margin-bottom: 3px; font-size: 13px; background-color: rgb(255, 255, 255);">
-							<b style="font-family: 나눔고딕, NanumGothic; font-size: 13.3333px;">
-								<span style="font-family: arial; font-size: 9pt;">·</span>
-							</b>
-							<span style="font-family: arial; font-size: 9pt;"> 일부 상품은 신규 빈티지 출시, 수입 가격 변동 등 제조사 사정으로 가격이 변동될 수 있습니다.</span>
-							<span style="font-family: arial; font-size: 9pt;"></span>
-						</p>
-					</div>
+					${ product.content }
 				</div>
 				<div class="tab_con prd_con">
-					<ul class="n_prd_list" id="SimilarWine">
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0D8EA">
-									<a href="/shop/product/product_view?product_cd=03P865" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/5cbb82ccdcb8b5538f5857ac830b81e5.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/5cbb82ccdcb8b5538f5857ac830b81e5.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/5cbb82ccdcb8b5538f5857ac830b81e5.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<div class="btn">
-										<button type="button" class="wish wish_03P865 " id="wish_03P865" onclick="product.likeProduct('03P865');"><span>찜하기</span></button>
-									</div>
-									<p class="vivino">VIVINO<em>4.4</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03P865">알파박스 앤 다이스 헤라클레스<span class="en">ALPHA BOX AND DICE HERCULES</span></a>
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0D8EA">호주</span><span style="background:#E0D8EA">쉬라즈</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<!--  
-											<span>24%</span>
-											-->
-											<!--
-											<del>130,000원</del>
-											-->
-											<ins>99,000원</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0D8EA">
-									<a href="/shop/product/product_view?product_cd=03P861" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/3465e954224ca6261e56f55276333029.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/3465e954224ca6261e56f55276333029.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/3465e954224ca6261e56f55276333029.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<p class="vivino">VIVINO<em>4.0</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03P861">알파박스 앤 다이스 아포스틀<span class="en">ALPHA BOX AND DICE APOSTLE</span></a>
-										</p>
-										<p class="prd_info">
-											예수의 피를 모델로 강렬하고 우아함을 표현한 부띠끄 와인
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0D8EA">레드</span><span style="background:#E0D8EA">호주</span><span style="background:#E0D8EA">쉬라즈</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<ins class="out">매장문의</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0D8EA">
-									<a href="/shop/product/product_view?product_cd=03P857" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/1858_detail_01.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/1858_detail_01.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/1858_detail_01.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<div class="btn">
-										<button type="button" class="wish wish_03P857 " id="wish_03P857" onclick="product.likeProduct('03P857');"><span>찜하기</span></button>
-									</div>
-									<p class="vivino">VIVINO<em>4.2</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03P857">알파박스 앤 다이스 블러드 오브 쥬피터<span class="en">ALPHA BOX AND DICE BLOOD OF JUPITER </span></a>
-										</p>
-										<p class="prd_info">
-											알파 박스 앤 다이스에서 사람들이 가장 많이 찾으면서도 희귀한 존재. 수퍼 투스칸을 좋아한다면 실망하지 않을 와인.
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0D8EA">레드</span><span style="background:#E0D8EA">호주</span><span style="background:#E0D8EA">산지오베제</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<!--  
-											<span>30%</span>
-											-->
-											<!--
-											<del>70,000원</del>
-											-->
-											<ins>49,000원</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0D8EA">
-									<a href="/shop/product/product_view?product_cd=03P860" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/274bf308b075ed1755f2a13c02ccb74a.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/274bf308b075ed1755f2a13c02ccb74a.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/274bf308b075ed1755f2a13c02ccb74a.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<p class="vivino">VIVINO<em>4.2</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03P860">알파박스 앤 다이스 아이코나<span class="en">ALPHA BOX AND DICE ICONA</span></a>
-										</p>
-										<p class="prd_info">
-											맥라렌베일에서 표현할 수 있는 카베르네소비뇽의 진수를 보여주는 싱글빈야드 와인
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0D8EA">레드</span><span style="background:#E0D8EA">호주</span><span style="background:#E0D8EA">카베르네 소비뇽</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<ins class="out">매장문의</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0D8EA">
-									<a href="/shop/product/product_view?product_cd=03P859" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/37be0197b88bcf0bf3fed79bf18db85c.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/37be0197b88bcf0bf3fed79bf18db85c.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/37be0197b88bcf0bf3fed79bf18db85c.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<p class="vivino">VIVINO<em>4.0</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03P859">알파박스 앤 다이스 시렌<span class="en">ALPHA BOX AND DICE SIREN</span></a>
-										</p>
-										<p class="prd_info">
-											지중해성 기후에서 재배한 네로다볼라 품종의 독특한 매력을 느낄 수 있는 와인. 오크의 직접적인 영향을 배제하기 위해 오래된 부르고뉴산 프렌치 오크통을 사용하고 장기간 천천히 부드러운 숙성을 시킨 와인.
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0D8EA">레드</span><span style="background:#E0D8EA">호주</span><span style="background:#E0D8EA">기타</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<ins class="out">매장문의</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0D8EA">
-									<a href="/shop/product/product_view?product_cd=03Q462" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/39b6eb54c95c3e1a84dabde3c6b68094.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/39b6eb54c95c3e1a84dabde3c6b68094.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/39b6eb54c95c3e1a84dabde3c6b68094.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<p class="vivino">VIVINO<em>4.0</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03Q462">알파박스 앤 다이스 미스트레스<span class="en">ALPHA BOX AND DICE MISTRESS</span></a>
-										</p>
-										<p class="prd_info">
-											포르투갈의 토착품종으로 포트와인을 만들때 많이 사용되는 Touriga Nacional 품종과 스페인 리오하의 템프라니요 품종, 손으로 수확한 까리냥 품종을 사용하여 이베리아반도 스타일의 블렌딩을 보여주는 와인.
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0D8EA">레드</span><span style="background:#E0D8EA">호주</span><span style="background:#E0D8EA">기타</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<ins class="out">매장문의</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#D7F9E2">
-									<a href="/shop/product/product_view?product_cd=04D680" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/e0a2993e111d1f5f59b09d321d6f97f3.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/e0a2993e111d1f5f59b09d321d6f97f3.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/e0a2993e111d1f5f59b09d321d6f97f3.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<p class="vivino">VIVINO<em>3.9</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=04D680">알파박스 앤 다이스 데드 와인메이커스 소사이어티 뮈스카<span class="en">ALPHA BOX AND DICE DEAD WINEMAKERS SOCIETY MUSCAT</span></a>
-										</p>
-										<p class="prd_info">
-											화이트와인을 껍질과 함께 침용시키고 오크통에 숙성하여 만든 오렌지 와인.
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#D7F9E2">디저트</span><span style="background:#D7F9E2">호주</span><span style="background:#D7F9E2">모스카토</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<ins class="out">매장문의</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#F6EC9C">
-									<a href="/shop/product/product_view?product_cd=03P853" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/1856_detail_055.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/1856_detail_055.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/1856_detail_055.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<p class="vivino">VIVINO<em>3.7</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=03P853">알파박스 앤 다이스 골든 멀렛 퓨리<span class="en">ALPHA BOX AND DICE GOLDEN MULLET FURY (CORE)</span></a>
-										</p>
-										<p class="prd_info">
-											눈길을 사로잡는 황금빛과 입에 착 붙는 부드러운 질감, 입에 퍼지는 달콤한 타닌감이 매력적인 와인.
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#F6EC9C">레드</span><span style="background:#F6EC9C">호주</span><span style="background:#F6EC9C">세미용</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<ins class="out">매장문의</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="item">
-								<div class="main_img" style="background:#E0EBF8">
-									<a href="/shop/product/product_view?product_cd=02A731" class="prd_img table_box">
-										<picture>
-											<!--[if IE 9]><video style="display: none;"><![endif]-->
-											<source srcset="../../uploads/product/9093f593b52665f090cc6d382936b147.png" media="(min-width:768px)">
-											<!-- pc이미지 -->
-											<source srcset="../../uploads/product/9093f593b52665f090cc6d382936b147.png" media="(max-width:767px)">
-											<!-- mb이미지 -->
-											<!--[if IE 9]></video><![endif]-->
-											<img src="../../uploads/product/9093f593b52665f090cc6d382936b147.png" alt="">
-											<!-- pc이미지 -->
-										</picture>
-									</a>
-									<div class="btn">
-										<button type="button" class="wish wish_02A731 " id="wish_02A731" onclick="product.likeProduct('02A731');"><span>찜하기</span></button>
-									</div>
-									<p class="vivino">VIVINO<em>3.9</em></p>
-									<div class="label_wrap"></div>
-								</div>
-								<div class="info">
-									<div class="more_info">
-										<p class="prd_name">
-											<a href="/shop/product/product_view?product_cd=02A731">알파박스 앤 다이스 타로 프로세코<span class="en">ALPHA BOX AND DICE TAROT PROSECCO</span></a>
-										</p>
-										<p class="prd_info">
-											섬세한 아로마와 프레쉬한 산도가 매력적인 프로세코 와인으로 더운 여름 시원하게 마셨을 때 청량감을 느낄 수 있는 와인.
-										</p>
-									</div>
-									<div class="cate_label">
-										<span style="background:#E0EBF8">스파클링</span><span style="background:#E0EBF8">호주</span><span style="background:#E0EBF8">기타</span>
-									</div>
-									<div class="price_area">
-										<p class="price">
-											<!--  
-											<span>29%</span>
-											-->
-											<!--
-											<del>35,000원</del>
-											-->
-											<ins>25,000원</ins>
-										</p>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<div class="btn_area" id="more_button_wine">
+					<%@ include file="product_view/n_prd_list.jsp" %>
+					<!-- <div class="btn_area" id="more_button_wine">
 						<button type="button" onclick="getList('add')" class="btn_txt"><span>더보기</span></button>
-					</div>
+					</div> -->
 				</div>
 				<!--<div class="tab_con detail_con">
 					<p style="text-align: center;" align="center"> <img src=" /uploads/editor/data/editor/goods/210810/9468c676ae990ab30b0fbba4d5d1dafc_100445.png" title="9468c676ae990ab30b0fbba4d5d1dafc_100445.png" class="js-smart-img"> </p>                </div>-->
@@ -838,6 +410,7 @@
 					</div>
 				</div> -->
 				<div class="tab_con review_con">
+					<%-- 차후 구현 --%>
 					<div class="ratings_tit">
 						<p>5.0 <em>(1 ratings)</em></p>
 					</div>
@@ -875,6 +448,7 @@
 	</div>
 </div>
 <div class="layer buy_process_layer">
+	<%-- 차후 구현 --%>
 	<div class="display_table">
 		<div class="table_cell">
 			<div class="layer_area">
@@ -937,6 +511,7 @@
 </div>
 <!-- 리뷰 레이어 (유형 퍼블 추가) -->
 <div class="layer review_img_layer">
+	<%-- 차후 구현 --%>
 	<div class="display_table">
 		<div class="table_cell">
 			<div class="layer_area">
@@ -1124,10 +699,10 @@ $('.thumnail_btn_js').on('click', function(){
 });
 // 비비노 키워드
 $(function() {
-	var product_cd = '03P858';
+	var product_cd = '${product.product_code}';
 	var words = [];	// 키워드 담을 배열
 	var mobile_chk = 'WEB';
-	Csrf.Set(_CSRF_NAME_); //토큰 초기화
+	//Csrf.Set(_CSRF_NAME_); //토큰 초기화
 	// $.ajax({
 	// 	type: "POST",
 	// 	url : "/shop/product/vivino_keyword_ajax",

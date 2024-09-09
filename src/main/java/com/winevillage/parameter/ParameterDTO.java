@@ -1,5 +1,6 @@
 package com.winevillage.parameter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;

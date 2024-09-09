@@ -392,6 +392,7 @@
 	<a href="/shop/cart/cart_lists" class="fixed_cart"></a>
 </div>
 <!-- mb_lnb -->
+<c:if test="${empty product.product_code}">
 <div class="mb_lnb pc_hidden">
 	<ul>
 		<!-- <li class="btn_back"><button type="button" onclick="location.href='javascript:history.go(-1)';">mobile back</button></li> -->
@@ -420,10 +421,11 @@
 		<li class="btn_mypage"><button type="button" onclick="location.href='/shop/mypage/shopping/mypage'"><span>MY PAGE</span></button></li>
 	</ul>
 </div>
-<form action="https://www.winenara.com/shop/order/barcode_view" id="BarcodeForm" name="BarcodeForm" method="post" accept-charset="utf-8">
+<!-- <form action="https://www.winenara.com/shop/order/barcode_view" id="BarcodeForm" name="BarcodeForm" method="post" accept-charset="utf-8">
 	<input type="hidden" name="witplus_csrf_token" value="826caf4a31037286f831f231532bd8ac">
 	<input type="hidden" name="barcode" value="">
-</form>
+</form> -->
+</c:if>
 <!-- //mb_lnb -->
 <!-- 뒤로가기 하단 팝업 -->
 <!-- <div class="back_event">

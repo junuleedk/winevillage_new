@@ -253,4 +253,45 @@ public class ProductController {
 		
 		return "shop/product/product_lists";
 	}
+	
+	@GetMapping("shop/product/product_view.do")
+	public String viewProduct(Model model, ProductDTO productDTO) {
+		productDTO = dao.viewProduct(productDTO);
+		
+		//Related Product를 저장하기 위한 ArrayList 생성
+		List<ProductDTO> relatedProductsList = new ArrayList<>();
+		//related_product 칼럼은 String으로 되어 있다. DAO에서 String으로 된 값 받아옴.
+		String relatedProducts = dao.selectRelatedProductCodes(productDTO);
+		//relatedProducts가 null이 아니면
+	    if (relatedProducts != null) {
+	    	//related_product 값에 있는 상품번호를 String[]로 저장.
+	        String[] product_codes = relatedProducts.split("/");
+	        for (String product_code : product_codes) {
+	            productDTO.setProduct_code(product_code.trim());
+	            ProductDTO relatedProduct = dao.viewProduct(productDTO);
+	            // 이제 relatedProduct에 관련 상품 정보가 담겨있습니다.
+	            // 이를 모델에 추가하거나 원하는 대로 사용할 수 있습니다.
+	            relatedProductsList.add(relatedProduct);
+	        }
+	    }
+	    //Related Product를 model에 전달
+	    model.addAttribute("relatedProducts", relatedProductsList);
+		
+		String labelThumbnail = productDTO.getLabel_thumbnail(); // 실제로 label_thumbnail 값을 가져옴
+
+		// label_thumbnail 값 처리
+		if (labelThumbnail != null && !labelThumbnail.isEmpty()) {
+			// '//'을 기준으로 나눕니다.
+			String[] parts = labelThumbnail.split("\\/\\/", 2);
+			String part1 = parts.length > 0 ? parts[0].trim() : "";
+			String part2 = parts.length > 1 ? parts[1].trim() : "";
+
+			// 상품 객체에 iconPart와 htmlPart 값을 추가
+			productDTO.setLabel_thumbnail_1(part1);
+			productDTO.setLabel_thumbnail_2(part2);
+		}
+		
+		model.addAttribute("product", productDTO);
+		return "shop/product/product_view";
+	}
 }

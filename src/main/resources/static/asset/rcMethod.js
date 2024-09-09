@@ -99,7 +99,7 @@ const RC_Method = async (paramsObject) => {
         };
     }
 
-    POST_LOG()
+    //POST_LOG()
 }
 
 

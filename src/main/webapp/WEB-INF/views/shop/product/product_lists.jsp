@@ -157,9 +157,11 @@
 			var state = '${classified}';
 			if(state == "exclusive"){	// 매장문의(2022-11-28 soldout랑 통합)
 				$("#cate_txt").text("EXCLUSIVE");
-			}else if(state == "all"){
+			} else if(state == "all"){
 				$("#cate_txt").text("ALL");
-			}else{
+			} else if(state == "") {
+				$("#cate_txt").text("ALL");
+			} else{
 				$("#cate_txt").text("VALUE");
 			}
 			filter_submit();

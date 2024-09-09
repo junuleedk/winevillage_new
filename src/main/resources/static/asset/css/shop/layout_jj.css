@@ -465,7 +465,7 @@
 .product_view_page .buy_process{position:fixed;bottom:0;left:0;right:0;z-index:150}
 .product_view_page .buy_process .hide_process{display:none;position:relative;z-index:150}
 .product_view_page .buy_process .btn_area{position:relative;padding:10px 20px;background:#fff;overflow:hidden;z-index:150}
-.product_view_page .buy_process .btn_area .buy_process_btn{display:none}
+/* .product_view_page .buy_process .btn_area .buy_process_btn{display:none} */
 .product_view_page .buy_process .btn_area .wish_btn{float:left;width:50px;overflow:hidden;text-indent:-9999px;background:url(../../images/shop/default/wish.png) 50% no-repeat}
 .product_view_page .buy_process .btn_area .wish_btn.on{background:url(../../images/shop/default/icon_wish_default_gd_on.png) 50% no-repeat}
 .product_view_page .buy_process .btn_area .cart_btn:disabled{float:left;width:calc( 100% - 55px );margin-left:5px}

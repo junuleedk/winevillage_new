@@ -135,7 +135,6 @@
 				</c:when>
 				<c:when test="${item.stock == 0}">
 				<ins class="out">매장문의</ins>
-				<ins class="out out_price">50,000원</ins>
 				</c:when>
 				<c:otherwise>
 				<ins><fmt:formatNumber value="${item.price_original}" pattern="#,###"/>원</ins>				

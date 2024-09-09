@@ -328,6 +328,7 @@
     <a href="/shop/cart/cart_lists" class="fixed_cart"></a>
 </div>
 <!-- mb_lnb -->
+<c:if test="${empty product.product_code}">
 <div class="mb_lnb pc_hidden">
     <ul>
         <!-- <li class="btn_back"><button type="button" onclick="location.href='javascript:history.go(-1)';">mobile back</button></li> -->
@@ -360,6 +361,7 @@
     <input type="hidden" name="witplus_csrf_token" value="be7b38b9302ff3c05cc7f68a617d7dd7"/>
     <input type="hidden" name="barcode" value="">
 </form> -->
+</c:if>
 <!-- //mb_lnb -->
 <!-- 뒤로가기 하단 팝업 -->
 <!-- <div class="back_event">

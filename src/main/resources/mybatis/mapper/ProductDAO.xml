@@ -145,6 +145,17 @@
 			</choose>
 		</if>
     </select>
+    
+    <!-- (USER측)상품 상세페이지 -->
+	<select id="viewProduct" resultType="com.winevillage.product.ProductDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+	SELECT * FROM product WHERE product_code=#{product_code}
+	</select>
+	
+	<select id="selectRelatedProductCodes" resultType="java.lang.String"
+		parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT related_product FROM product WHERE product_code=#{product_code}
+	</select>
 	
 	<!-- (USER측)상품 리스트 검색 -->
 	<select id="searchProduct" resultType="com.winevillage.product.ProductDTO"
