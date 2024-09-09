@@ -2,7 +2,36 @@
     pageEncoding="UTF-8"%>
 <div class="prd_list_tit">
 	<div class="top">
-		<h2></h2>
+		<h2>
+		<c:if test="${category == '10000' && category_type == '[]' && category_country == '[]'}">WINE</c:if>
+		<c:if test="${category_type == '[10101]'}">RED</c:if>
+		<c:if test="${category_type == '[10102]'}">WHITE</c:if>
+		<c:if test="${category_type == '[10103]'}">SPARKLING</c:if>
+		<c:if test="${category_type == '[10104]'}">DESSERT</c:if>
+		<c:if test="${category_type == '[10105]'}">FORTIFIED</c:if>
+		<c:if test="${category_type == '[10108]'}">ROSE</c:if>
+		<c:if test="${category_country == '[10201]'}">프랑스</c:if>
+		<c:if test="${category_country == '[10202]'}">이탈리아</c:if>
+		<c:if test="${category_country == '[10203]'}">스페인</c:if>
+		<c:if test="${category_country == '[10204]'}">독일</c:if>
+		<c:if test="${category_country == '[10205]'}">칠레</c:if>
+		<c:if test="${category_country == '[10206]'}">미국</c:if>
+		<c:if test="${category_country == '[10207]'}">호주</c:if>
+		<c:if test="${category_country == '[10208]'}">뉴질랜드</c:if>
+		<c:if test="${category_country == '[10209]'}">아르헨티나</c:if>
+		<c:if test="${category_country == '[10210]'}">기타 구대륙</c:if>
+		<c:if test="${category_country == '[10211]'}">기타 신대륙</c:if>
+		<c:if test="${category_country == '[10213]'}">포르투갈</c:if>
+		<c:if test="${category == '20000' && category_type == '[]'}">BEER&LIQUOR</c:if>
+		<c:if test="${category_type == '[20101]'}">위스키</c:if>
+		<c:if test="${category_type == '[20102]'}">꼬냑</c:if>
+		<c:if test="${category_type == '[20103]'}">진</c:if>
+		<c:if test="${category_type == '[20105]'}">데킬라</c:if>
+		<c:if test="${category_type == '[20106]'}">럼</c:if>
+		<c:if test="${category_type == '[20201]'}">맥주</c:if>
+		<c:if test="${category == '40000'}">OTHER</c:if>
+		<c:if test="${category == '50000'}">TICKET</c:if>
+		</h2>
 		<div class="line_map">
 			<ul>
 				<li onclick="location.href='/shop/main'" style="cursor: pointer;">HOME</li>

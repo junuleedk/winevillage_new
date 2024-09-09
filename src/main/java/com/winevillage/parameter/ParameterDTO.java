@@ -1,5 +1,7 @@
 package com.winevillage.parameter;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +18,9 @@ public class ParameterDTO {
 	private String classified;
 	private String sort;
 	private String category;
-    private String category_type;
-    private String category_country;
+	private List<Integer> category_type;
+    private List<Integer> category_country;
+    private List<Integer> label_state;
+    private List<String> label_grapevariety;
+    private String price_range;
 }

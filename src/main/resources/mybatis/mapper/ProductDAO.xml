@@ -3,77 +3,152 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winevillage.product.IProductService">
 	<!-- (USER측)상품 리스트 출력 -->
-	<select id="listProduct"
-		resultType="com.winevillage.product.ProductDTO"
-		parameterType="com.winevillage.parameter.ParameterDTO">
-		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT bg_color, product_code, category, category_type, category_country, 
-				product_name, product_en_name, thumbnail, label_thumbnail,
-				label_type, label_country, label_grapevariety,
-				price_discount_rate, price_discount, price_original,
-				price_deal, price_deal_rate, price_deal_price, price_deal_amount,
-				vivino_score FROM product WHERE 1=1
-				<if test="classified == 'value'">
-					AND classified = 'value'
-				</if>
-				<if test="classified == 'exclusive'">
-					AND classified = 'exclusive'
-				</if>
-				<if test="classified == 'all'">
-					AND (classified = 'value' OR classified = 'exclusive' OR classified IS NULL)
-				</if>
-				<if test="category != null">
+	<select id="listProduct" resultType="com.winevillage.product.ProductDTO"
+            parameterType="com.winevillage.parameter.ParameterDTO">
+        SELECT * FROM (
+            SELECT Tb.*, rownum rNum FROM (
+                SELECT bg_color, product_code, category, category_type, category_country, 
+                product_name, product_en_name, product_info, thumbnail, label_thumbnail,
+                label_type, label_country, label_grapevariety,
+                price_discount_rate, price_discount, price_original,
+                price_deal, price_deal_rate, price_deal_price, price_deal_amount,
+                vivino_score 
+                FROM product 
+                WHERE 1=1
+                <if test="classified == 'value'">
+                    AND classified = 'value'
+                </if>
+                <if test="classified == 'exclusive'">
+                    AND classified = 'exclusive'
+                </if>
+                <if test="classified == 'all'">
+                    AND (classified = 'value' OR classified = 'exclusive' OR classified IS NULL)
+                </if>
+                <if test="category != null and category != ''">
 					AND category = #{category}
 				</if>
-				<if test="category_type != null">
-					AND category_type = #{category_type}
-				</if>
-				<if test="category_country != null">
-					AND category_country = #{category_country}
-				</if>
-	            ORDER BY
-	            <choose>
-	                <when test="sort == null or sort == ''">
-	                    product_no DESC
-	                </when>
-	                <when test="sort == 'recent'">
-	                    product_no DESC
-	                </when>
-	                <when test="sort == 'price_asc'">
-	                    price_original ASC
-	                </when>
-	                <when test="sort == 'price_desc'">
-	                    price_original DESC
-	                </when>
-	            </choose>
-			) Tb
-		)
-		WHERE rNum<![CDATA[>=]]>#{start}
-		AND rNum<![CDATA[<=]]>#{end}
-	</select>
+                <if test="category_type != null and !category_type.isEmpty()">
+                    AND category_type IN
+                    <foreach item="item" index="index" collection="category_type" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="category_country != null and !category_country.isEmpty()">
+                    AND category_country IN
+                    <foreach item="item" index="index" collection="category_country" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="label_state != null and !label_state.isEmpty()">
+                    AND label_state IN
+                    <foreach item="item" index="index" collection="label_state" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="label_grapevariety != null and !label_grapevariety.isEmpty()">
+                    AND label_grapevariety IN
+                    <foreach item="item" index="index" collection="label_grapevariety" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="price_range != null and !price_range.isEmpty()">
+                	<choose>
+						<when test="price_range == '~30000'">
+							AND (price_discount IS NOT NULL AND price_discount &lt;= 30000 OR price_discount IS NULL AND price_original &lt;= 30000)
+						</when>
+						<when test="price_range == '30000~60000'">
+							AND (price_discount IS NOT NULL AND price_discount BETWEEN 30000 AND 60000 OR price_discount IS NULL AND price_original BETWEEN 30000 AND 60000)
+						</when>
+						<when test="price_range == '60000~100000'">
+							AND (price_discount IS NOT NULL AND price_discount BETWEEN 60000 AND 100000 OR price_discount IS NULL AND price_original BETWEEN 60000 AND 100000)
+						</when>
+						<when test="price_range == '100000~'">
+							AND (price_discount IS NOT NULL AND price_discount &gt;= 100000 OR price_discount IS NULL AND price_original &gt;= 100000)
+						</when>
+                	</choose>
+                </if>
+                ORDER BY
+                <choose>
+                    <when test="sort == null or sort == ''">
+                        product_no DESC
+                    </when>
+                    <when test="sort == 'recent'">
+                        product_no DESC
+                    </when>
+                    <when test="sort == 'price_asc'">
+                        price_original ASC
+                    </when>
+                    <when test="sort == 'price_desc'">
+                        price_original DESC
+                    </when>
+                </choose>
+            ) Tb
+        )
+        WHERE rNum <![CDATA[>=]]> #{start}
+        AND rNum <![CDATA[<=]]> #{end}
+    </select>
 
 	<!-- (USER측)상품 리스트 출력 개수 -->
-	<select id="getTotalCount" resultType="int"
-		parameterType="com.winevillage.parameter.ParameterDTO">
-		SELECT COUNT(*) FROM product WHERE 1=1
-	    <if test="classified == 'value'">
-	    	AND classified = 'value'
-	    </if>
-	    <if test="classified == 'exclusive'">
-	    	AND classified = 'exclusive'
-	    </if>
-	    <if test="classified == 'all'">
-	    	AND (classified = 'value' OR classified = 'exclusive' OR classified IS NULL)
-	    </if>
-	    <if test="category != null and category != ''">
+	<select id="countListProduct" resultType="int"
+            parameterType="com.winevillage.parameter.ParameterDTO">
+        SELECT COUNT(*) FROM product WHERE 1=1
+        <if test="classified == 'value'">
+            AND classified = 'value'
+        </if>
+        <if test="classified == 'exclusive'">
+            AND classified = 'exclusive'
+        </if>
+        <if test="classified == 'all'">
+            AND (classified = 'value' OR classified = 'exclusive' OR classified IS NULL)
+        </if>
+        <if test="category != null and category != ''">
 	        AND category = #{category}
 	    </if>
-	    <if test="category_type != null and category_type != ''">
-	        AND category_type = #{category_type}
-	    </if>
-	    <if test="category_country != null and category_country != ''">
-	        AND category_country = #{category_country}
-	    </if>
+        <if test="category_type != null and !category_type.isEmpty()">
+            AND category_type IN
+            <foreach item="item" index="index" collection="category_type" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="category_country != null and !category_country.isEmpty()">
+            AND category_country IN
+            <foreach item="item" index="index" collection="category_country" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+		<if test="label_state != null and !label_state.isEmpty()">
+			AND label_state IN
+			<foreach item="item" index="index" collection="label_state" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="label_grapevariety != null and !label_grapevariety.isEmpty()">
+			AND label_grapevariety IN
+			<foreach item="item" index="index" collection="label_grapevariety" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="price_range != null and !price_range.isEmpty()">
+			<choose>
+				<when test="price_range == '~30000'">
+					AND (price_discount IS NOT NULL AND price_discount &lt;= 30000 OR price_discount IS NULL AND price_original &lt;= 30000)
+				</when>
+				<when test="price_range == '30000~60000'">
+					AND (price_discount IS NOT NULL AND price_discount BETWEEN 30000 AND 60000 OR price_discount IS NULL AND price_original BETWEEN 30000 AND 60000)
+				</when>
+				<when test="price_range == '60000~100000'">
+					AND (price_discount IS NOT NULL AND price_discount BETWEEN 60000 AND 100000 OR price_discount IS NULL AND price_original BETWEEN 60000 AND 100000)
+				</when>
+				<when test="price_range == '100000~'">
+					AND (price_discount IS NOT NULL AND price_discount &gt;= 100000 OR price_discount IS NULL AND price_original &gt;= 100000)
+				</when>
+			</choose>
+		</if>
+    </select>
+	
+	<!-- (USER측)상품 리스트 검색 -->
+	<select id="searchProduct" resultType="com.winevillage.product.ProductDTO"
+		parameterType="com.winevillage.parameter.ParameterDTO">
+		
 	</select>
 </mapper>

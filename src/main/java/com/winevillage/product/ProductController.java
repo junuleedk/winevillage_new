@@ -1,9 +1,12 @@
 package com.winevillage.product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,17 +48,61 @@ public class ProductController {
 			@RequestParam(name = "classified", required = false) String classified,
 			@RequestParam(name = "sort", required = false) String sort,
 			@RequestParam(name = "list_count", required = false) String list_count,
+			@RequestParam(name = "category_type", required = false) String categoryTypeParam,
+	        @RequestParam(name = "category_country", required = false) String categoryCountryParam,
+	        @RequestParam(name = "label_state", required = false) String labelStateParam,
+	        @RequestParam(name = "label_grapevariety", required = false) String labelGrapevarietyParam,
+	        @RequestParam(name = "price_range", required = false) String priceRange,
 			ParameterDTO parameterDTO) {
 		
 		// 카테고리 필터 파라미터 처리
 	    String category = request.getParameter("category");
-	    String categoryType = request.getParameter("category_type");
-	    String categoryCountry = request.getParameter("category_country");
+	    //String categoryType = request.getParameter("category_type");
+	    //String categoryCountry = request.getParameter("category_country");
 		
 		parameterDTO.setClassified(classified);
 	    parameterDTO.setCategory(category);
+	    
+	    // category_type 및 category_country 값을 ','와 '%2C'를 기준으로 분리
+	    List<Integer> categoryType = new ArrayList<>();
+	    List<Integer> categoryCountry = new ArrayList<>();
+	    List<Integer> labelState = new ArrayList<>();
+	    List<String> labelGrapevariety = new ArrayList<>();
+
+	    // category_type 다중값 처리
+	    if (categoryTypeParam != null && !categoryTypeParam.isEmpty()) {
+	        categoryTypeParam = categoryTypeParam.replaceAll("%2C", ","); // %2C를 ,로 변경
+	        categoryType = Arrays.stream(categoryTypeParam.split(","))
+	                             .map(Integer::parseInt)
+	                             .collect(Collectors.toList());
+	    }
+
+	    // category_country 다중값 처리
+	    if (categoryCountryParam != null && !categoryCountryParam.isEmpty()) {
+	        categoryCountryParam = categoryCountryParam.replaceAll("%2C", ","); // %2C를 ,로 변경
+	        categoryCountry = Arrays.stream(categoryCountryParam.split(","))
+	                                .map(Integer::parseInt)
+	                                .collect(Collectors.toList());
+	    }
+	    
+	    // label_state 다중값 처리
+	    if (labelStateParam != null && !labelStateParam.isEmpty()) {
+	    	labelStateParam = labelStateParam.replaceAll("%2C", ","); // %2C를 ,로 변경
+	    	labelState = Arrays.stream(labelStateParam.split(","))
+	    			.map(Integer::parseInt)
+	    			.collect(Collectors.toList());
+	    }
+	    
+	    // label_grapevariety 다중값 처리
+	    if (labelGrapevarietyParam != null && !labelGrapevarietyParam.isEmpty()) {
+	        labelGrapevarietyParam = labelGrapevarietyParam.replaceAll("%2C", ","); // %2C를 ,로 변경
+	        labelGrapevariety = Arrays.asList(labelGrapevarietyParam.split(","));
+	    }
+	    
 	    parameterDTO.setCategory_type(categoryType);
 	    parameterDTO.setCategory_country(categoryCountry);
+	    parameterDTO.setLabel_state(labelState);
+	    parameterDTO.setLabel_grapevariety(labelGrapevariety);
 		
 		// list_count 파라미터를 pageSize로 바로 처리
 	    String listCountParam = request.getParameter("list_count");
@@ -92,7 +139,7 @@ public class ProductController {
 	        }
 	    }
 	    
-		int count = dao.getTotalCount(parameterDTO);
+		int count = dao.countListProduct(parameterDTO);
         
 		int blockPage = 10;
 		int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
@@ -155,6 +202,8 @@ public class ProductController {
         model.addAttribute("currentPageNum", pageNum);
 		// 현재 classified 값을 모델에 추가
 		model.addAttribute("classified", classified);
+		// 현재 price_range 값을 모델에 추가
+		model.addAttribute("price_range", priceRange);
         // 현재 sort 값을 모델에 추가
         model.addAttribute("sort", sort);
         // 현재 list_count 값을 모델에 추가
@@ -166,8 +215,12 @@ public class ProductController {
         model.addAttribute("category_type", categoryType);
         // 현재 category_country 값을 모델에 추가
         model.addAttribute("category_country", categoryCountry);
-
-		String baseUrl = request.getContextPath() + "/shop/product/product_lists.do?";
+        // 현재 label_state 값을 모델에 추가
+        model.addAttribute("label_state", labelState);
+        // 현재 label_grapevariety 값을 모델에 추가
+        model.addAttribute("label_grapevariety", labelGrapevariety);
+        
+        String baseUrl = request.getContextPath() + "/shop/product/product_lists.do?";
 		if (classified != null && !classified.isEmpty()) {
 			baseUrl += "classified=" + classified + "&";
 		}
@@ -175,11 +228,25 @@ public class ProductController {
 		    baseUrl += "category=" + category + "&";
 		}
 		if (categoryType != null && !categoryType.isEmpty()) {
-			baseUrl += "category_type=" + categoryType + "&";
+			String categoryTypeStr = categoryType.toString().replaceAll("[\\[\\]]", "").replaceAll("\\s", "");
+		    baseUrl += "category_type=" + categoryTypeStr + "&";
 		}
 		if (categoryCountry != null && !categoryCountry.isEmpty()) {
-			baseUrl += "category_country=" + categoryCountry + "&";
+			String categoryCountryStr = categoryCountry.toString().replaceAll("[\\[\\]]", "").replaceAll("\\s", "");
+			baseUrl += "category_country=" + categoryCountryStr + "&";
 		}
+		if (labelState != null && !labelState.isEmpty()) {
+			String labelStateStr = labelState.toString().replaceAll("[\\[\\]]", "").replaceAll("\\s", "");
+			baseUrl += "label_state=" + labelStateStr + "&";
+		}
+		if (labelGrapevariety != null && !labelGrapevariety.isEmpty()) {
+			String labelGrapevarietyStr = labelGrapevariety.toString().replaceAll("[\\[\\]]", "").replaceAll("\\s", "");
+			baseUrl += "label_grapevariety=" + labelGrapevarietyStr + "&";
+		}
+		if (priceRange != null && !priceRange.isEmpty()) {
+		    baseUrl += "price_range=" + priceRange + "&";
+		}
+		
 		String pagination = Pagination.product(count, pageSize, blockPage, pageNum, baseUrl);
 		
 		model.addAttribute("pagination", pagination);
