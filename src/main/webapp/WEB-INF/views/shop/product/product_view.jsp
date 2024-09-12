@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVILLAGE 2024 ㅣ Shop    </title>
+<title>WINEVILLAGE 2024 ㅣ ${product.product_name}</title>
 <%@ include file="../common/common.jsp" %>
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>

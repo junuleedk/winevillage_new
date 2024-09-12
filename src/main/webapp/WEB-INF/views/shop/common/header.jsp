@@ -370,7 +370,7 @@
     </div>
 </div> -->
 <!-- 뒤로가기 하단 팝업 -->
-<form action="https://www.winenara.com/shop/product/search_product_lists" id="searchForm" name="searchForm" method="get" accept-charset="utf-8">
+<form action="<c:url value='/shop/product/search_product_lists.do' />" id="searchForm" name="searchForm" method="get" accept-charset="utf-8">
     <div class="search_layer">
         <div class="search_box">
             <button type="button" class="btn_close" onclick="commonUI.header.Search.clickFn()">Search</button>
@@ -384,7 +384,6 @@
                     <button type="button" class="btn del_btn" onclick="all_del_item();">전체삭제</span>
                 </div>
                 <ul id="result_list" class="result_list">
-                    <li id="nodata">최근검색어 내역이 없습니다.</li>
                 </ul>
             </div>
         </div>

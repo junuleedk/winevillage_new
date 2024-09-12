@@ -67,20 +67,19 @@
 						</when>
                 	</choose>
                 </if>
-                ORDER BY
                 <choose>
-                    <when test="sort == null or sort == ''">
-                        product_no DESC
-                    </when>
-                    <when test="sort == 'recent'">
-                        product_no DESC
-                    </when>
-                    <when test="sort == 'price_asc'">
-                        price_original ASC
-                    </when>
-                    <when test="sort == 'price_desc'">
-                        price_original DESC
-                    </when>
+	                <when test="sort == 'recent'">
+		                ORDER BY product_no DESC
+	                </when>
+	                <when test="sort == 'price_asc'">
+		                ORDER BY price_original ASC
+	                </when>
+	                <when test="sort == 'price_desc'">
+		                ORDER BY price_original DESC
+	                </when>
+	                <otherwise>
+		                ORDER BY product_no DESC
+	                </otherwise>
                 </choose>
             ) Tb
         )
@@ -160,6 +159,346 @@
 	<!-- (USER측)상품 리스트 검색 -->
 	<select id="searchProduct" resultType="com.winevillage.product.ProductDTO"
 		parameterType="com.winevillage.parameter.ParameterDTO">
-		
+		SELECT * FROM (
+            SELECT Tb.*, rownum rNum FROM (
+                SELECT bg_color, product_code, category, category_type, category_country, 
+                product_name, product_en_name, product_info, thumbnail, label_thumbnail,
+                label_type, label_country, label_grapevariety,
+                price_discount_rate, price_discount, price_original,
+                price_deal, price_deal_rate, price_deal_price, price_deal_amount,
+                vivino_score 
+                FROM product 
+                WHERE 1=1
+                <if test="keyword != null and !keyword.isEmpty()">
+	                <foreach item="keyword" collection="keywords" open="AND (" separator="OR" close=")">
+				    (
+				    product_code LIKE '%' || #{keyword} || '%'
+				    OR (
+				        (#{keyword} LIKE '와인' OR #{keyword} LIKE 'wine')
+				        AND category = 10000
+				    )
+				    OR (
+				        (#{keyword} LIKE '맥주' OR #{keyword} LIKE '증류주' OR #{keyword} LIKE '증류' OR #{keyword} LIKE 'beer' OR #{keyword} LIKE 'liquor')
+				        AND category = 20000
+				    )
+				    OR (
+				        (#{keyword} LIKE '기타' OR #{keyword} LIKE '악세사리' OR #{keyword} LIKE 'etc' OR #{keyword} LIKE 'accessory')
+				        AND category = 40000
+				    )
+				    OR (
+				        (#{keyword} LIKE '티켓' OR #{keyword} LIKE '이벤트' OR #{keyword} LIKE 'ticket' OR #{keyword} LIKE 'event')
+				        AND category = 50000
+				    )
+				    OR (
+				        (#{keyword} LIKE '레드' OR #{keyword} LIKE 'red')
+				        AND category_type = 10101
+				    )
+				    OR (
+				        (#{keyword} LIKE '화이트' OR #{keyword} LIKE 'white')
+				        AND category_type = 10102
+				    )
+				    OR (
+				        (#{keyword} LIKE '스파클링' OR #{keyword} LIKE 'sparkling')
+				        AND category_type = 10103
+				    )
+				    OR (
+				        (#{keyword} LIKE '디저트' OR #{keyword} LIKE 'dessert')
+				        AND category_type = 10104
+				    )
+				    OR (
+				        (#{keyword} LIKE '주정강화' OR #{keyword} LIKE 'fortified')
+				        AND category_type = 10105
+				    )
+				    OR (
+				        (#{keyword} LIKE '로제' OR #{keyword} LIKE 'rose')
+				        AND category_type = 10108
+				    )
+				    OR (
+				        (#{keyword} LIKE '위스키' OR #{keyword} LIKE 'whisky')
+				        AND category_type = 20101
+				    )
+				    OR (
+				        (#{keyword} LIKE '꼬냑' OR #{keyword} LIKE 'cognac')
+				        AND category_type = 20102
+				    )
+				    OR (
+				        (#{keyword} LIKE '진' OR #{keyword} LIKE 'gin')
+				        AND category_type = 20103
+				    )
+				    OR (
+				        (#{keyword} LIKE '데킬라' OR #{keyword} LIKE '테킬라' OR #{keyword} LIKE 'tequila')
+				        AND category_type = 20105
+				    )
+				    OR (
+				        (#{keyword} LIKE '럼' OR #{keyword} LIKE 'rum')
+				        AND category_type = 20106
+				    )
+				    OR (
+				        (#{keyword} LIKE '프랑스' OR #{keyword} LIKE 'french' OR #{keyword} LIKE 'france')
+				        AND category_country = 10201
+				    )
+				    OR (
+				        (#{keyword} LIKE '이탈리아' OR #{keyword} LIKE 'italy' OR #{keyword} LIKE 'italia')
+				        AND category_country = 10202
+				    )
+				    OR (
+				        (#{keyword} LIKE '스페인' OR #{keyword} LIKE 'spain')
+				        AND category_country = 10203
+				    )
+				    OR (
+				        (#{keyword} LIKE '독일' OR #{keyword} LIKE 'germany')
+				        AND category_country = 10204
+				    )
+				    OR (
+				        (#{keyword} LIKE '칠레' OR #{keyword} LIKE 'chile')
+				        AND category_country = 10205
+				    )
+				    OR (
+				        (#{keyword} LIKE '미국' OR #{keyword} LIKE 'usa' OR #{keyword} LIKE 'america')
+				        AND category_country = 10206
+				    )
+				    OR (
+				        (#{keyword} LIKE '호주' OR #{keyword} LIKE 'austraila')
+				        AND category_country = 10207
+				    )
+				    OR (
+				        (#{keyword} LIKE '아르헨티나' OR #{keyword} LIKE 'argentina')
+				        AND category_country = 10209
+				    )
+				    OR (
+				        (#{keyword} LIKE '기타 구대륙' OR #{keyword} LIKE 'old world')
+				        AND category_country = 10209
+				    )
+				    OR (
+				        (#{keyword} LIKE '기타 신대륙' OR #{keyword} LIKE 'new world')
+				        AND category_country = 10211
+				    )
+				    OR product_name LIKE '%' || #{keyword} || '%'
+				    OR product_info LIKE '%' || #{keyword} || '%'
+				    OR product_en_name LIKE '%' || #{keyword} || '%'
+				    OR label_type LIKE '%' || #{keyword} || '%'
+				    OR label_country LIKE '%' || #{keyword} || '%'
+				    OR label_grapevariety LIKE '%' || #{keyword} || '%'
+				    OR exclude LIKE '%' || #{keyword} || '%'
+				    )
+				    OR (
+				    	(#{keyword} LIKE '비비노' OR #{keyword} LIKE 'vivino')
+				    	AND vivino_link IS NOT NULL
+				    )
+				    OR (
+					    (#{keyword} LIKE '드라이' AND sweetness = 1)
+					    OR (#{keyword} LIKE '미디움드라이' AND sweetness = 2)
+					    OR (#{keyword} LIKE '미디엄' AND sweetness = 3)
+					    OR (#{keyword} LIKE '미디움스윗' AND sweetness = 4)
+					    OR (#{keyword} LIKE '스윗' AND sweetness = 5)
+					)
+				    OR (
+					    (#{keyword} LIKE '가벼움' AND body = 1)
+					    OR (#{keyword} LIKE '약간가벼움' AND body = 2)
+					    OR (#{keyword} LIKE '중간' AND body = 3)
+					    OR (#{keyword} LIKE '약간무거움' AND body = 4)
+					    OR (#{keyword} LIKE '무거움' AND body = 5)
+					)
+				    OR (
+					    (#{keyword} LIKE '낮음' AND acidity = 1)
+					    OR (#{keyword} LIKE '약간낮음' AND acidity = 2)
+					    OR (#{keyword} LIKE '중간' AND acidity = 3)
+					    OR (#{keyword} LIKE '약간높음' AND acidity = 4)
+					    OR (#{keyword} LIKE '높음' AND acidity = 5)
+					)
+				    OR (
+					    (#{keyword} LIKE '약함' AND tannins = 1)
+					    OR (#{keyword} LIKE '약간약함' AND tannins = 2)
+					    OR (#{keyword} LIKE '중간' AND tannins = 3)
+					    OR (#{keyword} LIKE '약간강함' AND tannins = 4)
+					    OR (#{keyword} LIKE '강함' AND tannins = 5)
+					)
+				    OR (
+					    (#{keyword} LIKE '낮음(~11%)' AND alcohol = 1)
+					    OR (#{keyword} LIKE '중간(12~13%)' AND alcohol = 2)
+					    OR (#{keyword} LIKE '높음(14%+)' AND alcohol = 3)
+					)
+					OR sale_txt LIKE '%' || #{keyword} || '%'
+					OR etc LIKE '%' || #{keyword} || '%'
+					OR content LIKE '%' || #{keyword} || '%'
+				  </foreach>
+                </if>
+                <choose>
+	                <when test="sort == 'recent'">
+		                ORDER BY product_no DESC
+	                </when>
+	                <when test="sort == 'price_asc'">
+		                ORDER BY price_original ASC
+	                </when>
+	                <when test="sort == 'price_desc'">
+		                ORDER BY price_original DESC
+	                </when>
+	                <otherwise>
+		                ORDER BY product_no DESC
+	                </otherwise>
+                </choose>
+            ) Tb
+        )
+        WHERE rNum <![CDATA[>=]]> #{start}
+        AND rNum <![CDATA[<=]]> #{end}
 	</select>
+	
+	<select id="countSearchProduct" resultType="int"
+            parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT COUNT(*) FROM product WHERE 1=1
+        <if test="keyword != null and !keyword.isEmpty()">
+	        <foreach item="keyword" collection="keywords" open="AND (" separator="OR" close=")">
+		    (
+		    product_code LIKE '%' || #{keyword} || '%'
+		    OR (
+		        (#{keyword} LIKE '와인' OR #{keyword} LIKE 'wine')
+		        AND category = 10000
+		    )
+		    OR (
+		        (#{keyword} LIKE '맥주' OR #{keyword} LIKE '증류주' OR #{keyword} LIKE '증류' OR #{keyword} LIKE 'beer' OR #{keyword} LIKE 'liquor')
+		        AND category = 20000
+		    )
+		    OR (
+		        (#{keyword} LIKE '기타' OR #{keyword} LIKE '악세사리' OR #{keyword} LIKE 'etc' OR #{keyword} LIKE 'accessory')
+		        AND category = 40000
+		    )
+		    OR (
+		        (#{keyword} LIKE '티켓' OR #{keyword} LIKE '이벤트' OR #{keyword} LIKE 'ticket' OR #{keyword} LIKE 'event')
+		        AND category = 50000
+		    )
+		    OR (
+		        (#{keyword} LIKE '레드' OR #{keyword} LIKE 'red')
+		        AND category_type = 10101
+		    )
+		    OR (
+		        (#{keyword} LIKE '화이트' OR #{keyword} LIKE 'white')
+		        AND category_type = 10102
+		    )
+		    OR (
+		        (#{keyword} LIKE '스파클링' OR #{keyword} LIKE 'sparkling')
+		        AND category_type = 10103
+		    )
+		    OR (
+		        (#{keyword} LIKE '디저트' OR #{keyword} LIKE 'dessert')
+		        AND category_type = 10104
+		    )
+		    OR (
+		        (#{keyword} LIKE '주정강화' OR #{keyword} LIKE 'fortified')
+		        AND category_type = 10105
+		    )
+		    OR (
+		        (#{keyword} LIKE '로제' OR #{keyword} LIKE 'rose')
+		        AND category_type = 10108
+		    )
+		    OR (
+		        (#{keyword} LIKE '위스키' OR #{keyword} LIKE 'whisky')
+		        AND category_type = 20101
+		    )
+		    OR (
+		        (#{keyword} LIKE '꼬냑' OR #{keyword} LIKE 'cognac')
+		        AND category_type = 20102
+		    )
+		    OR (
+		        (#{keyword} LIKE '진' OR #{keyword} LIKE 'gin')
+		        AND category_type = 20103
+		    )
+		    OR (
+		        (#{keyword} LIKE '데킬라' OR #{keyword} LIKE '테킬라' OR #{keyword} LIKE 'tequila')
+		        AND category_type = 20105
+		    )
+		    OR (
+		        (#{keyword} LIKE '럼' OR #{keyword} LIKE 'rum')
+		        AND category_type = 20106
+		    )
+		    OR (
+		        (#{keyword} LIKE '프랑스' OR #{keyword} LIKE 'french' OR #{keyword} LIKE 'france')
+		        AND category_country = 10201
+		    )
+		    OR (
+		        (#{keyword} LIKE '이탈리아' OR #{keyword} LIKE 'italy' OR #{keyword} LIKE 'italia')
+		        AND category_country = 10202
+		    )
+		    OR (
+		        (#{keyword} LIKE '스페인' OR #{keyword} LIKE 'spain')
+		        AND category_country = 10203
+		    )
+		    OR (
+		        (#{keyword} LIKE '독일' OR #{keyword} LIKE 'germany')
+		        AND category_country = 10204
+		    )
+		    OR (
+		        (#{keyword} LIKE '칠레' OR #{keyword} LIKE 'chile')
+		        AND category_country = 10205
+		    )
+		    OR (
+		        (#{keyword} LIKE '미국' OR #{keyword} LIKE 'usa' OR #{keyword} LIKE 'america')
+		        AND category_country = 10206
+		    )
+		    OR (
+		        (#{keyword} LIKE '호주' OR #{keyword} LIKE 'austraila')
+		        AND category_country = 10207
+		    )
+		    OR (
+		        (#{keyword} LIKE '아르헨티나' OR #{keyword} LIKE 'argentina')
+		        AND category_country = 10209
+		    )
+		    OR (
+		        (#{keyword} LIKE '기타 구대륙' OR #{keyword} LIKE 'old world')
+		        AND category_country = 10209
+		    )
+		    OR (
+		        (#{keyword} LIKE '기타 신대륙' OR #{keyword} LIKE 'new world')
+		        AND category_country = 10211
+		    )
+		    OR product_name LIKE '%' || #{keyword} || '%'
+		    OR product_info LIKE '%' || #{keyword} || '%'
+		    OR product_en_name LIKE '%' || #{keyword} || '%'
+		    OR label_type LIKE '%' || #{keyword} || '%'
+		    OR label_country LIKE '%' || #{keyword} || '%'
+		    OR label_grapevariety LIKE '%' || #{keyword} || '%'
+		    OR exclude LIKE '%' || #{keyword} || '%'
+		    )
+		    OR (
+		    	(#{keyword} LIKE '비비노' OR #{keyword} LIKE 'vivino')
+		    	AND vivino_link IS NOT NULL
+		    )
+		    OR (
+			    (#{keyword} LIKE '드라이' AND sweetness = 1)
+			    OR (#{keyword} LIKE '미디움드라이' AND sweetness = 2)
+			    OR (#{keyword} LIKE '미디엄' AND sweetness = 3)
+			    OR (#{keyword} LIKE '미디움스윗' AND sweetness = 4)
+			    OR (#{keyword} LIKE '스윗' AND sweetness = 5)
+			)
+		    OR (
+			    (#{keyword} LIKE '가벼움' AND body = 1)
+			    OR (#{keyword} LIKE '약간가벼움' AND body = 2)
+			    OR (#{keyword} LIKE '중간' AND body = 3)
+			    OR (#{keyword} LIKE '약간무거움' AND body = 4)
+			    OR (#{keyword} LIKE '무거움' AND body = 5)
+			)
+		    OR (
+			    (#{keyword} LIKE '낮음' AND acidity = 1)
+			    OR (#{keyword} LIKE '약간낮음' AND acidity = 2)
+			    OR (#{keyword} LIKE '중간' AND acidity = 3)
+			    OR (#{keyword} LIKE '약간높음' AND acidity = 4)
+			    OR (#{keyword} LIKE '높음' AND acidity = 5)
+			)
+		    OR (
+			    (#{keyword} LIKE '약함' AND tannins = 1)
+			    OR (#{keyword} LIKE '약간약함' AND tannins = 2)
+			    OR (#{keyword} LIKE '중간' AND tannins = 3)
+			    OR (#{keyword} LIKE '약간강함' AND tannins = 4)
+			    OR (#{keyword} LIKE '강함' AND tannins = 5)
+			)
+		    OR (
+			    (#{keyword} LIKE '낮음(~11%)' AND alcohol = 1)
+			    OR (#{keyword} LIKE '중간(12~13%)' AND alcohol = 2)
+			    OR (#{keyword} LIKE '높음(14%+)' AND alcohol = 3)
+			)
+			OR sale_txt LIKE '%' || #{keyword} || '%'
+			OR etc LIKE '%' || #{keyword} || '%'
+			OR content LIKE '%' || #{keyword} || '%'
+		  </foreach>
+      </if>
+    </select>
 </mapper>

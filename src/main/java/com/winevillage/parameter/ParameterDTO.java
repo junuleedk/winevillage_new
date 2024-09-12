@@ -15,6 +15,9 @@ public class ParameterDTO {
 	private String searchField;
 	private String searchKeyword;
 	
+	private String keyword;
+	private List<String> keywords;
+	
 	/* Product */
 	private String classified;
 	private String sort;

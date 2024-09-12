@@ -158,13 +158,51 @@ function logout() {
     });
 }
 $(document).ready(function () {
-    //get_keyword_list_ajax();
+    get_keyword_list_ajax();
 });
+/* 대부분의 브라우저에서 시크릿 모드에서 localStorage API 를 사용하려고 하면 에러를 발생시킵니다.
+따라서 이러한 동작을 이용하여 브라우저가 시크릿 모드인지 아닌지를 간접적으로 판단할 수 있습니다.
+아래 함수는 시크릿 브라우징이 활성화되어 있는 경우 true를 반환합니다. */
+function inPrivateBrowsing() {
+    try {
+        localStorage.test = 2;        
+    } catch (e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            localStorage.length !== 0;
+    }
+    return false;
+}
+function isPrivateMode( callback ){
+    let fileSys = window.RequestFileSystem || window.webkitRequestFileSystem;
+
+    if ( !fileSys ){
+        callback( false );
+    } else {
+        fileSys(window.TEMPORARY,
+            100,
+            callback.bind( undefined, false ),
+            callback.bind( undefined, true )
+        );
+    }
+}
 function html_escape(str) {
     /**
      * 엔티티 코드 매핑을 위한 변수
      * @type {{"`": string, "\"": string, "&": string, "'": string, "<": string, "=": string, ">": string, "/": string}}
      */
+     if (typeof str !== 'string') {
+         return str;
+     }
     let entityMap = {
         '&': '&amp;',
         '<': '&lt;',
@@ -182,23 +220,23 @@ function html_escape(str) {
 }
 function get_keyword_list_ajax() {
     var html = "";
-    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
     $.ajax({
         type: "POST",
-        url: "/shop/product/get_keyword_list_ajax",
+        url: "<c:url value='/shop/product/get_keyword_list_ajax.do' />",
         data: { mode: 'list' },
         success: function (res) {
+            console.log(res);
             if (typeof (res) == 'string') { res = JSON.parse(res); }
             if (res.status == 'ok') {
-                var keyword_list = res.data.keyword_list;
-                if (keyword_list.length > 0) {
+                var keyword_list = res.keyword_list; // 서버에서 가져온 리스트
+                if (keyword_list && keyword_list.length > 0) {                    
                     for (var i = 0; i < keyword_list.length; i++) {
-                        console.log(keyword_list[i]['keyword']);
                         html += '<li><span onclick="sch_item(';
-                        html += "'" + html_escape(keyword_list[i]['keyword']) + "'";
-                        html += ')" style="cursor:pointer;">' + html_escape(keyword_list[i]['keyword']) + '</span>';
+                        html += "'" + html_escape(keyword_list[i]) + "'";
+                        html += ')" style="cursor:pointer;">' + html_escape(keyword_list[i]) + '</span>';
                         html += '<button type="button" class="del_btn" onclick="del_item(';
-                        html += "'" + keyword_list[i]['keyword'] + "'";
+                        html += "'" + keyword_list[i] + "'";
                         html += ')"></button></li>';
                     }
                     $(".result_list").empty();
@@ -207,37 +245,39 @@ function get_keyword_list_ajax() {
                     $(".result_list").empty();
                     $(".result_list").html('<li id="nodata">최근검색어 내역이 없습니다.</li>');
                 }
+            } else if (res.status == 'empty') {
+                $(".result_list").html('<li id="nodata">최근검색어 내역이 없습니다.</li>');
             } else {
-                //alert(res.msg);
+            	//alert(res.msg);
                 return;
             }
         },
         error: function (res) {
             console.log("최근 검색어 리스트에 오류가 발생했습니다.");
-            // alert(res.responseText);
+			// alert(res.responseText);
         }
     });
 }
 // 키워드 개별 삭제
 function del_item(keyword) {
     var html = "";
-    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
     $.ajax({
         type: 'POST',
-        url: "/shop/product/update_keyword_ajax",
+        url: "<c:url value='/shop/product/update_keyword_ajax.do' />",
         dataType: 'json',
         data: { keyword: keyword, mode: 'single' },
         success: function (res) {
             if (typeof (res) == 'string') { res = JSON.parse(res); }
             if (res.status == 'ok') {
-                var keyword_list = res.data.keyword_list;
+                var keyword_list = res.keyword_list;
                 if (keyword_list.length > 0) {
                     for (var i = 0; i < keyword_list.length; i++) {
                         html += '<li><span onclick="sch_item(';
-                        html += "'" + keyword_list[i]['keyword'] + "'";
-                        html += ')" style="cursor:pointer;">' + keyword_list[i]['keyword'] + '</span>';
+                        html += "'" + keyword_list[i] + "'";
+                        html += ')" style="cursor:pointer;">' + keyword_list[i] + '</span>';
                         html += '<button type="button"  class="del_btn" onclick="del_item(';
-                        html += "'" + keyword_list[i]['keyword'] + "'";
+                        html += "'" + keyword_list[i] + "'";
                         html += ')"></button></li>';
                     }
                     $("#result_list").empty();
@@ -256,10 +296,10 @@ function del_item(keyword) {
 }
 // 키워드 전체 삭제
 function all_del_item() {
-    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+	//Csrf.Set(_CSRF_NAME_); //토큰 초기화
     $.ajax({
         type: 'POST',
-        url: "/shop/product/update_keyword_ajax",
+        url: "/shop/product/update_keyword_ajax.do",
         dataType: 'json',
         data: { mode: 'all' },
         success: function (res) {
@@ -276,7 +316,7 @@ function all_del_item() {
 }
 // 선택 키워드 검색
 function sch_item(keyword) {
-    location.href = '/shop/product/search_product_lists?keyword=' + keyword;
+    location.href = '/shop/product/search_product_lists.do?keyword=' + keyword;
 }
 $('.social_login .social_btn.naver').click(function () {
     Cookie.Set('join_gb', 'N', 1, true);

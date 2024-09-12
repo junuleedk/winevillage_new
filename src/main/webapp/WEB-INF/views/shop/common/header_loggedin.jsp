@@ -434,7 +434,7 @@
 	</div>
 </div> -->
 <!-- 뒤로가기 하단 팝업 -->
-<form action="https://www.winenara.com/shop/product/search_product_lists" id="searchForm" name="searchForm" method="get" accept-charset="utf-8">
+<form action="<c:url value='/shop/product/search_product_lists.do' />" id="searchForm" name="searchForm" method="get" accept-charset="utf-8">
 	<div class="search_layer">
 		<div class="search_box">
 			<button type="button" class="btn_close" onclick="commonUI.header.Search.clickFn()">Search</button>

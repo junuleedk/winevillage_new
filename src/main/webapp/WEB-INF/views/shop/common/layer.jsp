@@ -263,7 +263,7 @@
 							<div class="table_cell">
 								<div class="layer_area">
 									<div class="layer_con">
-										<form action="https://www.winenara.com/shop/product/search_product_lists" id="searchForm" name="searchForm" method="get" accept-charset="utf-8">
+										<form action="<c:url value='/shop/product/search_product_lists.do' />" id="searchForm" name="searchForm" method="get" accept-charset="utf-8">
 											<div class="search_box">
 												<button type="button" class="btn_close" onclick="$('.mb_search_layer').hide();">모바일 검색창 닫기</button>
 												<input type="text" id="search_box" name="keyword" placeholder='오늘 마시고 싶은 와인을 검색해 보세요.' autocomplete="off" value="">

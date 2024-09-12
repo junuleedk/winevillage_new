@@ -1,7 +1,9 @@
 package com.winevillage.product;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,12 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.winevillage.pagination.Pagination;
 import com.winevillage.parameter.ParameterDTO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -293,5 +297,205 @@ public class ProductController {
 		
 		model.addAttribute("product", productDTO);
 		return "shop/product/product_view";
+	}
+	
+	@GetMapping("shop/product/search_product_lists.do")
+	public String searchProductLists(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response,
+	        @RequestParam(name = "keyword", required = false) String searchKeyword,
+	        @RequestParam(name = "sort", required = false) String sort) {
+
+	    ParameterDTO parameterDTO = new ParameterDTO();
+	    parameterDTO.setKeyword(searchKeyword);
+
+	    // 쿠키에서 검색 기록 가져오기
+	    String searchHistory = "";
+	    Cookie searchCookie = getCookie(request, "search_recently_cookie");
+	    if (searchCookie != null) {
+	    	 searchHistory = searchCookie.getValue().replace("&nbsp", " ");
+	        // '/'로 시작하는 경우 제거
+	        if (searchHistory.startsWith("/")) {
+	            searchHistory = searchHistory.substring(1);
+	        }
+	    }
+
+	    // 검색어가 존재할 경우 검색 기록 업데이트
+	    if (searchKeyword != null && !searchKeyword.isEmpty()) {
+	    	// Replace spaces in the search keyword with underscore
+	        //searchKeyword = searchKeyword.replace(" ", "&nbsp");
+	        
+	    	List<String> keywordList = new ArrayList<>();
+	    	if(!(searchHistory.isEmpty() || searchHistory.equals("/"))) {
+	    	   keywordList = new ArrayList<>(Arrays.asList(searchHistory.split("/")));
+	    	}
+	        
+	        // 중복된 키워드가 없으면 추가
+	        if (!keywordList.contains(searchKeyword)) {
+	            if (keywordList.size() >= 10) {
+	                keywordList.remove(0);  // 가장 오래된 검색어 삭제
+	            }
+	            keywordList.add(0, searchKeyword);  // 새로운 검색어 추가
+	        }
+	        
+	     // 리스트 첫번째 값이 "/"인지 확인하고 제거
+	        if (keywordList.get(0) != null && keywordList.get(0).equals("/")) {
+	            keywordList.remove(0);
+	        }
+
+	        // 리스트를 다시 문자열로 변환하여 저장
+	        searchHistory = String.join("/", keywordList);
+	        
+	     // 띄어쓰기를 &nbsp;로 변환하여 쿠키에 저장
+	        String cookieValue = searchHistory.replace(" ", "&nbsp");
+	        
+	        // 검색 기록을 쿠키에 저장 (쿠키 만료 기간 30일 설정)
+	        Cookie updatedSearchCookie = new Cookie("search_recently_cookie", cookieValue);
+	        updatedSearchCookie.setMaxAge(30 * 24 * 60 * 60);  // 30일
+	        updatedSearchCookie.setPath("/");
+	        response.addCookie(updatedSearchCookie);
+	    }
+
+	    // 모델에 검색어 및 기록 추가
+	    model.addAttribute("keyword", searchKeyword);
+	    model.addAttribute("searchHistory", searchHistory);
+
+	    // 정렬 값 쿠키에서 가져오기
+	    if (sort == null || sort.isEmpty()) {
+	        Cookie sortCookie = getCookie(request, "list_order_cookie");
+	        if (sortCookie != null) {
+	            sort = sortCookie.getValue();
+	        } else {
+	            sort = "price_desc";  // 기본 정렬값
+	        }
+	    }
+	    
+	    parameterDTO.setSort(sort);
+
+	    // 추가 코드 삽입 위치
+	    List<String> keywords = parameterDTO.getKeywords();
+	    if (keywords == null) {
+	        keywords = new ArrayList<>();
+	    }
+	    if (searchKeyword != null && !searchKeyword.isEmpty()) {
+	        keywords.add(searchKeyword);
+	    }
+	    parameterDTO.setKeywords(keywords);
+	    
+	    // 나머지 로직 그대로 유지 (검색 쿼리 처리, 페이징 등)
+	    int count = dao.countSearchProduct(parameterDTO);
+	    int pageSize = 25;
+	    int blockPage = 10;
+	    int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
+	            : Integer.parseInt(request.getParameter("page"));
+	    int start = (pageNum - 1) * pageSize + 1;
+	    int end = pageNum * pageSize;
+	    
+	    parameterDTO.setStart(start);
+	    parameterDTO.setEnd(end);
+	    
+	    Map<String, Object> maps = new HashMap<>();
+	    maps.put("pageSize", pageSize);
+	    maps.put("page", pageNum);
+	    maps.put("count", count);
+	    model.addAttribute("maps", maps);
+	    
+	    ArrayList<ProductDTO> lists = dao.searchProduct(parameterDTO);
+	    model.addAttribute("lists", lists);
+	    
+	    String baseUrl = request.getContextPath() + "/shop/product/search_product_lists.do?";
+	    if (searchKeyword != null && !searchKeyword.isEmpty()) {
+	        baseUrl += "keyword=" + searchKeyword + "&";
+	    }
+	    String pagination = Pagination.product(count, pageSize, blockPage, pageNum, baseUrl);
+	    
+	    model.addAttribute("pagination", pagination);
+	    
+	    return "shop/product/search_product_lists";
+	}
+	
+	@PostMapping("shop/product/get_keyword_list_ajax.do")
+	@ResponseBody
+	public Map<String, Object> getKeywordListAjax(HttpServletRequest request) {
+	    List<String> keywordsList = new ArrayList<>();
+	    Map<String, Object> response = new HashMap<>();
+
+	    // 쿠키에서 'search_recently_cookie' 값을 가져옴
+	    Cookie searchCookie = getCookie(request, "search_recently_cookie");
+	    if (searchCookie != null) {
+	    	String searchHistory = searchCookie.getValue().replace("&nbsp", " ");
+	        // 검색 기록을 '/'로 구분된 문자열로 받아서 JSON 객체로 변환
+	        keywordsList = Arrays.asList(searchHistory.split("/"));
+	    }
+
+	    if (!keywordsList.isEmpty()) {
+	        response.put("status", "ok");
+	        response.put("keyword_list", keywordsList);
+	    } else {
+	        response.put("status", "empty");
+	        response.put("keyword_list", keywordsList);
+	    }
+
+	    return response;
+	}
+	
+	@PostMapping("shop/product/update_keyword_ajax.do")
+	@ResponseBody
+	public Map<String, Object> updateKeywordAjax(HttpServletRequest request, HttpServletResponse response, @RequestParam("mode") String mode, @RequestParam(value = "keyword", required = false) String keyword) {
+	    Map<String, Object> result = new HashMap<>();
+	    List<String> keywordsList = new ArrayList<>();
+
+	    try {
+	        // 쿠키에서 키워드 목록 가져오기
+	        Cookie searchCookie = getCookie(request, "search_recently_cookie");
+	        if (searchCookie != null) {
+	        	String searchHistory = searchCookie.getValue().replace("&nbsp", " ");
+	            // '/'로 구분된 문자열을 리스트로 변환
+	            keywordsList = new ArrayList<>(Arrays.asList(searchHistory.split("/")));
+
+	            if (mode.equals("single")) {
+	                if (keyword != null && !keyword.isEmpty()) {
+	                    // 특정 키워드 삭제
+	                    keywordsList.remove(keyword);
+	                } else {
+	                    result.put("status", "error");
+	                    result.put("message", "Keyword to remove is missing.");
+	                    return result;
+	                }
+	            } else if (mode.equals("all")) {
+	                // 모든 키워드 삭제
+	                keywordsList.clear();
+	            } else {
+	                result.put("status", "error");
+	                result.put("message", "Invalid mode.");
+	                return result;
+	            }
+
+	            // 리스트가 비어있으면 쿠키 삭제
+	            if (keywordsList.isEmpty()) {
+	                Cookie expiredCookie = new Cookie("search_recently_cookie", "");
+	                expiredCookie.setMaxAge(0);  // 쿠키 만료 시간 설정
+	                expiredCookie.setPath("/");
+	                response.addCookie(expiredCookie);  // 쿠키 삭제
+	            } else {
+	                // 리스트를 문자열로 변환하여 쿠키에 저장
+	            	String updatedSearchHistory = String.join("/", keywordsList).replace(" ", "&nbsp");
+	                Cookie updatedSearchCookie = new Cookie("search_recently_cookie", updatedSearchHistory);
+	                updatedSearchCookie.setMaxAge(30 * 24 * 60 * 60);  // 30일
+	                updatedSearchCookie.setPath("/");
+	                response.addCookie(updatedSearchCookie);  // HttpServletResponse를 통해 쿠키를 추가
+	            }
+
+	            result.put("keyword_list", keywordsList);
+	            result.put("status", "ok");
+	        } else {
+	            result.put("status", "error");
+	            result.put("message", "No keywords found in cookie.");
+	        }
+	    } catch (Exception e) {
+	        result.put("status", "error");
+	        result.put("message", "An error occurred while processing the request: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    return result;
 	}
 }

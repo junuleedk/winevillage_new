@@ -27,6 +27,10 @@ public class MappingController {
 //	public String product_view() {
 //		return "shop/product/product_view";
 //	}
+//	@GetMapping("shop/product/search_product_lists.do")
+//	public String search_product_lists() {
+//		return "shop/product/search_product_lists";
+//	}
 	
 	/* 회원정보-내 계정 찾기 */
 	//아이디 찾기
