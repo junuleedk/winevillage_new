@@ -39,6 +39,7 @@
 		<div class="select_brand js_select" id="select_brand">
 			<button type="button" class="my_value js_selectBtn" onclick="$(this).toggleClass('on')"><span>Our Brands</span></button>
 			<ul class="mb_lnb_lists">
+				<li><a href="/shop/community/brandstory_lists">Our Brands</a></li>
 				<li><a href="/shop/community/magazine_con_lists">Our Stories</a></li>
 				<!-- <li  ><a href="/shop/community/press_lists">Press & People</a></li> -->
 				<li><a href="/shop/community/video_lists"><span>Brands Film</span></a></li>
@@ -61,93 +62,53 @@
 	</div>
 </div>
 <div class="wrap">
-	<div class="content community brandstory_lists_page">
-		<div class="inner">
-			<ul class="brandstory_lists" id="brandstory_ul">
-				<c:forEach items="${lists}" var="item">
-				<li>
-					<a href="/shop/community/brandstory_view.do?story_seq=${item.story_seq}">
-						<div class="img">
-							<picture>
-								<!--[if IE 9]><video style="display: none;"><![endif]-->
-								<source srcset="/../../uploads/story/${item.thumbnail}" media="(min-width:768px)">
-								<!-- pc이미지 -->
-								<source srcset="/../../uploads/story/${item.thumbnail}" media="(max-width:767px)">
-								<!-- mb이미지 -->
-								<!--[if IE 9]></video><![endif]-->
-								<img src="/../../uploads/story/${item.thumbnail}" alt="${item.title}">
-								<!-- pc이미지 -->
-							</picture>
-						</div>
-					</a>
-				</li>
-				</c:forEach>
-			</ul>
-			<!-- <button type="button" class="btn_txt" id="showMoreList" onClick="getList('add');"><span>더보기</span></button> -->
+	<div class="content community brandstory_view_page">
+		<div class="inner view_page_wrap">
+			<div class="view_tit_wrap">
+				<h3 class="tit">${brandstory.title}</h3>
+				<i class="date">${brandstory.register_date}</i>
+			</div>
+			<div class="btn_box">
+				<button type="button" class="share_btn" onclick="$('.share_box').show()">공유하기</button>
+				<div class="share_box">
+					<a href="#none" class="facebook" onclick="share_sns('F');">facebook</a>
+					<a href="#none" class="twitter" onclick="share_sns('T');">twitter</a>
+					<a href="#none" class="url" onclick="share_sns('U');">URL</a>
+					<button type="button" class="hide_btn" onclick="$('.share_box').hide()"></button>
+				</div>
+			</div>
+			<div class="img">
+				<!-- <iframe width="1280" height="720" src="https://www.youtube.com/embed/GxttuFHDakI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe> -->
+				${brandstory.content}
+			</div>
+			<button type="button" class="btn_txt btn_black" onclick="location.href='/shop/community/brandstory_lists.do'"><span>목록</span></button>
 		</div>
-		<!--//inner-->
+		<!--//inner view_page_wrap-->
 	</div>
-	<!--//community brandstory_lists_page-->
+	<!--//community brandstory_view_page-->
 </div>
-<form action="<c:url value='/shop/community/brandstory_lists.do' />" id="ListForm" name="ListForm" method="post" accept-charset="utf-8">
-	<!-- <input type="hidden" name="witplus_csrf_token" value="d05c0554e8df557dd5b2168dd7eca013"> -->
-	<input type="hidden" name="page" id="page" value="1">
-</form>
 <script>
-/**
- * 상품 리스트 불러오기 (더보기)
- * @param  {[type]} mode [description]
- * @return {[type]}      [description]
- */
-//스크롤 바닥 감지
-window.addEventListener('scroll', moreShowList);
-var scrollVal = true;
-function moreShowList() {
-// 	if((window.innerHeight + window.pageYOffset) >= document.querySelector("body").offsetHeight - window.innerHeight) {
-    if ($(window).scrollTop() >= $(document).height() - ($(window).height() * 2.3 )) {
-        if( scrollVal === true) {
-            scrollVal = false;
-            window.removeEventListener('scroll', moreShowList);
-            getList('add');
-        }
+/*공유 및 URL 복사*/
+var img_url = "${brandstory.thumbnail}";
+if(img_url !== ''){
+    img_url = 'https://wn.witplus.com/uploads/product/${brandstory.thumbnail}';
+}
+function share_sns(e){
+    var url = window.document.location.href;
+    if(e == 'U'){
+        var textarea = document.createElement("textarea");
+        document.body.appendChild(textarea);
+        textarea.value = url;
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("URL이 복사되었습니다.");
+    }else if(e == 'F'){
+        window.open( 'http://www.facebook.com/sharer.php?u=' + encodeURIComponent(url) );
+    }else if( e == 'T' ) {
+        window.open("http://twitter.com/share?url="+encodeURIComponent(url));
     }
-}   
-function getList(mode){
-    var page = $("#page").val();
-    if( mode=="add"){
-        page = parseInt(page)+1;
-        $("#page").val(page);
-    }
-    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
-    $.ajax({
-        type: "POST",
-        url : "/shop/community/brandstory_lists_ajax",
-        data: $("#ListForm").serialize(),
-        success : function (res) {
-            if($.trim(res) == ""){
-                if(mode == 'add'){
-                    // alert("마지막 페이지입니다.");
-                    // $('#showMoreList').css('display','none');
-                    window.removeEventListener('scroll', moreShowList);
-                }
-            } else {
-                if(mode=="add"){
-                    $("#brandstory_ul").append(res);    
-                } else if(mode == "fil"){
-                    $("#brandstory_ul").html(res);
-                } else {
-                    $("#brandstory_ul").html(res);
-                }
-                scrollVal = true;
-                window.addEventListener('scroll', moreShowList);
-            }
-        },
-        error: function (res) {
-            alert("상품 리스트 조회시 에러가 발생했습니다.");
-            alert(res.responseText);
-        }
-    });
-};        
+}
 </script>
 </section>
 <!-- //contents -->

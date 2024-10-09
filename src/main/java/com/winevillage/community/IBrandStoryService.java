@@ -9,4 +9,5 @@ import com.winevillage.parameter.ParameterDTO;
 @Mapper
 public interface IBrandStoryService {
 	public ArrayList<BrandStoryDTO> listBrandStory(ParameterDTO parameterDTO);
+	public BrandStoryDTO viewBrandStory(BrandStoryDTO brandstoryDTO);
 }

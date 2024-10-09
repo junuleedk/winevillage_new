@@ -9,11 +9,17 @@
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT story_seq, thumbnail, title
-				FROM brandstory_view
+				FROM brandstory
 				WHERE 1=1
 			) Tb
 		)
 		WHERE rNum <![CDATA[>=]]> #{start}
 		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	
+	<!-- (USER측)상품 상세페이지 -->
+	<select id="viewBrandStory" resultType="com.winevillage.community.BrandStoryDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+	SELECT * FROM brandstory WHERE story_seq=#{story_seq}
 	</select>
 </mapper>

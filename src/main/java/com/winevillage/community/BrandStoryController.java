@@ -62,7 +62,7 @@ public class BrandStoryController {
 	    StringBuilder resultHtml = new StringBuilder();
 	    for (BrandStoryDTO brandStoryDTO : lists) {
 	    	resultHtml.append("<li>");
-	    	resultHtml.append("<a href=\"/shop/community/brandstory_view?story_seq=").append(brandStoryDTO.getStory_seq()).append("\">");
+	    	resultHtml.append("<a href=\"/shop/community/brandstory_view.do?story_seq=").append(brandStoryDTO.getStory_seq()).append("\">");
 	    	resultHtml.append("<div class=\"img\">");
 	    	resultHtml.append("<picture>");
 	    	resultHtml.append("<!--[if IE 9]><video style=\"display: none;\"><![endif]-->");
@@ -80,5 +80,22 @@ public class BrandStoryController {
 	    }
 
 	    return resultHtml.toString();
+	}
+	
+	@GetMapping("shop/community/brandstory_view.do")
+	public String brandstoryView(Model model,
+			@RequestParam(value = "story_seq", required = false) Integer storySeq,
+			BrandStoryDTO brandstoryDTO) {
+		
+		brandstoryDTO = dao.viewBrandStory(brandstoryDTO);
+		
+		if (brandstoryDTO == null) {
+			// eventDTO가 null일 경우 기본 동작
+			brandstoryDTO = new BrandStoryDTO(); // eventDTO에 기본 객체 할당
+		}
+		
+		model.addAttribute("brandstory", brandstoryDTO);
+		
+		return "shop/community/brandstory_view";
 	}
 }
