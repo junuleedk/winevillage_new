@@ -208,6 +208,7 @@
 .best_product_lists_page .product_lists_wrap .best_prd_img_tit{position:relative;margin:60px -20px}
 .best_product_lists_page .product_lists_wrap .best_prd_img_tit picture>img{width:100%}
 .best_product_lists_page .product_lists_wrap .best_prd_img_tit .tit_wrap{position:absolute;top:50%;left:50%;text-align:center;font-weight:500;color:#fff;transform:translate(-50%,-50%)}
+.best_product_lists_page .product_lists_wrap .btn_txt{display:block}
 
 .content.recom_product_lists_page{padding-top:30px}
 .recom_product_lists_page .prd_list_area .h2{margin-bottom:0}

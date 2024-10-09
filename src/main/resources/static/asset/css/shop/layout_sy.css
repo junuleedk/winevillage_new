@@ -88,10 +88,10 @@
 .event_view_page .view_page_wrap .event_prd_image_tit{position:relative;margin:60px 0}
 .event_view_page .view_page_wrap .event_prd_image_tit picture>img{width:100%}
 .event_view_page .view_page_wrap .event_prd_image_tit .tit_wrap{position:absolute;top:50%;left:50%;text-align:center;font-weight:500;color:#fff;transform:translate(-50%,-50%)}
-.event_view_page .view_page_wrap .view_con.tab_view_con .event_item_list li{position:relative}
-.event_view_page .view_page_wrap .view_con.tab_view_con .event_item_list li .event_tab{position:absolute;top:0;left:7%;right:7%;display:flex;flex-wrap:wrap;height:calc(100vw/4.7)}
-.event_view_page .view_page_wrap .view_con.tab_view_con .event_item_list li .event_tab li{width:33.33%;text-indent:-9999px;overflow:hidden}
-.event_view_page .view_page_wrap .view_con.tab_view_con .event_item_list li .event_tab li a{display:block;height:100%}
+.event_view_page .view_page_wrap .view_con .event_item_list li{position:relative}
+.event_view_page .view_page_wrap .view_con .event_item_list li .event_tab{position:absolute;top:0;left:7%;right:7%;display:flex;flex-wrap:wrap;height:calc(100vw/4.7)}
+.event_view_page .view_page_wrap .view_con .event_item_list li .event_tab li{width:33.33%;text-indent:-9999px;overflow:hidden}
+.event_view_page .view_page_wrap .view_con .event_item_list li .event_tab li a{display:block;height:100%}
 
 /* view_page */
 .view_page_wrap .view_tit_wrap{margin-bottom:30px;padding:0 10px 30px;border-bottom:1px solid #DDDDDD}
@@ -601,20 +601,20 @@ span.star_num{line-height:20px;font-style:normal;font-family:'NotoSansCJKkr',san
 .reserve_list_page .cancel_reason_layer .layer_con ul{display:flex;flex-direction:column;align-items:flex-start}
 .reserve_list_page .cancel_reason_layer .layer_con ul li:not(:first-of-type){margin-top:10px}
 
-/* content community brandstoty_lists */
-.brandstoty_lists_page .brandstoty_lists li{border-radius:5px;overflow:hidden}
-.brandstoty_lists_page .brandstoty_lists li:not(:first-of-type){margin-top:30px}
-.brandstoty_lists_page .brandstoty_lists li a{position:relative;display:block;width:100%}
-.brandstoty_lists_page .brandstoty_lists li a .img img{width:100%}
-.brandstoty_lists_page .brandstoty_lists li a .text{position:absolute;left:0;bottom:0;display:flex;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.4);text-align:center;flex-direction:column;justify-content:center;align-items:center}
-.brandstoty_lists_page .brandstoty_lists li a .text .sub_tit{display:block;margin-bottom:20px;padding-bottom:2px;line-height:17px;border-bottom:1px solid #AC8B68;font-size:12px;font-weight:700;color:#fff;letter-spacing:0}
-.brandstoty_lists_page .brandstoty_lists li a .text strong{display:block;font-size:20px;font-weight:700;color:#fff;letter-spacing:0}
-.brandstoty_lists_page .inner>.btn_txt{margin-top:30px}
+/* content community brandstory_lists */
+.brandstory_lists_page .brandstory_lists li{border-radius:5px;overflow:hidden}
+.brandstory_lists_page .brandstory_lists li:not(:first-of-type){margin-top:30px}
+.brandstory_lists_page .brandstory_lists li a{position:relative;display:block;width:100%}
+.brandstory_lists_page .brandstory_lists li a .img img{width:100%}
+.brandstory_lists_page .brandstory_lists li a .text{position:absolute;left:0;bottom:0;display:flex;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.4);text-align:center;flex-direction:column;justify-content:center;align-items:center}
+.brandstory_lists_page .brandstory_lists li a .text .sub_tit{display:block;margin-bottom:20px;padding-bottom:2px;line-height:17px;border-bottom:1px solid #AC8B68;font-size:12px;font-weight:700;color:#fff;letter-spacing:0}
+.brandstory_lists_page .brandstory_lists li a .text strong{display:block;font-size:20px;font-weight:700;color:#fff;letter-spacing:0}
+.brandstory_lists_page .inner>.btn_txt{margin-top:30px}
 
-/* content community brandstoty_view */
-.brandstoty_view_page .view_page_wrap .view_tit_wrap{margin:0 0 20px}
-.brandstoty_view_page .img{padding-bottom:30px;border-bottom:1px solid #ddd;text-align:center}
-.brandstoty_view_page .__se_tbl td{max-width:150px;padding:20px}
+/* content community brandstory_view */
+.brandstory_view_page .view_page_wrap .view_tit_wrap{margin:0 0 20px}
+.brandstory_view_page .img{padding-bottom:30px;border-bottom:1px solid #ddd;text-align:center}
+.brandstory_view_page .__se_tbl td{max-width:150px;padding:20px}
 
 /* content community magazine_lists */
 .magazine_lists_page .magazine_lists .img{border-radius:5px;overflow:hidden}

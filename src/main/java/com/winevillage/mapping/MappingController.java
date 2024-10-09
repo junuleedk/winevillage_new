@@ -99,14 +99,14 @@ public class MappingController {
 	}
 	
 	/* 이벤트 */
-	@GetMapping("shop/event/event_end.do")
-	public String event_end() {
-		return "shop/event/event_end";
-	}
-	@GetMapping("shop/event/event_lists.do")
-	public String event_lists() {
-		return "shop/event/event_lists";
-	}
+//	@GetMapping("shop/event/event_end.do")
+//	public String event_end() {
+//		return "shop/event/event_end";
+//	}
+//	@GetMapping("shop/event/event_lists.do")
+//	public String event_lists() {
+//		return "shop/event/event_lists";
+//	}
 	
 	/* 마이페이지 */
 	@GetMapping("shop/mypage/account/member_modify.do")

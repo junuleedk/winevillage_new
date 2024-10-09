@@ -97,13 +97,13 @@
 			<span style="background:transparent"></span>
 			</c:if> --%>
 			<c:if test="${item.label_type != null}">
-			<span style="background:#E0D8EA">${item.label_type}</span>
+			<span style="background:${item.bg_color}">${item.label_type}</span>
 			</c:if>
 			<c:if test="${item.label_country != null}">
-			<span style="background:#E0D8EA">${item.label_country}</span>
+			<span style="background:${item.bg_color}">${item.label_country}</span>
 			</c:if>
 			<c:if test="${item.label_grapevariety != null}">
-			<span style="background:#E0D8EA">${item.label_grapevariety}</span>
+			<span style="background:${item.bg_color}">${item.label_grapevariety}</span>
 			</c:if>
 		</div>
 		

@@ -192,7 +192,7 @@
 	                <a href="/shop/product/best_product_lists?group_cd=20240206">En Primeur</a>
                 </li>
                 <li class="mb_hidden opacity">
-	                <a href="/shop/event/event_lists">PROMOTION</a>
+	                <a href="<c:url value='/shop/event/event_lists.do' />">PROMOTION</a>
                 </li>
                 <li class="opacity">
 	                <a href="/shop/company/store">SHOP</a>
@@ -216,23 +216,23 @@
                         <strong>WINE</strong>
                     </p>
                     <ul>
-                        <li class="ico_red"><a href="/shop/product/product_lists.do?category=10000&category_type=10100&category_country=10101">레드</a></li>
-                        <li class="ico_white"><a href="/shop/product/product_lists.do?category=10000&category_type=10100&category_country=10102">화이트</a></li>
-                        <li class="ico_rose"><a href="/shop/product/product_lists.do?category=10000&category_type=10100&category_country=10108">로제</a></li>
-                        <li class="ico_sparkling"><a href="/shop/product/product_lists.do?category=10000&category_type=10100&category_country=10103">스파클링</a></li>
-                        <li class="ico_spirits"><a href="/shop/product/product_lists.do?category=10000&category_type=10100&category_country=10105">주정강화</a></li>
+                        <li class="ico_red"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_type=10101' />">레드</a></li>
+                        <li class="ico_white"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_type=10102' />">화이트</a></li>
+                        <li class="ico_rose"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_type=10108' />">로제</a></li>
+                        <li class="ico_sparkling"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_type=10103' />">스파클링</a></li>
+                        <li class="ico_spirits"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_type=10105' />">주정강화</a></li>
                     </ul>
                     <ul>
-                        <li class="ico_france"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10201">프랑스</a></li>
-                        <li class="ico_italia"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10202">이탈리아</a></li>
-                        <li class="ico_spain"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10203">스페인</a></li>
-                        <li class="ico_germ"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10204">독일</a></li>
-                        <li class="ico_usa"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10206">미국</a></li>
-                        <li class="ico_chile"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10205">칠레</a></li>
-                        <li class="ico_argentina"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10209">아르헨티나</a></li>
-                        <li class="ico_aus"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10207">호주</a></li>
-                        <li class="ico_etc"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10210">기타 구대륙</a></li>
-                        <li class="ico_etc"><a href="/shop/product/product_lists.do?category=10000&category_type=10200&category_country=10211">기타 신대륙</a></li>
+                        <li class="ico_france"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10201' />">프랑스</a></li>
+                        <li class="ico_italia"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10202' />">이탈리아</a></li>
+                        <li class="ico_spain"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10203' />">스페인</a></li>
+                        <li class="ico_germ"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10204' />">독일</a></li>
+                        <li class="ico_usa"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10206' />">미국</a></li>
+                        <li class="ico_chile"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10205' />">칠레</a></li>
+                        <li class="ico_argentina"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10209' />">아르헨티나</a></li>
+                        <li class="ico_aus"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10207' />">호주</a></li>
+                        <li class="ico_etc"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10210' />">기타 구대륙</a></li>
+                        <li class="ico_etc"><a href="<c:url value='/shop/product/product_lists.do?category=10000&category_country=10211' />">기타 신대륙</a></li>
                     </ul>
                 </div>
                 <div class="box other">
@@ -240,24 +240,24 @@
                         <strong>BEER & LIQUOR</strong>
                     </p>
                     <ul>
-                        <li class="ico_whiskey"><a href="/shop/product/product_lists.do?category=20000&category_type=20100&category_country=20101">위스키</a></li>
-                        <li class="ico_cognac"><a href="/shop/product/product_lists.do?category=20000&category_type=20100&category_country=20102">꼬냑</a></li>
-                        <li class="ico_tequila"><a href="/shop/product/product_lists.do?category=20000&category_type=20100&category_country=20105">데킬라</a></li>
-                        <li class="ico_jin"><a href="/shop/product/product_lists.do?category=20000&category_type=20100&category_country=20103">진</a></li>
-                        <li class="ico_rum"><a href="/shop/product/product_lists.do?category=20000&category_type=20100&category_country=20106">럼</a></li>
-                        <li class="ico_beer"><a href="/shop/product/product_lists.do?category=20000&category_type=20200&category_country=20201">맥주</a></li>
+                        <li class="ico_whiskey"><a href="<c:url value='/shop/product/product_lists.do?category=20000&category_type=20101' />">위스키</a></li>
+                        <li class="ico_cognac"><a href="<c:url value='/shop/product/product_lists.do?category=20000&category_type=20102' />">꼬냑</a></li>
+                        <li class="ico_tequila"><a href="<c:url value='/shop/product/product_lists.do?category=20000&category_type=20105' />">데킬라</a></li>
+                        <li class="ico_jin"><a href="<c:url value='/shop/product/product_lists.do?category=20000&category_type=20103' />">진</a></li>
+                        <li class="ico_rum"><a href="<c:url value='/shop/product/product_lists.do?category=20000&category_type=20106' />">럼</a></li>
+                        <li class="ico_beer"><a href="<c:url value='/shop/product/product_lists.do?category=20000&category_type=20201' />">맥주</a></li>
                     </ul>
                     <p class="tit">
                         <strong>TICKET</strong>
                     </p>
                     <ul>
-                        <li class="ico_ticket"><a href="/shop/product/product_lists.do?category=50000">티켓</a></li>
+                        <li class="ico_ticket"><a href="<c:url value='/shop/product/product_lists.do?category=50000' />">티켓</a></li>
                     </ul>
                     <p class="tit">
                         <strong>OTHER</strong>
                     </p>
                     <ul>
-                        <li class="ico_acc"><a href="/shop/product/product_lists.do?category=40000&category_type=40100&category_country=40101">액세서리</a></li>
+                        <li class="ico_acc"><a href="<c:url value='/shop/product/product_lists.do?category=40000' />">액세서리</a></li>
                     </ul>
                 </div>
                 <div class="box">
@@ -266,8 +266,8 @@
                         <strong>PROMOTION</strong>
                     </p>
                     <ul>
-                        <li><a href="/shop/event/event_lists">이달의 프로모션</a></li>
-                        <li><a href="/shop/event/event_end">완료된 프로모션</a></li>
+                        <li><a href="<c:url value='/shop/event/event_lists.do' />">이달의 프로모션</a></li>
+                        <li><a href="<c:url value='/shop/event/event_end.do' />">완료된 프로모션</a></li>
                         <li><a href="/shop/cs/special">특판문의</a></li>
                     </ul>
                     <p class="tit">

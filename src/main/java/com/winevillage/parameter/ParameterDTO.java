@@ -27,4 +27,6 @@ public class ParameterDTO {
     private List<Integer> label_state;
     private List<String> label_grapevariety;
     private String price_range;
+    
+    private int group_code;
 }

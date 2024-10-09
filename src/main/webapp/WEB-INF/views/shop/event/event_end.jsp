@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINENARA 1987 ㅣ PROMOTION </title>
+<title>WINEVILLAGE 2024 ㅣ PROMOTION </title>
 <%@ include file="../common/common.jsp" %>
 </head>
 <body>
@@ -39,7 +39,7 @@
 			<div class="select_brand js_select" id="select_brand">
 				<button type="button" class="my_value js_selectBtn" onclick="$(this).toggleClass('on')"><span>완료된 프로모션</span></button>
 				<ul class="mb_lnb_lists">
-					<li><a href="/shop/event/event_lists">이달의 프로모션</a></li>
+					<li><a href="/shop/event/event_lists.do">이달의 프로모션</a></li>
 					<!-- <li><a href="/shop/event/theme/theme_ing_lists">진행중인 기획전</a></li>
 					<li><a href="/shop/event/theme_end/theme_end_lists">종료된 기획전</a></li> -->
 					<!-- <li><a href="/shop/event/review/review_lists">이벤트 당첨자 발표</a></li> -->
@@ -52,8 +52,8 @@
 				<h2><span>PROMOTION</span></h2>
 			</div>
 			<ul class="menu tab2">
-				<li><a href="/shop/event/event_lists"><span>이달의 프로모션</span></a></li>
-				<li class="on"><a href="/shop/event/event_end"><span>완료된 프로모션</span></a></li>
+				<li><a href="/shop/event/event_lists.do"><span>이달의 프로모션</span></a></li>
+				<li class="on"><a href="/shop/event/event_end.do"><span>완료된 프로모션</span></a></li>
 				<!-- <li><a href="/shop/event/theme/theme_ing_lists">진행중인 기획전</a></li>
 				<li><a href="/shop/event/theme_end/theme_end_lists">종료된 기획전</a></li> -->
 				<!-- <li><a href="/shop/event/review/review_lists">이벤트 당첨자 발표</a></li> -->
@@ -63,156 +63,13 @@
 	</div>
 	<div class="wrap">
 		<div class="content event event_end_page">
-			<div class="event_lists_wrap">
-				<ul id="end_event_list">
-					<li class="end_event">
-						<a href="/shop/event/event_view?no=386">
-							<div class="img">
-								<picture>
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source srcset="../../uploads/event/fc054854141dd309427923e9ce9058ad.png" media="(min-width:768px)">
-									<!-- pc이미지 -->
-									<source srcset="../../uploads/event/fc054854141dd309427923e9ce9058ad.png" media="(max-width:767px)">
-									<!-- mb이미지 -->
-									<!--[if IE 9]></video><![endif]-->
-									<img src="../../uploads/event/fc054854141dd309427923e9ce9058ad.png" alt="">
-									<!-- pc이미지 -->
-								</picture>
-							</div>
-							<div class="text">
-								<strong class="tit">아르테비노 오너 방한 디너</strong>
-								<span class="con"></span>
-								<i class="date">2024.06.07 ~ 2024.06.13</i>
-							</div>
-						</a>
-					</li>
-					<li class="end_event">
-						<a href="/shop/event/event_view?no=384">
-							<div class="img">
-								<picture>
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source srcset="../../uploads/event/d0eb2f2cbc65ef8756c31d5bad404296.png" media="(min-width:768px)">
-									<!-- pc이미지 -->
-									<source srcset="../../uploads/event/d0eb2f2cbc65ef8756c31d5bad404296.png" media="(max-width:767px)">
-									<!-- mb이미지 -->
-									<!--[if IE 9]></video><![endif]-->
-									<img src="../../uploads/event/d0eb2f2cbc65ef8756c31d5bad404296.png" alt="">
-									<!-- pc이미지 -->
-								</picture>
-							</div>
-							<div class="text">
-								<strong class="tit">Drink on 'Seongsu' 6월 </strong>
-								<span class="con"></span>
-								<i class="date">2024.06.05 ~ 2024.06.15</i>
-							</div>
-						</a>
-					</li>
-					<li class="end_event">
-						<a href="/shop/event/event_view?no=381">
-							<div class="img">
-								<picture>
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source srcset="../../uploads/event/04eb5b1f71359764d837ce6014b76b12.jpg" media="(min-width:768px)">
-									<!-- pc이미지 -->
-									<source srcset="../../uploads/event/04eb5b1f71359764d837ce6014b76b12.jpg" media="(max-width:767px)">
-									<!-- mb이미지 -->
-									<!--[if IE 9]></video><![endif]-->
-									<img src="../../uploads/event/04eb5b1f71359764d837ce6014b76b12.jpg" alt="">
-									<!-- pc이미지 -->
-								</picture>
-							</div>
-							<div class="text">
-								<strong class="tit">마르케제 안티노리 X 라연 디너</strong>
-								<span class="con"></span>
-								<i class="date">2024.05.30 ~ 2024.06.20</i>
-							</div>
-						</a>
-					</li>
-					<li class="end_event">
-						<a href="/shop/event/event_view?no=378">
-							<div class="img">
-								<picture>
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source srcset="../../uploads/event/ca20dd531aa30c930370c3cf37dcc545.jpg" media="(min-width:768px)">
-									<!-- pc이미지 -->
-									<source srcset="../../uploads/event/ca20dd531aa30c930370c3cf37dcc545.jpg" media="(max-width:767px)">
-									<!-- mb이미지 -->
-									<!--[if IE 9]></video><![endif]-->
-									<img src="../../uploads/event/ca20dd531aa30c930370c3cf37dcc545.jpg" alt="">
-									<!-- pc이미지 -->
-								</picture>
-							</div>
-							<div class="text">
-								<strong class="tit">에스쿠도로호 X 그래비티 서울 판교 디너</strong>
-								<span class="con"></span>
-								<i class="date">2024.05.23 ~ 2024.05.29</i>
-							</div>
-						</a>
-					</li>
-					<li class="end_event">
-						<a href="/shop/event/event_view?no=377">
-							<div class="img">
-								<picture>
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source srcset="../../uploads/event/a62c547dcde474b76c4f1e68324f69e5.png" media="(min-width:768px)">
-									<!-- pc이미지 -->
-									<source srcset="../../uploads/event/a62c547dcde474b76c4f1e68324f69e5.png" media="(max-width:767px)">
-									<!-- mb이미지 -->
-									<!--[if IE 9]></video><![endif]-->
-									<img src="../../uploads/event/a62c547dcde474b76c4f1e68324f69e5.png" alt="">
-									<!-- pc이미지 -->
-								</picture>
-							</div>
-							<div class="text">
-								<strong class="tit">WINENARA FAMILY SALE</strong>
-								<span class="con"></span>
-								<i class="date">2024.05.20 ~ 2024.06.03</i>
-							</div>
-						</a>
-					</li>
-					<li class="end_event">
-						<a href="/shop/event/event_view?no=376">
-							<div class="img">
-								<picture>
-									<!--[if IE 9]><video style="display: none;"><![endif]-->
-									<source srcset="../../uploads/event/9ec0d9c0c32e9529870ff242f490a7f1.png" media="(min-width:768px)">
-									<!-- pc이미지 -->
-									<source srcset="../../uploads/event/9ec0d9c0c32e9529870ff242f490a7f1.png" media="(max-width:767px)">
-									<!-- mb이미지 -->
-									<!--[if IE 9]></video><![endif]-->
-									<img src="../../uploads/event/9ec0d9c0c32e9529870ff242f490a7f1.png" alt="">
-									<!-- pc이미지 -->
-								</picture>
-							</div>
-							<div class="text">
-								<strong class="tit">Bordeaux Night 와인 시음회</strong>
-								<span class="con"></span>
-								<i class="date">2024.05.14 ~ 2024.06.07</i>
-							</div>
-						</a>
-					</li>
-					<script>
-					// var page = 1;
-					// var cnt = 6;
-					// // alert(page + " : " + cnt);
-					// if(page == 1 && cnt < 1){
-					//     $('#more_btn').hide();
-					// }else if(page > 1 && cnt < 1){  
-					//     alert('마지막 글입니다.');
-					//     $('#more_btn').hide();
-					// }else{
-					//     $('#more_btn').show();
-					// }
-					</script>
-				</ul>
-				<!-- <button type="button" class="btn_txt" id="more_btn" onclick="get_event_end_list('more');"><span>더보기</span></button> -->
-			</div>
+			<%@ include file="event_end/event_lists_wrap.jsp" %>
 			<!--//event-lists-wrap-->
 		</div>
 		<!--//event event_end_page-->
 	</div>
 	<form action="https://www.winenara.com/shop/event/event_list_end_ajax" method="post" id="listFrm" accept-charset="utf-8">
-		<input type="hidden" name="witplus_csrf_token" value="03c9584ca9d10fb26fad1c3affbec255">
+		<!-- <input type="hidden" name="witplus_csrf_token" value="03c9584ca9d10fb26fad1c3affbec255"> -->
 		<input type="hidden" name="page" id="page" value="1">
 		<input type="hidden" name="stat" id="stat" value="2">
 	</form>
@@ -220,7 +77,7 @@
 		$(document).ready(function(){
 			get_event_end_list();
 			//스크롤 바닥 감지
-			window.addEventListener('scroll', moreShowList);
+			//window.addEventListener('scroll', moreShowList);
 			function moreShowList() {
 			// 	if((window.innerHeight + window.pageYOffset) >= document.querySelector("body").offsetHeight - window.innerHeight) {
 				if ($(window).scrollTop() >= $(document).height() - ($(window).height() * 2.3 )) {
@@ -232,7 +89,7 @@
 			// }
 		});
 		function get_event_end_list(mode){
-			Csrf.Set(_CSRF_NAME_);
+			/* Csrf.Set(_CSRF_NAME_); */
 			if(mode == 'more'){
 				var page = $('#page').val();
 				page++;
@@ -240,19 +97,25 @@
 			}
 			var params = $("#listFrm").serialize();
 			$.ajax({
-				url : "/shop/event/event_list_end_ajax",
-				type : "post",
-				data : params,
-				success:function(data){
-					// console.log(data);
-					$('#end_event_list').append(data);
-					// if(더 호출할 것이 없을 때 스크롤 기능 제거){
-					//      window.removeEventListener('scroll', moreShowList);
-					// }
-				},error:function(request,status,error){
-					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			})
+	            url : "/shop/event/event_list_end_ajax",
+	            type : "post",
+	            data : params,
+	            success:function(data){
+	                // console.log(data);
+	                $('#end_event_list').append(data.html);
+	                
+	             	// 더 이상 불러올 데이터가 없으면 버튼 숨기기
+	                if (!data.more_btn) {
+	                    $('#more_btn').hide();  // hasMore가 false면 버튼 숨기기
+	                }
+					// 더 이상 불러올 데이터가 없으면 스크롤 이벤트 제거
+	                // if(더 호출할 것이 없을 때 스크롤 기능 제거){
+	                //      window.removeEventListener('scroll', moreShowList);
+	                // }
+	            },error:function(request,status,error){
+	                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
+	        })
 		}
 	</script>
 </section>

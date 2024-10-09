@@ -20,7 +20,7 @@ public class ProductDTO {
 	private String label_country;
 	private int label_state;
 	private String label_grapevariety;
-	private int price_discount_rate;
+	private Integer price_discount_rate;
 	private int price_discount;
 	private int price_original;
 	private int price_deal;
@@ -43,6 +43,8 @@ public class ProductDTO {
 	private String content;
 	private int stock;
 	private java.sql.Date register_date;
+	
+	private int group_code;
 	
 	/* JSP 페이지 내에서 사용 */
 	private String label_thumbnail_1;

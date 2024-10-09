@@ -694,10 +694,10 @@
 			    }
 			});
 			
-			var categoryValue = $("#category").val();
-			if(categoryValue === "40000" || categoryValue === "50000"){
-				$("#category").val(null);  // Set category to null if it's 40000 or 50000
-			}
+			//var categoryValue = $("#category").val();
+			//if(categoryValue === "40000" || categoryValue === "50000"){
+			//	$("#category").val(null);  // Set category to null if it's 40000 or 50000
+			//}
 			
 			$("#classified").val("all");
 			
@@ -779,12 +779,20 @@
 		// 필터 적용
 		function filter_btn(){
 			var form = document.listFrm;
+			var category = form.querySelector("#category");
+			
 			// 폼에서 값이 없는 항목을 제거한 후 제출
 		    $(form).find('input[type="hidden"]').each(function() {
 		        if (!$(this).val()) {
 		            $(this).remove();  // 빈 값을 가진 input 요소 제거
 		        }
 		    });
+			
+		 	// Check if category value is 40000 or 50000
+		    if (category.value === "40000" || category.value === "50000") {
+		      // Set category value to null if it's 40000 or 50000
+		      category.value = null;
+		    }
 			form.submit();
 		}
 		/************************ 필터 ************************/

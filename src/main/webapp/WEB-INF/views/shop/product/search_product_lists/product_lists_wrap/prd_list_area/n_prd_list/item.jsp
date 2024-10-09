@@ -97,13 +97,13 @@
 			<span style="background:transparent"></span>
 			</c:if> --%>
 			<c:if test="${item.label_type != null}">
-			<span style="background:#E0D8EA">${item.label_type}</span>
+			<span style="background:${item.bg_color}">${item.label_type}</span>
 			</c:if>
 			<c:if test="${item.label_country != null}">
-			<span style="background:#E0D8EA">${item.label_country}</span>
+			<span style="background:${item.bg_color}">${item.label_country}</span>
 			</c:if>
 			<c:if test="${item.label_grapevariety != null}">
-			<span style="background:#E0D8EA">${item.label_grapevariety}</span>
+			<span style="background:${item.bg_color}">${item.label_grapevariety}</span>
 			</c:if>
 		</div>
 		
@@ -135,7 +135,7 @@
 				</c:when>
 				<c:when test="${item.stock == 0}">
 				<ins class="out">매장문의</ins>
-				<ins class="out out_price">50,000원</ins>
+				<ins class="out out_price"><fmt:formatNumber value="${item.price_original}" pattern="#,###"/>원</ins>
 				</c:when>
 				<c:otherwise>
 				<ins><fmt:formatNumber value="${item.price_original}" pattern="#,###"/>원</ins>				

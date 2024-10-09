@@ -82,7 +82,7 @@
 .event_view_page .view_page_wrap .event_prd_tit span{font-size:18px}
 .event_view_page .view_page_wrap .event_prd_image_tit .tit_wrap{font-size:20px}
 .event_view_page .view_page_wrap .event_prd_image_tit .tit_wrap span{margin-top:3px}
-.event_view_page .view_page_wrap .view_con.tab_view_con .event_item_list li .event_tab{left:0;right:0;height:260px;padding:0 134px}
+.event_view_page .view_page_wrap .view_con .event_item_list li .event_tab{left:0;right:0;height:260px;padding:0 134px}
 
 /* view_page */
 .view_page_wrap .view_tit_wrap{display:table;width:1200px;margin:0 0 30px;padding:0 30px 30px}
@@ -505,20 +505,20 @@
 /* content mypage note balance_lists_page */
 .balance_lists_page .inner .my_gift .js_tabCon .list li .info{padding-top:0}
 
-/* content community brandstoty_lists */
-.content.brandstoty_lists_page{padding:60px 0 120px}
-.brandstoty_lists_page .brandstoty_lists::after{content:'';display:block;clear:both}
-.brandstoty_lists_page .brandstoty_lists li{float:left;width:calc(50% - 12px)}
-.brandstoty_lists_page .brandstoty_lists li:not(:first-of-type){margin-top:0px}
-.brandstoty_lists_page .brandstoty_lists li:not(:nth-of-type(-n+2)){margin-top:24px}
-.brandstoty_lists_page .brandstoty_lists li:not(:nth-of-type(2n)){margin-right:24px}
-.brandstoty_lists_page .brandstoty_lists li .img{max-height:420px;overflow:hidden}
-.brandstoty_lists_page .brandstoty_lists li a .text .sub_tit{line-height:20px;font-size:14px}
-.brandstoty_lists_page .brandstoty_lists li a .text strong{font-size:32px}
-.brandstoty_lists_page .inner>.btn_txt{display:block;width:160px;margin:60px auto 0}
+/* content community brandstory_lists */
+.content.brandstory_lists_page{padding:60px 0 120px}
+.brandstory_lists_page .brandstory_lists::after{content:'';display:block;clear:both}
+.brandstory_lists_page .brandstory_lists li{float:left;width:calc(50% - 12px)}
+.brandstory_lists_page .brandstory_lists li:not(:first-of-type){margin-top:0px}
+.brandstory_lists_page .brandstory_lists li:not(:nth-of-type(-n+2)){margin-top:24px}
+.brandstory_lists_page .brandstory_lists li:not(:nth-of-type(2n)){margin-right:24px}
+.brandstory_lists_page .brandstory_lists li .img{max-height:420px;overflow:hidden}
+.brandstory_lists_page .brandstory_lists li a .text .sub_tit{line-height:20px;font-size:14px}
+.brandstory_lists_page .brandstory_lists li a .text strong{font-size:32px}
+.brandstory_lists_page .inner>.btn_txt{display:block;width:160px;margin:60px auto 0}
 
-/* content community brandstoty_view */
-.content.brandstoty_view_page{padding:60px 0 120px}
+/* content community brandstory_view */
+.content.brandstory_view_page{padding:60px 0 120px}
 
 /* content community magazine_lists */
 .content.magazine_lists_page{padding:60px 0 120px}

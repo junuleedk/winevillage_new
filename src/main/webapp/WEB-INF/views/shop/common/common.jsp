@@ -7,18 +7,18 @@
 <meta name="description" content="WINENARA 1987">
 <meta name="keywords" content="와인나라는 전세계의 다양한 와인 포트폴리오를 보유하고 있으며, 와인을 비롯하여 각종 위스키와 스피릿을 판매하는 종합 주류 기업입니다.">
 <meta name="author" content="WINENARA">
-<meta name="twitter:url" content="https://www.winenara.com/"/>
+<meta name="twitter:url" content="<c:url value='/' />"/>
 <!--   트위터 카드를 사용하는 표시하고싶은URL -->
 <meta name="twitter:title" content="WINENARA 1987"/>
 <!--   트위터 카드에 나타날 웹 사이트의 제목 -->
-<meta name="twitter:image" content="https://www.winenara.com/asset/images/kr/default/logo.png">
+<meta name="twitter:image" content="<c:url value='/asset/images/kr/default/logo.png' />">
 <meta property="og:type" content="website">
 <meta property="og:title" content="와인나라">
 <meta property="og:description" content="와인나라는 전세계의 다양한 와인 포트폴리오를 보유하고 있으며, 와인을 비롯하여 각종 위스키와 스피릿을 판매하는 종합 주류 기업입니다.">
-<meta property="og:url" content="https://www.winenara.com">
-<meta property="og:image" content="https://www.winenara.com/asset/images/kr/default/logo.png"/>
+<meta property="og:url" content="">
+<meta property="og:image" content="<c:url value='/asset/images/kr/default/logo.png' />"/>
 <meta property="og:title" content="WINENARA 1987"/>
-<meta property="og:image" content="https://www.winenara.com/asset/images/kr/default/logo.png">
+<meta property="og:image" content="<c:url value='/asset/images/kr/default/logo.png' />">
 <!--meta property="og:image" content="uploads/URL_DEPTH1/" -->
 <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
 <meta http-equiv="Expires" content="-1">
@@ -30,7 +30,7 @@
     //if (document.location.protocol == 'http:' && location.hostname.indexOf("winenara.com") != -1) {
     //    document.location.href = document.location.href.replace('http:', 'https:');
     //}
-    var _BASE_URL_ = "https://www.winenara.com/";
+    var _BASE_URL_ = "<c:url value='/asset/images/kr/default/logo.png' />";
     var _CSRF_NAME_ = "witplus_csrf_token";
     var sesId = "";
     var sesCustSeq = "";

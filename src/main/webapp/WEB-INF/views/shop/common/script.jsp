@@ -70,7 +70,7 @@ function share_sns(e) {
             content: {
                 title: '와인나라',
                 description: "",
-                imageUrl: 'https://www.winenara.com/asset/images/shop/default/pc_logo.png',
+                imageUrl: '<c:url value="/asset/images/shop/default/pc_logo.png" />',
                 link: {
                     mobileWebUrl: location.href,
                     webUrl: location.href,

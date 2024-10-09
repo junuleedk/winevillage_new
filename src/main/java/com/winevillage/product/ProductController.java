@@ -1,9 +1,11 @@
 package com.winevillage.product;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,6 +13,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -497,5 +504,245 @@ public class ProductController {
 	    }
 
 	    return result;
+	}
+	
+	@GetMapping("shop/product/group_product_lists.do")
+	public String listGroupProduct(Model model, HttpServletRequest request,
+			@RequestParam(value = "group_code", required = false) Integer group_code,
+	        @RequestParam(name = "sort", required = false) String sort) {
+
+		// 파라미터 값을 받아오고 읽어오기 위해 ParameterDTO가 필요함.
+	    ParameterDTO parameterDTO = new ParameterDTO();
+	    
+	    // group_code 값을 DTO에 설정
+	    if (group_code != null) {
+	        parameterDTO.setGroup_code(group_code);  // DTO에 group_code 설정
+	    }
+	    
+	    model.addAttribute("group_code", group_code);
+
+	    // 정렬 값 쿠키에서 가져오기
+	    if (sort == null || sort.isEmpty()) {
+	        Cookie sortCookie = getCookie(request, "list_order_cookie");
+	        if (sortCookie != null) {
+	            sort = sortCookie.getValue();
+	        } else {
+	            sort = "price_desc";  // 기본 정렬값
+	        }
+	    }
+	    
+	    parameterDTO.setSort(sort);
+	    
+	    // 나머지 로직 그대로 유지 (검색 쿼리 처리, 페이징 등)
+	    int count = dao.countGroupProduct(parameterDTO);
+	    int pageSize = 25;
+	    int blockPage = 10;
+	    int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
+	            : Integer.parseInt(request.getParameter("page"));
+	    int start = (pageNum - 1) * pageSize + 1;
+	    int end = pageNum * pageSize;
+	    
+	    parameterDTO.setStart(start);
+	    parameterDTO.setEnd(end);
+	    
+	    Map<String, Object> maps = new HashMap<>();
+	    maps.put("pageSize", pageSize);
+	    maps.put("page", pageNum);
+	    maps.put("count", count);
+	    model.addAttribute("maps", maps);
+	    
+	    ArrayList<ProductDTO> lists = dao.listGroupProduct(parameterDTO);
+	    model.addAttribute("lists", lists);
+	    
+	    for (ProductDTO product : lists) {
+	    	String labelThumbnail = product.getLabel_thumbnail(); // 실제로 label_thumbnail 값을 가져옴
+	    	
+	    	// label_thumbnail 값 처리
+	    	if (labelThumbnail != null && !labelThumbnail.isEmpty()) {
+	    		// '//'을 기준으로 나눕니다.
+	    		String[] parts = labelThumbnail.split("\\/\\/", 2);
+	    		String part1 = parts.length > 0 ? parts[0].trim() : "";
+	    		String part2 = parts.length > 1 ? parts[1].trim() : "";
+	    		
+	    		// 상품 객체에 iconPart와 htmlPart 값을 추가
+	    		product.setLabel_thumbnail_1(part1);
+	    		product.setLabel_thumbnail_2(part2);
+	    	}
+	    }
+	    
+	    // 더 이상 불러올 데이터가 있는지 확인
+	    boolean moreBtn = lists.size() == pageSize;
+	    model.addAttribute("more_btn", moreBtn);  // JSP에 전달
+	    
+	    String baseUrl = request.getContextPath() + "/shop/product/group_product_lists.do?";
+	    String pagination = Pagination.product(count, pageSize, blockPage, pageNum, baseUrl);
+	    
+	    model.addAttribute("pagination", pagination);
+	    
+	    return "shop/product/group_product_lists";
+	}
+	
+	@PostMapping("/shop/product/group_product_lists_ajax.do")
+	@ResponseBody  // AJAX 요청이므로 데이터를 반환할 때 View가 아닌 데이터를 직접 반환
+	public Map<String, Object> listGroupProductAjax(Model model, HttpServletRequest request,
+	        @RequestParam(value = "group_code", required = false) Integer group_code,
+	        @RequestParam(name = "sort", required = false) String sort,
+	        @RequestParam(value = "page", required = false) Integer pageNum) {
+
+	    // 파라미터 값을 받아오고 읽어오기 위해 ParameterDTO가 필요함.
+	    ParameterDTO parameterDTO = new ParameterDTO();
+	    
+	    // group_code 값을 DTO에 설정
+	    if (group_code != null) {
+	        parameterDTO.setGroup_code(group_code);  // DTO에 group_code 설정
+	    }
+
+	    // 정렬 값 쿠키에서 가져오기
+	    if (sort == null || sort.isEmpty()) {
+	        Cookie sortCookie = getCookie(request, "list_order_cookie");
+	        if (sortCookie != null) {
+	            sort = sortCookie.getValue();
+	        } else {
+	            sort = "price_desc";  // 기본 정렬값
+	        }
+	    }
+	    
+	    parameterDTO.setSort(sort);
+
+	    // 페이지 처리
+	    int pageSize = 25;
+	    int page = (pageNum == null || pageNum <= 0) ? 1 : pageNum;
+	    int start = (page - 1) * pageSize + 1;
+	    int end = page * pageSize;
+	    
+	    parameterDTO.setStart(start);
+	    parameterDTO.setEnd(end);
+
+	    // 상품 리스트 조회
+	    ArrayList<ProductDTO> lists = dao.listGroupProduct(parameterDTO);
+	    
+	    for (ProductDTO product : lists) {
+	    	String labelThumbnail = product.getLabel_thumbnail(); // 실제로 label_thumbnail 값을 가져옴
+	    	
+	    	// label_thumbnail 값 처리
+	    	if (labelThumbnail != null && !labelThumbnail.isEmpty()) {
+	    		// '//'을 기준으로 나눕니다.
+	    		String[] parts = labelThumbnail.split("\\/\\/", 2);
+	    		String part1 = parts.length > 0 ? parts[0].trim() : "";
+	    		String part2 = parts.length > 1 ? parts[1].trim() : "";
+	    		
+	    		// 상품 객체에 iconPart와 htmlPart 값을 추가
+	    		product.setLabel_thumbnail_1(part1);
+	    		product.setLabel_thumbnail_2(part2);
+	    	}
+	    }
+	    
+	    // boolean 값 설정: pageSize와 같은 경우, 더 많은 데이터가 있을 가능성이 있음
+	    boolean moreBtn = lists.size() == pageSize;
+
+	    // 결과 HTML 및 moreBtn 상태를 JSON으로 반환
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    StringBuilder resultHtml = new StringBuilder();
+	    
+	    listGroupProductAppend(resultHtml, lists);
+
+	    response.put("html", resultHtml.toString());  // 리스트 HTML
+	    response.put("more_btn", moreBtn);  // 더보기 버튼 상태
+
+	    return response;
+	}
+	
+	private void listGroupProductAppend(StringBuilder resultHtml, ArrayList<ProductDTO> lists) {
+		for (ProductDTO product : lists) {
+	    	//resultHtml.append("<li>").append(product.getProduct_code()).append("</li>");
+	    	resultHtml.append("<li>");
+	    	resultHtml.append("<div class=\"item\">");
+	    	resultHtml.append("<div class=\"main_img\" style=\"background:"+ product.getBg_color() +"\">");
+	    	resultHtml.append("<a href=\"../../shop/product/product_view.do?product_code="+ product.getProduct_code() +"\" class=\"prd_img table_box\">");
+	    	resultHtml.append("<picture>");
+	    	resultHtml.append("<source srcset=\"../../uploads/product/200/"+ product.getThumbnail() +"\" media=\"(min-width:1024px)\">");
+	    	resultHtml.append("<source srcset=\"../../uploads/product/200/"+ product.getThumbnail() +"\" media=\"(max-width:1023px)\">");
+	    	resultHtml.append("<img src=\"../../uploads/product/200/"+ product.getThumbnail() +"\" loading=\"lazy\" alt=\"\">");
+	    	resultHtml.append("</picture>");
+	    	resultHtml.append("</a>");
+	    	resultHtml.append("<div class=\"btn\">");
+	    	resultHtml.append("<button type=\"button\" class=\"wish wish_"+ product.getProduct_code() +" \" id=\"wish_"+ product.getProduct_code() +"\" onclick=\"product.likeProduct('"+ product.getProduct_code() +"');\"><span>찜하기</span></button>");
+	    	resultHtml.append("</div>");
+	    	if(product.getVivino_score() != null) {
+	    		resultHtml.append("<p class=\"vivino\">VIVINO<em>"+ product.getVivino_score() +"</em></p>");
+	    	}
+	    	resultHtml.append("<div class=\"label_wrap\">");
+	    	if((product.getLabel_thumbnail_1() != null || product.getLabel_thumbnail_2() != null) &&
+	    		(product.getLabel_thumbnail_1().compareTo("icon new") == 0 || product.getLabel_thumbnail_2().compareTo("icon new") == 0)) {
+	    		resultHtml.append("<span class=\"icon new\">NEW</span>");
+	    	}
+	    	if((product.getLabel_thumbnail_1() != null || product.getLabel_thumbnail_2() != null) &&
+	    		(product.getLabel_thumbnail_1().compareTo("icon sale") == 0 || product.getLabel_thumbnail_2().compareTo("icon sale") == 0)) {
+	    		resultHtml.append("<span class=\"icon sale\">SALE</span>");
+	    	}
+	    	if((product.getLabel_thumbnail_1() != null || product.getLabel_thumbnail_2() != null) &&
+	    		(product.getLabel_thumbnail_1().compareTo("icon best") == 0 || product.getLabel_thumbnail_2().compareTo("icon best") == 0)) {
+	    		resultHtml.append("<span class=\"icon best\">BEST</span>");
+	    	}
+	    	if(product.getLabel_thumbnail_2() != null && 
+	    			product.getLabel_thumbnail_2().compareTo("icon new") == 0 && 
+	    			product.getLabel_thumbnail_2().compareTo("icon sale") == 0 && 
+	    			product.getLabel_thumbnail_2().compareTo("icon best") == 0) {
+	    		resultHtml.append(product.getLabel_thumbnail_2());
+	    	}
+	    	resultHtml.append("</div>");
+	    	resultHtml.append("</div>");
+	    	resultHtml.append("<div class=\"info\">");
+	    	resultHtml.append("<div class=\"more_info\">");
+	    	resultHtml.append("<p class=\"prd_name\">");
+	    	resultHtml.append("<a href=\"/shop/product/product_view.do?product_code="+ product.getProduct_code() +"\">");
+	    	if(product.getProduct_name() != null) resultHtml.append("<span>"+ product.getProduct_name() +"</span>");
+	    	if(product.getProduct_en_name() != null) resultHtml.append("<span class=\"en\">"+ product.getProduct_en_name() +"</span>");
+	    	resultHtml.append("</a>");
+	    	resultHtml.append("</p>");
+	    	if(product.getProduct_info() != null) resultHtml.append("<p class=\"prd_info\">"+ product.getProduct_info() +"</p>");
+	    	resultHtml.append("</div>");
+	    	resultHtml.append("<div class=\"cate_label\">");
+	    	if(product.getLabel_type() != null) {
+	    		resultHtml.append("<span style=\"background:"+ product.getBg_color() +"\">"+ product.getLabel_type() +"</span>");
+	    	}
+	    	if(product.getLabel_country() != null) {
+	    		resultHtml.append("<span style=\"background:"+ product.getBg_color() +"\">"+ product.getLabel_country() +"</span>");
+	    	}
+	    	if(product.getLabel_grapevariety() != null) {
+	    		resultHtml.append("<span style=\"background:"+ product.getBg_color() +"\">"+ product.getLabel_grapevariety() +"</span>");
+	    	}
+	    	resultHtml.append("</div>");
+	    	resultHtml.append("<div class=\"price_area\">");
+	    	if(product.getPrice_deal() == 1) {
+	    		resultHtml.append("<p class=\"price set\">");
+	    		resultHtml.append("<span class=\"regular_price price\">");
+	    		resultHtml.append("<em class=\"discount\">"+ product.getPrice_discount_rate() +"%</em>");
+	    		resultHtml.append("<del>"+ new DecimalFormat("#,###").format(product.getPrice_original()) +"원</del>");
+	    		resultHtml.append("<ins>"+ new DecimalFormat("#,###").format(product.getPrice_discount()) +"원</ins>");
+	    		resultHtml.append("</span>");
+	    		resultHtml.append("<em class=\"discount\">"+ product.getPrice_deal_rate() +"%</em>");
+	    		resultHtml.append("<i>"+ product.getPrice_deal_amount() +"병 이상 구매시</i>");
+	    		resultHtml.append("<ins>"+ new DecimalFormat("#,###").format(product.getPrice_deal_price()) +"원</ins>");
+	    		resultHtml.append("</p>");
+	    	} else if(product.getPrice_deal() == 0) {
+	    		resultHtml.append("<p class=\"price\">");
+	    		if (product.getPrice_discount_rate() != null) {
+	    			resultHtml.append("<em class=\"discount\">"+ product.getPrice_discount_rate() +"%</em>");
+	    			resultHtml.append("<del>"+ new DecimalFormat("#,###").format(product.getPrice_original()) +"원</del>");
+	    			resultHtml.append("<ins>"+ new DecimalFormat("#,###").format(product.getPrice_discount()) +"원</ins>");
+	    		} else if (product.getStock() == 0) {
+	    			resultHtml.append("<ins class=\"out\">매장문의</ins>");
+	    			resultHtml.append("<ins class=\"out out_price\">"+ new DecimalFormat("#,###").format(product.getPrice_original()) +"원</ins>");
+	    		} else {
+	    			resultHtml.append("<ins>"+ new DecimalFormat("#,###").format(product.getPrice_original()) +"원</ins>");
+	    		}
+	    		resultHtml.append("</p>");
+	    	}
+	    	resultHtml.append("</div>");
+	    	resultHtml.append("</div>");
+	    	resultHtml.append("</div>");
+	    }
 	}
 }
