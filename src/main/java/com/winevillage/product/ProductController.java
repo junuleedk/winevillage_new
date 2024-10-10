@@ -701,7 +701,9 @@ public class ProductController {
 	    	if(product.getProduct_en_name() != null) resultHtml.append("<span class=\"en\">"+ product.getProduct_en_name() +"</span>");
 	    	resultHtml.append("</a>");
 	    	resultHtml.append("</p>");
-	    	if(product.getProduct_info() != null) resultHtml.append("<p class=\"prd_info\">"+ product.getProduct_info() +"</p>");
+	    	resultHtml.append("<p class=\"prd_info\">");
+	    	if(product.getProduct_info() != null) resultHtml.append(product.getProduct_info());
+	    	resultHtml.append("</p>");
 	    	resultHtml.append("</div>");
 	    	resultHtml.append("<div class=\"cate_label\">");
 	    	if(product.getLabel_type() != null) {
@@ -743,6 +745,7 @@ public class ProductController {
 	    	resultHtml.append("</div>");
 	    	resultHtml.append("</div>");
 	    	resultHtml.append("</div>");
+	    	resultHtml.append("</li>");
 	    }
 	}
 }

@@ -46,10 +46,10 @@ $(".store_area li").on("click", function () {
     $(".store_area").removeClass("on");
 });
 /*공유 및 URL 복사*/
-var img_url = "";
-if (img_url !== '') {
-    img_url = 'https://am.witplus.com/uploads/product/';
-}
+//var img_url = "";
+//if (img_url !== '') {
+//    img_url = 'https://am.witplus.com/uploads/product/';
+//}
 function share_sns(e) {
     RC_Method({ page_type: 'product_page', behavior: 'user_action', action: 'sharing' });
     var url = window.document.location.href;

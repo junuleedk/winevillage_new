@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.winevillage.community.IMagazineConService">
+	<!-- (USER측)매거진 리스트 출력 -->
+	<select id="listMagazineCon" resultType="com.winevillage.community.MagazineConDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT seq, series, title, thumbnail
+				FROM magazine_con
+				WHERE 1=1
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	
+	<!-- (USER측)매거진 상세페이지 -->
+	<select id="viewMagazineCon" resultType="com.winevillage.community.MagazineConDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+	SELECT * FROM magazine_con WHERE seq=#{seq}
+	</select>
+</mapper>

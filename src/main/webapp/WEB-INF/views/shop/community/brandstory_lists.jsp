@@ -32,7 +32,7 @@
 <%@ include file="../common/script.jsp" %>
 
 <!-- contents -->
-<section id="contents" style="margin-top: 188px;">
+<section id="contents">
 <div class="lnb comm_lnb bg_lnb community_lnb lnb_wrap">
 	<div class="pc_hidden">
 		<a href="javascript:history.go(-1);" class="prev">이전</a>

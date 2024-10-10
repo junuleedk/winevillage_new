@@ -44,42 +44,42 @@ public class BrandStoryController {
 	public String listBrandStoryAjax(HttpServletRequest request,
 			@RequestParam Map<String, String> parameter) {
 		// 페이지 번호를 params에서 가져오기
-	    int pageNum = (parameter.get("page") == null || parameter.get("page").equals("")) ? 1
-	            : Integer.parseInt(parameter.get("page"));
-	    
-	    int pageSize = 4;
-	    int start = (pageNum - 1) * pageSize + 1;
-	    int end = pageNum * pageSize;
-	    
-	    ParameterDTO parameterDTO = new ParameterDTO();
-	    parameterDTO.setStart(start);
-	    parameterDTO.setEnd(end);
-	    
-	    // 이벤트 리스트 가져오기
-	    ArrayList<BrandStoryDTO> lists = dao.listBrandStory(parameterDTO);
-	    
-	 // HTML 문자열 생성
-	    StringBuilder resultHtml = new StringBuilder();
-	    for (BrandStoryDTO brandStoryDTO : lists) {
-	    	resultHtml.append("<li>");
-	    	resultHtml.append("<a href=\"/shop/community/brandstory_view.do?story_seq=").append(brandStoryDTO.getStory_seq()).append("\">");
-	    	resultHtml.append("<div class=\"img\">");
-	    	resultHtml.append("<picture>");
-	    	resultHtml.append("<!--[if IE 9]><video style=\"display: none;\"><![endif]-->");
-	    	resultHtml.append("<source srcset=\"/../../uploads/story/").append(brandStoryDTO.getThumbnail()).append("\" media=\"(min-width:768px)\">");
-	    	resultHtml.append("<!-- pc이미지 -->");
-	    	resultHtml.append("<source srcset=\"/../../uploads/story/").append(brandStoryDTO.getThumbnail()).append("\" media=\"(max-width:767px)\">");
-	    	resultHtml.append("<!-- mb이미지 -->");
-	    	resultHtml.append("<!--[if IE 9]></video><![endif]-->");
-	    	resultHtml.append("<img src=\"/../../uploads/story/").append(brandStoryDTO.getThumbnail()).append("\" alt=\"").append(brandStoryDTO.getTitle()).append(" \">");
-	    	resultHtml.append("<!-- pc이미지 -->");
-	    	resultHtml.append("</picture>");
-	    	resultHtml.append("</div>");
-	    	resultHtml.append("</a>");
-	    	resultHtml.append("</li>");
-	    }
+		int pageNum = (parameter.get("page") == null || parameter.get("page").equals("")) ? 1
+					: Integer.parseInt(parameter.get("page"));
+		
+		int pageSize = 4;
+		int start = (pageNum - 1) * pageSize + 1;
+		int end = pageNum * pageSize;
+		
+		ParameterDTO parameterDTO = new ParameterDTO();
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
+		
+		// 이벤트 리스트 가져오기
+		ArrayList<BrandStoryDTO> lists = dao.listBrandStory(parameterDTO);
+		
+		// HTML 문자열 생성
+		StringBuilder resultHtml = new StringBuilder();
+		for (BrandStoryDTO brandStoryDTO : lists) {
+			resultHtml.append("<li>");
+			resultHtml.append("<a href=\"/shop/community/brandstory_view.do?story_seq=").append(brandStoryDTO.getStory_seq()).append("\">");
+			resultHtml.append("<div class=\"img\">");
+			resultHtml.append("<picture>");
+			resultHtml.append("<!--[if IE 9]><video style=\"display: none;\"><![endif]-->");
+			resultHtml.append("<source srcset=\"/../../uploads/story/").append(brandStoryDTO.getThumbnail()).append("\" media=\"(min-width:768px)\">");
+			resultHtml.append("<!-- pc이미지 -->");
+			resultHtml.append("<source srcset=\"/../../uploads/story/").append(brandStoryDTO.getThumbnail()).append("\" media=\"(max-width:767px)\">");
+			resultHtml.append("<!-- mb이미지 -->");
+			resultHtml.append("<!--[if IE 9]></video><![endif]-->");
+			resultHtml.append("<img src=\"/../../uploads/story/").append(brandStoryDTO.getThumbnail()).append("\" alt=\"").append(brandStoryDTO.getTitle()).append(" \">");
+			resultHtml.append("<!-- pc이미지 -->");
+			resultHtml.append("</picture>");
+			resultHtml.append("</div>");
+			resultHtml.append("</a>");
+			resultHtml.append("</li>");
+		}
 
-	    return resultHtml.toString();
+		return resultHtml.toString();
 	}
 	
 	@GetMapping("shop/community/brandstory_view.do")

@@ -17,7 +17,7 @@
 		AND rNum <![CDATA[<=]]> #{end}
 	</select>
 	
-	<!-- (USER측)상품 상세페이지 -->
+	<!-- (USER측)브랜드 상세페이지 -->
 	<select id="viewBrandStory" resultType="com.winevillage.community.BrandStoryDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 	SELECT * FROM brandstory WHERE story_seq=#{story_seq}
