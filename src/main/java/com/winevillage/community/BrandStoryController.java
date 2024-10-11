@@ -62,7 +62,7 @@ public class BrandStoryController {
 		StringBuilder resultHtml = new StringBuilder();
 		for (BrandStoryDTO brandStoryDTO : lists) {
 			resultHtml.append("<li>");
-			resultHtml.append("<a href=\"/shop/community/brandstory_view.do?story_seq=").append(brandStoryDTO.getStory_seq()).append("\">");
+			resultHtml.append("<a href=\"/shop/community/brandstory_view.do?seq=").append(brandStoryDTO.getSeq()).append("\">");
 			resultHtml.append("<div class=\"img\">");
 			resultHtml.append("<picture>");
 			resultHtml.append("<!--[if IE 9]><video style=\"display: none;\"><![endif]-->");
@@ -84,7 +84,7 @@ public class BrandStoryController {
 	
 	@GetMapping("shop/community/brandstory_view.do")
 	public String brandstoryView(Model model,
-			@RequestParam(value = "story_seq", required = false) Integer storySeq,
+			@RequestParam(value = "seq", required = false) Integer seq,
 			BrandStoryDTO brandstoryDTO) {
 		
 		brandstoryDTO = dao.viewBrandStory(brandstoryDTO);

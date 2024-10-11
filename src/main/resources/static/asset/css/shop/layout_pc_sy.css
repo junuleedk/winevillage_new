@@ -571,6 +571,7 @@
 .magazine_con_view_page .prd_list li .item .main_img .img_con .btn_wrap .like{float:none;left:10px;background-image:url(../../images/shop/community/btn_wish_lightgray.png);background-size:19px}
 .magazine_con_view_page .prd_list li .item .main_img .img_con .btn_wrap .cart{float:none;right:10px;background-image:url(../../images/shop/community/btn_cart_lightgray.png);background-size:20px} */
 .magazine_con_view_page .n_prd_list li .item .info .price_area .price del {font-size:15px}
+.video_view_page .n_prd_list li .item .info .price_area .price del {font-size:15px}
 
 /* content community press_lists */
 .content.press_lists_page{padding:60px 0 0}

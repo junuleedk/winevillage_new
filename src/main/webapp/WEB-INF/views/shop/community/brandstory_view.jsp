@@ -51,13 +51,12 @@
 		<div class="page_tit">
 			<h2><span>Our Brands</span></h2>
 		</div>
-		<ul class="menu tab4">
-			<li class="on"><a href="/shop/community/brandstory_lists"><span>Our Brands</span></a></li>
-			<li><a href="/shop/community/magazine_con_lists"><span>Our Stories</span></a></li>
+		<ul class="menu tab3">
+			<li class="on"><a href="/shop/community/brandstory_lists.do"><span>Our Brands</span></a></li>
+			<li><a href="/shop/community/magazine_con_lists.do"><span>Our Stories</span></a></li>
 			<!-- <li  ><a href="/shop/community/magazine_con_lists"><span>Wine Story</span></a></li> -->
 			<!-- <li  ><a href="/shop/community/press_lists"><span>Press & People</span></a></li> -->
-			<li><a href="/shop/community/video_lists"><span>Brands Film</span></a></li>
-			<li><a href="/shop/community/film_lists"><span>Winenara Film</span></a></li>
+			<li><a href="/shop/community/video_lists.do"><span>Brands Film</span></a></li>
 		</ul>
 	</div>
 </div>

@@ -2,24 +2,25 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.winevillage.community.IBrandStoryService">
-	<!-- (USER측)브랜드 리스트 출력 -->
-	<select id="listBrandStory" resultType="com.winevillage.community.BrandStoryDTO"
+<mapper namespace="com.winevillage.community.IVideoService">
+	<!-- (USER측)매거진 리스트 출력 -->
+	<select id="listVideo" resultType="com.winevillage.community.VideoDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT seq, thumbnail, title
-				FROM brandstory
+				SELECT seq, brand, title, thumbnail
+				FROM video
 				WHERE 1=1
+					AND thumbnail IS NOT NULL
 			) Tb
 		)
 		WHERE rNum <![CDATA[>=]]> #{start}
 		AND rNum <![CDATA[<=]]> #{end}
 	</select>
 	
-	<!-- (USER측)브랜드 상세페이지 -->
-	<select id="viewBrandStory" resultType="com.winevillage.community.BrandStoryDTO"
+	<!-- (USER측)매거진 상세페이지 -->
+	<select id="viewVideo" resultType="com.winevillage.community.VideoDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
-	SELECT * FROM brandstory WHERE seq=#{seq}
+	SELECT * FROM video WHERE seq=#{seq}
 	</select>
 </mapper>
