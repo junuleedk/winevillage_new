@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,11 +23,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.winevillage.pagination.Pagination;
 import com.winevillage.parameter.ParameterDTO;
+import com.winevillage.review.IReviewService;
+import com.winevillage.review.ReviewDTO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +46,9 @@ public class ProductController {
 
 	@Autowired
 	IProductService dao;
+	
+	@Autowired
+	private IReviewService review;
 	
 	private Cookie getCookie(HttpServletRequest request, String name) {
 		if (request.getCookies() != null) {
@@ -267,7 +274,17 @@ public class ProductController {
 	
 	@GetMapping("shop/product/product_view.do")
 	public String viewProduct(Model model, ProductDTO productDTO) {
+		if (productDTO == null || productDTO.getProduct_code() == null || productDTO.getProduct_code().isEmpty()) {
+			return "shop/product/product_view"; // 기본적인 빈 페이지를 반환
+		}
+		
+		// 출력할 상품의 조회(기본 기능)
 		productDTO = dao.viewProduct(productDTO);
+		
+		// 기존의 product_code 저장
+	    String originalProductCode = productDTO.getProduct_code();
+	    
+	    model.addAttribute("product_code", originalProductCode);
 		
 		//Related Product를 저장하기 위한 ArrayList 생성
 		List<ProductDTO> relatedProductsList = new ArrayList<>();
@@ -279,6 +296,8 @@ public class ProductController {
 	        String[] product_codes = relatedProducts.split("/");
 	        for (String product_code : product_codes) {
 	            productDTO.setProduct_code(product_code.trim());
+				/* 여기서 related_product를 출력하기 위해 productDTO의 product_code를 변경하기 때문에 기존의
+				product_code값을 사용하려면 해당 for문 위에서 별도로 저장해두어야 함. */
 	            ProductDTO relatedProduct = dao.viewProduct(productDTO);
 	            // 이제 relatedProduct에 관련 상품 정보가 담겨있습니다.
 	            // 이를 모델에 추가하거나 원하는 대로 사용할 수 있습니다.
@@ -287,7 +306,7 @@ public class ProductController {
 	    }
 	    //Related Product를 model에 전달
 	    model.addAttribute("relatedProducts", relatedProductsList);
-		
+	    		
 		String labelThumbnail = productDTO.getLabel_thumbnail(); // 실제로 label_thumbnail 값을 가져옴
 
 		// label_thumbnail 값 처리
@@ -303,6 +322,14 @@ public class ProductController {
 		}
 		
 		model.addAttribute("product", productDTO);
+
+		// 평균 별점과 리뷰 수를 가져오기 위해 서비스 호출
+	    Map<String, Object> reviewStats = review.getReviewStatus(originalProductCode);
+
+	    // 모델에 평균 별점과 리뷰 수를 추가 (변수 이름을 JSP와 일치시킴)
+	    model.addAttribute("ratingStar", reviewStats.get("ratingStar"));
+	    model.addAttribute("reviewCount", reviewStats.get("reviewCount"));
+		
 		return "shop/product/product_view";
 	}
 	
@@ -343,7 +370,7 @@ public class ProductController {
 	            keywordList.add(0, searchKeyword);  // 새로운 검색어 추가
 	        }
 	        
-	     // 리스트 첫번째 값이 "/"인지 확인하고 제거
+	        // 리스트 첫번째 값이 "/"인지 확인하고 제거
 	        if (keywordList.get(0) != null && keywordList.get(0).equals("/")) {
 	            keywordList.remove(0);
 	        }
@@ -351,7 +378,7 @@ public class ProductController {
 	        // 리스트를 다시 문자열로 변환하여 저장
 	        searchHistory = String.join("/", keywordList);
 	        
-	     // 띄어쓰기를 &nbsp;로 변환하여 쿠키에 저장
+	        // 띄어쓰기를 &nbsp;로 변환하여 쿠키에 저장
 	        String cookieValue = searchHistory.replace(" ", "&nbsp");
 	        
 	        // 검색 기록을 쿠키에 저장 (쿠키 만료 기간 30일 설정)
@@ -746,6 +773,157 @@ public class ProductController {
 	    	resultHtml.append("</div>");
 	    	resultHtml.append("</div>");
 	    	resultHtml.append("</li>");
+	    }
+	}
+	
+	@GetMapping("shop/product/tasting_view_ajax")
+	public String tastingViewAjax(Model model,
+			@RequestParam("product_code") String productCode, @RequestParam("page") int page) {
+	    // 페이지당 리뷰 수 설정
+	    int pageSize = 10;
+	    int start = (page - 1) * pageSize + 1;
+	    int end = page * pageSize;
+
+	    // ParameterDTO 생성 및 설정
+	    ParameterDTO parameterDTO = new ParameterDTO();
+	    parameterDTO.setProduct_code(productCode);
+	    parameterDTO.setStart(start);
+	    parameterDTO.setEnd(end);
+	    
+	    // getReviewStatus 호출하여 리뷰 카운트와 별점 가져오기
+	    Map<String, Object> reviewStatus = review.getReviewStatus(productCode);
+
+	    // 리뷰 총 개수
+	    int totalReviewCount = ((Number) reviewStatus.get("reviewCount")).intValue();
+
+	    // 페이지 초과 여부 확인
+	    if (start > totalReviewCount && totalReviewCount != 0) {
+	    	model.addAttribute("reviews", new ArrayList<>());
+	    	model.addAttribute("noMoreList", true);
+	        // 페이지가 실제 리스트 크기보다 초과한 경우 빈 문자열 반환
+	    	return "shop/product/tasting_view_ajax";
+	    }
+
+	    // 리뷰 목록 조회
+	    ArrayList<ReviewDTO> reviews = review.listReview(parameterDTO);
+
+	    // 각 리뷰의 이미지 배열을 저장할 맵 생성
+	    Map<Integer, String[]> reviewImagesMap = new HashMap<>();
+
+	    // 리뷰의 총 별점과 리뷰 수를 계산하기 위한 변수 초기화
+	    int totalStar = 0;
+	    int reviewCount = reviews.size();
+
+	    for (ReviewDTO reviewDTO : reviews) {
+	        // 이미지 분리
+	        if (reviewDTO.getImage() != null && !reviewDTO.getImage().isEmpty()) {
+	            String[] images = reviewDTO.getImage().split("/");
+	            reviewImagesMap.put(reviewDTO.getNo(), images);
+	        }
+
+	        // 별점 합산
+	        int starValue = 0;
+	        if (reviewDTO.getStar() != null && !reviewDTO.getStar().isEmpty()) {
+	            try {
+	                starValue = Integer.parseInt(reviewDTO.getStar());
+	            } catch (NumberFormatException e) {
+	                starValue = 0;
+	            }
+	        }
+	        totalStar += starValue;
+	    }
+
+	    // 평균 별점 계산 (필요한 경우)
+	    double averageStar = 0.0;
+	    if (reviewCount > 0) {
+	        averageStar = (double) totalStar / reviewCount;
+	        averageStar = averageStar / 20; // 별점이 0~100 범위라면 5점 만점으로 변환
+	        averageStar = Math.round(averageStar * 10) / 10.0; // 소수점 한 자리까지 반올림
+	    }
+
+	    // 모델에 데이터 추가
+	    model.addAttribute("averageStar", averageStar);
+	    model.addAttribute("reviewCount", reviewCount);
+	    model.addAttribute("reviews", reviews);
+	    model.addAttribute("reviewImgs", reviewImagesMap);
+
+	    // 부분 뷰를 반환
+	    return "shop/product/tasting_view_ajax";
+	}
+	
+	/* @PostMapping("/shop/product/review_view_ajax")
+	@ResponseBody
+	public String reviewViewAjax(@RequestParam("use_review_seq") int use_review_seq) {
+		// ReviewDTO 객체 생성 및 no 값 설정
+		ReviewDTO reviewNo = new ReviewDTO();
+		reviewNo.setNo(use_review_seq);
+
+		// reviewService의 viewReview 메서드 호출
+		ReviewDTO reviewDTO = review.viewReview(reviewNo);
+
+		if (reviewDTO != null) {
+			// image 칼럼의 값을 '/' 구분자로 나누어 배열로 저장
+			String[] images = {};
+			if (reviewDTO.getImage() != null && !reviewDTO.getImage().isEmpty()) {
+				images = reviewDTO.getImage().split("/");
+			}
+
+			// StringBuilder를 사용하여 HTML 문자열 생성
+			StringBuilder html = new StringBuilder();
+			// 날짜 형식 지정
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = dateFormat.format(reviewDTO.getRegister_date());
+
+			html.append("<div class=\"rv_slide\" id=\"rv_slide\">");
+			if(images != null) {
+				for (String imgSrc : images) {
+					html.append("<div class=\"slide\" id=\"img_div\">");
+					html.append("<img src=\"../../uploads/review/").append(imgSrc).append("\" alt=\"\">");
+					html.append("</div>");
+				}
+			}
+			html.append("</div>");
+			html.append("<div class=\"rv_con\">");
+			html.append("<p class=\"tit\">").append(reviewDTO.getTitle()).append("</p>");
+			html.append("<div class=\"grade\">");
+			html.append("<div class=\"star_area\">");
+			html.append("<span class=\"full_gold\" style=\"width:").append(reviewDTO.getStar()).append("%;\"></span>");
+			html.append("<span class=\"empty\"></span>");
+			html.append("</div>");
+			html.append("<p class=\"date\">").append(formattedDate).append("</p>");
+			html.append("</div>");
+			html.append("<div class=\"txt\">");
+			html.append("<!-- <em>아주 좋아요.</em>  -->").append(reviewDTO.getContent());
+			html.append("</div>");
+			html.append("</div>");
+
+			return html.toString();
+		} else {
+			return ""; // 리뷰가 없을 경우 빈 문자열 반환
+		}
+	} */
+	
+	@PostMapping("/shop/product/review_view_ajax")
+	public String reviewViewAjax(@RequestParam("use_review_seq") int use_review_seq, Model model) {
+	    ReviewDTO reviewNo = new ReviewDTO();
+	    reviewNo.setNo(use_review_seq);
+
+	    ReviewDTO reviewDTO = review.viewReview(reviewNo);
+
+	    if (reviewDTO != null) {
+	        // 이미지 분리
+	        String[] images = {};
+	        if (reviewDTO.getImage() != null && !reviewDTO.getImage().isEmpty()) {
+	            images = reviewDTO.getImage().split("/");
+	        }
+
+	        // 모델에 데이터 추가
+	        model.addAttribute("review", reviewDTO);
+	        model.addAttribute("images", images);
+
+	        return "shop/product/review_view_ajax";
+	    } else {
+	        return ""; // 리뷰가 없을 경우 빈 문자열 반환
 	    }
 	}
 }

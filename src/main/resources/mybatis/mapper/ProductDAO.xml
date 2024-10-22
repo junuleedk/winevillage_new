@@ -7,13 +7,13 @@
             parameterType="com.winevillage.parameter.ParameterDTO">
         SELECT * FROM (
             SELECT Tb.*, rownum rNum FROM (
-                SELECT bg_color, product_code, category, category_type, category_country, 
+                SELECT bg_color, product_code, category, category_type, category_country,
                 product_name, product_en_name, product_info, thumbnail, label_thumbnail,
                 label_type, label_country, label_grapevariety,
                 price_discount_rate, price_discount, price_original,
                 price_deal, price_deal_rate, price_deal_price, price_deal_amount,
-                vivino_score 
-                FROM product 
+                vivino_score, stock
+                FROM product
                 WHERE 1=1
                 <if test="classified == 'value'">
                     AND classified = 'value'
@@ -81,6 +81,27 @@
 		                ORDER BY product_no DESC
 	                </otherwise>
                 </choose>
+            ) Tb
+        )
+        WHERE rNum <![CDATA[>=]]> #{start}
+        AND rNum <![CDATA[<=]]> #{end}
+    </select>
+    
+    <!-- (USER측)메인페이지 상품 리스트 출력 -->
+	<select id="listProductMain" resultType="com.winevillage.product.ProductDTO"
+            parameterType="com.winevillage.parameter.ParameterDTO">
+        SELECT * FROM (
+            SELECT Tb.*, rownum rNum FROM (
+                SELECT product_no, bg_color, product_code, category, category_type, category_country,
+                product_name, product_en_name, product_info, thumbnail, label_thumbnail,
+                label_type, label_country, label_grapevariety,
+                price_discount_rate, price_discount, price_original,
+                price_deal, price_deal_rate, price_deal_price, price_deal_amount,
+                vivino_score, stock
+                FROM product
+                WHERE 1=1
+                	AND stock <![CDATA[!=]]> 0
+                	AND category <![CDATA[!=]]> 50000
             ) Tb
         )
         WHERE rNum <![CDATA[>=]]> #{start}
@@ -161,12 +182,12 @@
 		parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
             SELECT Tb.*, rownum rNum FROM (
-                SELECT bg_color, product_code, category, category_type, category_country, 
+                SELECT bg_color, product_code, category, category_type, category_country,
                 product_name, product_en_name, product_info, thumbnail, label_thumbnail,
                 label_type, label_country, label_grapevariety,
                 price_discount_rate, price_discount, price_original,
                 price_deal, price_deal_rate, price_deal_price, price_deal_amount,
-                vivino_score 
+                vivino_score, stock
                 FROM product 
                 WHERE 1=1
                 <if test="keyword != null and !keyword.isEmpty()">

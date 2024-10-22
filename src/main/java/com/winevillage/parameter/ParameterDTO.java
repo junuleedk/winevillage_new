@@ -20,6 +20,7 @@ public class ParameterDTO {
 	
 	/* Product */
 	private String classified;
+	private String product_code;
 	private String sort;
 	private String category;
 	private List<Integer> category_type;

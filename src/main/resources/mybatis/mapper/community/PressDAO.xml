@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.winevillage.community.IPressService">
+	<!-- (USER측)홍보기사 리스트 출력 -->
+	<select id="listPress" resultType="com.winevillage.community.PressDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT seq, title, img, description, register_date
+				FROM press
+				WHERE 1=1
+				ORDER BY
+	                seq DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	
+	<!-- (USER측)홍보기사 상세페이지 -->
+	<select id="viewPress" resultType="com.winevillage.community.PressDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+	SELECT * FROM press WHERE seq=#{seq}
+	</select>
+	
+	<!-- (USER측)홍보기사 검색 -->
+	<select id="searchPress" resultType="com.winevillage.community.PressDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+	SELECT * FROM (
+		SELECT Tb.*, rownum rNum FROM (
+			SELECT seq, title, img, description, register_date
+			FROM press
+			WHERE 1=1
+			<if test="keywords != null and keywords.size() > 0">
+				AND (
+					<foreach collection="keywords" item="keyword" separator=" OR ">
+                       	title LIKE '%' || #{keyword} || '%'
+                       	OR description LIKE '%' || #{keyword} || '%'
+                   	</foreach>
+				)
+			</if>
+			ORDER BY
+                seq DESC
+		) Tb
+	)
+	WHERE rNum <![CDATA[>=]]> #{start}
+	AND rNum <![CDATA[<=]]> #{end}
+	</select>
+</mapper>

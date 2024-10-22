@@ -268,7 +268,7 @@
                     <ul>
                         <li><a href="<c:url value='/shop/event/event_lists.do' />">이달의 프로모션</a></li>
                         <li><a href="<c:url value='/shop/event/event_end.do' />">완료된 프로모션</a></li>
-                        <li><a href="/shop/cs/special">특판문의</a></li>
+                        <!-- <li><a href="/shop/cs/special">특판문의</a></li> -->
                     </ul>
                     <p class="tit">
                         <a href="/shop/company/store"><strong>SHOP</strong></a>
@@ -277,8 +277,8 @@
                         <strong>BLOG</strong>
                     </p>
                     <ul>
-                        <li><a href="/shop/community/brandstory_lists">OUR BRANDS</a></li>
-                        <li><a href="/shop/community/magazine_con_lists">OUR STORIES</a></li>
+                        <li><a href="<c:url value='/shop/community/brandstory_lists.do' />">OUR BRANDS</a></li>
+                        <li><a href="<c:url value='/shop/community/magazine_con_lists.do' />">OUR STORIES</a></li>
                     </ul>
                 </div>
                 <div class="box">
@@ -286,8 +286,8 @@
                         <strong>VIDEO</strong>
                     </p>
                     <ul>
-                        <li><a href="/shop/community/video_lists">BRANDS FILM</a></li>
-                        <li><a href="/shop/community/film_lists">WINENARA FILM</a></li>
+                        <li><a href="<c:url value='/shop/community/video_lists.do' />">BRANDS FILM</a></li>
+                        <!-- <li><a href="/shop/community/film_lists">WINENARA FILM</a></li> -->
                     </ul>
                     <p class="tit">
                         <strong>ABOUT US</strong>

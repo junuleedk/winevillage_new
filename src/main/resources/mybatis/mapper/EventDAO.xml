@@ -5,12 +5,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.winevillage.event.IEventService">
+	<!-- (USER측)메인페이지 이벤트 리스트 출력 -->
+	<select id="listEventMain" resultType="com.winevillage.event.EventDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM (
+            SELECT Tb.*, rownum rNum FROM (
+                SELECT no, title, thumbnail, thumbnail_main_pc, thumbnail_main_mb, date_start, date_end, content, pinned
+                FROM event
+                WHERE 1=1
+                	AND enabled_main <![CDATA[=]]> 1
+                ORDER BY
+	                no DESC
+            ) Tb
+        )
+        WHERE rNum <![CDATA[>=]]> #{start}
+        AND rNum <![CDATA[<=]]> #{end}
+    </select>
 	<!-- (USER측)현재 이벤트 리스트 출력 -->
 	<select id="listEventNow" resultType="com.winevillage.event.EventDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
             SELECT Tb.*, rownum rNum FROM (
-                SELECT no, title, thumbnail, date_start, date_end, content, pinned, enabled
+                SELECT no, title, thumbnail, date_start, date_end, content, pinned
                 FROM event
                 WHERE 1=1
                 	AND thumbnail IS NOT NULL
@@ -26,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
             SELECT Tb.*, rownum rNum FROM (
-                SELECT no, title, thumbnail, date_start, date_end, content, pinned, enabled
+                SELECT no, title, thumbnail, date_start, date_end, content, pinned
                 FROM event
                 WHERE 1=1
                 	AND thumbnail IS NOT NULL

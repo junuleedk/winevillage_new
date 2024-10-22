@@ -345,15 +345,15 @@
 						<strong>BLOG</strong>
 					</p>
 					<ul>
-						<li><a href="/shop/community/brandstory_lists">OUR BRANDS</a></li>
-						<li><a href="/shop/community/magazine_con_lists">OUR STORIES</a></li>
+						<li><a href="<c:url value='/shop/community/brandstory_lists.do' />">OUR BRANDS</a></li>
+						<li><a href="<c:url value='/shop/community/magazine_con_lists.do' />">OUR STORIES</a></li>
 					</ul>
 				</div>
 				<div class="box">
 					<p class="tit"><strong>VIDEO</strong></p>
 					<ul>
-						<li><a href="/shop/community/video_lists">BRANDS FILM</a></li>
-						<li><a href="/shop/community/film_lists">WINENARA FILM</a></li>
+						<li><a href="<c:url value='/shop/community/video_lists.do' />">BRANDS FILM</a></li>
+						<!-- <li><a href="/shop/community/film_lists">WINENARA FILM</a></li> -->
 					</ul>
 					<p class="tit"><strong>ABOUT US</strong></p>
 					<ul>

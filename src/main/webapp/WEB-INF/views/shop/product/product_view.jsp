@@ -202,8 +202,12 @@
 							</c:when>
 							<c:otherwise>
 							<!--피씨-->
+							<c:if test="${not empty product.product_code}">
 							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'shopping_basket'}); chklayer();" class="btn_txt cart_btn buy_process_btn">장바구니</button>
+							</c:if>
+							<c:if test="${not empty product.product_code}">
 							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'buying'}); chklayer();" class="btn_txt buy_btn btn_black buy_process_btn">바로구매</button>
+							</c:if>
 							<!--피씨-->
 							</c:otherwise>
 							</c:choose>
@@ -388,7 +392,7 @@
 						<%-- 차후 변경 --%>
 						<li>
 							<button type="button" onclick="RC_Method({page_type:'product_page', behavior: 'user_action', action: 'winery_info'})">
-								<span>REVIEW (1)</span>
+								<span>REVIEW (${reviewCount})</span>
 							</button>
 						</li>
 					</ul>
@@ -396,12 +400,7 @@
 				<div class="tab_con detail_con on">
 					${ product.content }
 				</div>
-				<div class="tab_con prd_con">
-					<%@ include file="product_view/n_prd_list.jsp" %>
-					<!-- <div class="btn_area" id="more_button_wine">
-						<button type="button" onclick="getList('add')" class="btn_txt"><span>더보기</span></button>
-					</div> -->
-				</div>
+				<%@ include file="product_view/prd_con.jsp" %>
 				<!--<div class="tab_con detail_con">
 					<p style="text-align: center;" align="center"> <img src=" /uploads/editor/data/editor/goods/210810/9468c676ae990ab30b0fbba4d5d1dafc_100445.png" title="9468c676ae990ab30b0fbba4d5d1dafc_100445.png" class="js-smart-img"> </p>                </div>-->
 				<!-- <div class="tab_con food_con">
@@ -409,40 +408,7 @@
 						<ul class="js_tabBtn"></ul>
 					</div>
 				</div> -->
-				<div class="tab_con review_con">
-					<%-- 차후 구현 --%>
-					<div class="ratings_tit">
-						<p>5.0 <em>(1 ratings)</em></p>
-					</div>
-					<ul class="tasting_review_lists">
-						<!-- product_view_tasting_review_ajax -->
-						<li>
-							<div class="top">
-								<div class="box tit">
-									<p>알파박스 앤 다이스 솔라 </p>
-								</div>
-								<div class="box grade">
-									<div class="name">
-										<p></p>
-										<div class="star_area">
-											<!-- 별 한 개당 20% -->
-											<span class="full_gold" style="width:100%"></span>
-											<span class="empty"></span>
-										</div>
-									</div>
-									<p class="date">2022-11-29</p>
-								</div>
-							</div>
-							<div class="con">
-								<div class="box" onclick="reviewImgLayer('42')" style="cursor: pointer;">첫인상은 강건한 시라.  m+바디에 곱게 갈린, 드라이하고 탄탄한 높은 타닌,  높은 산도. 혀에서는 코에서보다 졸인 과일이 더 파워풀.  잘 녹아든 오크가 존재감은 강하면서도 섬세하고 은은		</div>
-							</div>								
-						</li>
-					</ul>
-					<div class="btn_area">
-						<button type="button" class="btn_txt" onclick="getTastingReview('more')"><span>더보기</span></button>
-						<input type="hidden" id="tasting_page" value="1">
-					</div>
-				</div>
+				<%@ include file="product_view/review_con.jsp" %>
 			</div>
 		</div>
 	</div>
@@ -517,26 +483,7 @@
 			<div class="layer_area">
 				<button type="button" class="layer_close" onclick="commonUI.layer.close()"><span>Layer Close</span></button>
 				<div class="layer_tit">리뷰 보기</div>
-				<div class="layer_con" id="review_div">
-					<div class="rv_slide slick-initialized slick-slider" id="rv_slide">
-						<div aria-live="polite" class="slick-list draggable">
-							<div class="slick-track" role="listbox" style="opacity: 1; width: 0px; transform: translate3d(0px, 0px, 0px);"></div>
-						</div>
-					</div>
-					<div class="rv_con">
-						<p class="tit">알파박스 앤 다이스 솔라 </p>
-						<div class="grade">
-							<div class="star_area">
-								<span class="full_gold" style="width:100%"></span>
-								<span class="empty"></span>
-							</div>
-							<p class="date">2022-11-29</p>
-						</div>
-						<div class="txt">
-							<!-- <em>아주 좋아요.</em>  -->첫인상은 강건한 시라.  m+바디에 곱게 갈린, 드라이하고 탄탄한 높은 타닌,  높은 산도. 혀에서는 코에서보다 졸인 과일이 더 파워풀.  잘 녹아든 오크가 존재감은 강하면서도 섬세하고 은은 
-						</div>
-					</div>
-				</div>
+				<div class="layer_con" id="review_div"></div>
 			</div>
 		</div>
 	</div>
@@ -554,8 +501,11 @@
 // $(function(){
 // 	getList('init');
 // });
+$(function(){
+	getTastingReview('init');
+});
 var page;
-var product_cd = '03P858';
+var product_code = '${product_code}';
 // 관련상품 
 function getList(mode){
 	if( mode=="init"){
@@ -566,7 +516,7 @@ function getList(mode){
 	$.ajax({
 		type: "get",
 		url : "/shop/product/relationWine",
-		data: { 'page' : page, 'product_cd' : product_cd },
+		data: { 'page' : page, 'product_code' : product_code },
 		success : function (res) {
 			if(!res){
 				//alert('마지막 페이지입니다.');
@@ -594,30 +544,31 @@ function getList(mode){
 $(".cart_txt").hide();
 // 리뷰 이미지 레이어 오픈 (유형 퍼블 추가)
 function reviewImgLayer(use_review_seq){
-	Csrf.Set(_CSRF_NAME_); //토큰 초기화
+	//Csrf.Set(_CSRF_NAME_); //토큰 초기화
 	
 	//AJAX를 통한 리뷰 불러오기(추후 사용)
-	// $.ajax({
-	// 	type: "post",
-	// 	url : "/shop/product/review_view_ajax",
-	// 	data: {use_review_seq:use_review_seq},
-	// 	success : function (res) {
-	// 		if(res != ""){
-	// 			$("#review_div").empty();
-	// 			$("#review_div").append(res);
-	// 			commonUI.layer.open('review_img_layer');
-	// 				//리뷰 이미지 레이어 슬라이드
-	// 			$(".review_img_layer .rv_slide").slick({
-	// 				arrows: true,
-	// 				dots: true,
-	// 				infinite: true,
-	// 			});
-	// 		}
-	// 	},
-	// 	error: function (res) {
-	// 		alert("error");
-	// 	}
-	// });
+	$.ajax({
+		type: "post",
+		url : "/shop/product/review_view_ajax",
+		dataType: "html",
+		data: {use_review_seq:use_review_seq},
+		success : function (res) {
+			if(res != ""){
+				$("#review_div").empty();
+				$("#review_div").append(res);
+				commonUI.layer.open('review_img_layer');
+					//리뷰 이미지 레이어 슬라이드
+				$(".review_img_layer .rv_slide").slick({
+					arrows: true,
+					dots: true,
+					infinite: true,
+				});
+			}
+		},
+		error: function (res) {
+			alert("error");
+		}
+	});
 
 	commonUI.layer.open('review_img_layer');
 	$(".review_img_layer .rv_slide").slick({
@@ -699,7 +650,7 @@ $('.thumnail_btn_js').on('click', function(){
 });
 // 비비노 키워드
 $(function() {
-	var product_cd = '${product.product_code}';
+	var product_cd = '${product_code}';
 	var words = [];	// 키워드 담을 배열
 	var mobile_chk = 'WEB';
 	//Csrf.Set(_CSRF_NAME_); //토큰 초기화
@@ -1234,10 +1185,12 @@ function getTastingReview(mode){
 	$.ajax({
 		type: "get",
 		url : "/shop/product/tasting_view_ajax",
-		data: {'mode' : mode, 'page' : tr_page, product_cd: '03P858'},
+		dataType: "html",
+		data: {'mode' : mode, 'page' : tr_page, product_code: '${product_code}'},
 		success : function (res) {
 			if($.trim(res) == ""){
 				alert('마지막 페이지입니다.');
+				$("button[onclick=\"getTastingReview('more')\"]").hide();
 				return;
 			}else{
 				if(mode == 'init'){

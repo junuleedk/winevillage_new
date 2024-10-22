@@ -13,10 +13,10 @@ public class MappingController {
 	}
 	
 	/* 메인페이지 */
-	@GetMapping("shop/main.do")
-	public String main() {
-		return "shop/main";
-	}
+//	@GetMapping("shop/main.do")
+//	public String main() {
+//		return "shop/main";
+//	}
 	
 	/* 제품정보 */
 //	@GetMapping("shop/product/product_lists.do")

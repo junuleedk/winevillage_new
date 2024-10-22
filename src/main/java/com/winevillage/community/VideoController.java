@@ -41,9 +41,6 @@ public class VideoController {
 		parameterDTO.setEnd(end);
 		
 		ArrayList<VideoDTO> lists = dao.listVideo(parameterDTO);
-		
-		String productsListStr = videoDTO.getRelated_product();
-		model.addAttribute("product_exist", productsListStr);
 		model.addAttribute("lists", lists);
 		
 		return "shop/community/video_lists";
@@ -100,7 +97,7 @@ public class VideoController {
 	}
 	
 	@GetMapping("shop/community/video_view.do")
-	public String magazineConView(Model model,
+	public String videoView(Model model,
 			VideoDTO videoDTO,
 			@RequestParam(value = "seq", required = false) Integer seq) {
 		
@@ -108,8 +105,8 @@ public class VideoController {
 		videoDTO = dao.viewVideo(videoDTO);
 		
 		if (videoDTO == null) {
-			// magazineConDTO가 null일 경우 기본 동작
-			videoDTO = new VideoDTO(); // magazineConDTO에 기본 객체 할당
+			// videoDTO가 null일 경우 기본 동작
+			videoDTO = new VideoDTO(); // videoDTO에 기본 객체 할당
 		}
 		
 		model.addAttribute("video", videoDTO);
