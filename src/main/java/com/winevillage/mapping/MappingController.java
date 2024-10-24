@@ -17,6 +17,16 @@ public class MappingController {
 //	public String main() {
 //		return "shop/main";
 //	}
+	/* 이용약관 */
+	@GetMapping("shop/member/policy/law_con.do")
+	public String law_con() {
+		return "shop/member/policy/law_con";
+	}
+	/* 개인정보처리방침 */
+	@GetMapping("shop/member/policy/privacy_con.do")
+	public String privacy_con() {
+		return "shop/member/policy/privacy_con";
+	}
 	
 	/* 제품정보 */
 //	@GetMapping("shop/product/product_lists.do")
@@ -78,6 +88,10 @@ public class MappingController {
 	@GetMapping("shop/company/store.do")
 	public String store() {
 		return "shop/company/store";
+	}
+	@GetMapping("shop/company/brand.do")
+	public String brand() {
+		return "shop/company/brand";
 	}
 	
 	/* 고객센터 */

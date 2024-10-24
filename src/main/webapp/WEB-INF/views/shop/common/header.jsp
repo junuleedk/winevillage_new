@@ -44,6 +44,15 @@
                     <span class="txt">ENG</span>
                 </button>
             </li>
+            <li class="sns_area mb_hidden">
+			<!-- <button type="button" class="btn_sel" onclick="$(this).parent().toggleClass('on');"><span class="ico_kakao">카카오톡채널</span></button> -->
+			<ul>
+				<!-- <li><button type="button" onclick="window.open('https://www.facebook.com/welcometowinenara');"><span class="ico_facebook">페이스북</span></button></li> -->
+				<!-- <li><button type="button" onclick="window.open('https://www.instagram.com/winenara_official/')"><span class="ico_insta">인스타그램</span></button></li> -->
+				<!-- <li><button type="button" onclick="window.open('https://blog.naver.com/winenara2175')"><span class="ico_blog">네이버블로그</span></button></li> -->
+				<!-- <li><button type="button" onclick="window.open('https://www.youtube.com/channel/UCCfl_ClO1lV5CNOmH8vRa2w')"><span class="ico_youtube">유튜브</span></button></li> -->
+				<!-- <li><button type="button" onclick="window.open('http://pf.kakao.com/_vlkxfxb')"><span class="ico_kakao">카카오톡채널</span></button></li> -->
+			</ul>
             <!-- <li class="store_area mb_hidden">
                 <button type="button" class="btn_sel" onclick="$(this).parent().toggleClass('on');"><span id="choice_store">매장선택</span></button>
                 <ul>
@@ -185,9 +194,9 @@
 	                    </div>
 	                </div> -->
                 </li>
-	                <!-- <li class=" pc_hidden ">
-	                <a href="/shop/product/product_lists.do?category=50000">티켓</a>
-	                </li> -->
+                <!-- <li class=" pc_hidden ">
+                	<a href="/shop/product/product_lists.do?category=50000">티켓</a>
+                </li> -->
                 <li style="display:none !important" class="mb_hidden opacity">
 	                <a href="/shop/product/best_product_lists?group_cd=20240206">En Primeur</a>
                 </li>
@@ -195,16 +204,19 @@
 	                <a href="<c:url value='/shop/event/event_lists.do' />">PROMOTION</a>
                 </li>
                 <li class="opacity">
-	                <a href="/shop/company/store">SHOP</a>
+	                <a href="/shop/company/store.do">SHOP</a>
                 </li>
                 <li class="mb_hidden opacity">
-	                <a href="/shop/company/member_benefit">MEMBERSHIP</a>
+					<a href="/shop/community/brandstory_lists.do">BLOG&amp;VIDEO</a>
+				</li>
+                <li class="mb_hidden opacity">
+	                <a href="/shop/company/member_benefit.do">MEMBERSHIP</a>
                 </li>
                 <!-- <li class="opacity">
                     <a href="/shop/community/video_lists">VIDEO</a>
                 </li> -->
                 <li class="mb_hidden opacity">
-	                <a href="/shop/company/about_us">ABOUT US</a>
+	                <a href="/shop/company/about_us.do">ABOUT US</a>
                 </li>
             </ul>
             <button type="button" class="pc_category" onclick="$(this).toggleClass('on');$('.bottom .wrap>.pc_category_gnb').toggleClass('on');"><span></span></button>
@@ -271,7 +283,7 @@
                         <!-- <li><a href="/shop/cs/special">특판문의</a></li> -->
                     </ul>
                     <p class="tit">
-                        <a href="/shop/company/store"><strong>SHOP</strong></a>
+                        <a href="/shop/company/store.do"><strong>SHOP</strong></a>
                     </p>
                     <p class="tit">
                         <strong>BLOG</strong>
@@ -293,12 +305,12 @@
                         <strong>ABOUT US</strong>
                     </p>
                     <ul>
-                        <li><a href="/shop/company/about_us">WINENARA</a></li>
-                        <li><a href="/shop/company/brand">BRANDS</a></li>
-                        <li><a href="/shop/company/store">SHOP</a></li>
-                        <li><a href="/shop/company/fnb">F&B</a></li>
-                        <li><a href="/shop/community/press_lists">PRESS</a></li>
-                        <li><a href="/shop/company/member_benefit">MEMBERSHIP</a></li>
+                        <li><a href="/shop/company/about_us.do">WINENARA</a></li>
+                        <li><a href="/shop/company/brand.do">BRANDS</a></li>
+                        <li><a href="/shop/company/store.do">SHOP</a></li>
+                        <!-- <li><a href="/shop/company/fnb">F&B</a></li> -->
+                        <li><a href="/shop/community/press_lists.do">PRESS</a></li>
+                        <li><a href="/shop/company/member_benefit.do">MEMBERSHIP</a></li>
                     </ul>
                 </div>
                 <div class="box">

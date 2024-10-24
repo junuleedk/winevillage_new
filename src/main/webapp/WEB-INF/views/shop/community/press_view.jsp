@@ -40,12 +40,12 @@
 		<div class="select_brand js_select" id="select_brand">
 			<button type="button" class="my_value js_selectBtn" onclick="$(this).toggleClass('on')"><span>Press</span></button>
 			<ul class="mb_lnb_lists">
-				<li><a href="/shop/company/about_us">Winenara</a></li>
-				<li><a href="/shop/company/brand">Brands</a></li>
-				<li><a href="/shop/company/store">Shop</a></li>
-				<li><a href="/shop/company/fnb">F&B</a></li>
-				<li><a href="/shop/community/press_lists">Press</a></li>
-				<li><a href="/shop/company/member_benefit">Membership</a></li>
+				<li><a href="/shop/company/about_us.do">Winenara</a></li>
+				<li><a href="/shop/company/brand.do">Brands</a></li>
+				<li><a href="/shop/company/store.do">Shop</a></li>
+				<!-- <li><a href="/shop/company/fnb">F&B</a></li> -->
+				<li><a href="/shop/community/press_lists.do">Press</a></li>
+				<li><a href="/shop/company/member_benefit.do">Membership</a></li>
 			</ul>
 		</div>
 	</div>
@@ -54,12 +54,12 @@
 			<h2><span>Press</span></h2>
 		</div>
 		<ul class="menu">
-			<li><a href="/shop/company/about_us"><span>Winenara</span></a></li>
-			<li><a href="/shop/company/brand"><span>Brands</span></a></li>
-			<li><a href="/shop/company/store"><span>Shop</span></a></li>
-			<li><a href="/shop/company/fnb"><span>F&B</span></a></li>
-			<li class="on"><a href="/shop/community/press_lists"><span>Press</span></a></li>
-			<li><a href="/shop/company/member_benefit"><span>Membership</span></a></li>
+			<li><a href="/shop/company/about_us.do"><span>Winenara</span></a></li>
+			<li><a href="/shop/company/brand.do"><span>Brands</span></a></li>
+			<li><a href="/shop/company/store.do"><span>Shop</span></a></li>
+			<!-- <li><a href="/shop/company/fnb"><span>F&B</span></a></li> -->
+			<li class="on"><a href="/shop/community/press_lists.do"><span>Press</span></a></li>
+			<li><a href="/shop/company/member_benefit.do"><span>Membership</span></a></li>
 		</ul>
 	</div>
 </div>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVILLAGE 1987 ㅣ 아이디 찾기</title>
+<title>WINEVILLAGE 2024 ㅣ 아이디 찾기</title>
 <%@ include file="../../common/common.jsp" %>
 </head>
 <body>

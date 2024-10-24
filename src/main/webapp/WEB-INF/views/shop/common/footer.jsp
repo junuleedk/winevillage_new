@@ -5,10 +5,10 @@
 	<div class="link_box">
 		<div class="wrap">
 			<ul>
-				<li><a href="/shop/company/about_us">회사소개</a></li>
-				<li><a href="/shop/company/brand">브랜드 소개</a></li>
-				<li><a href="/shop/member/policy/law_con">이용약관</a></li>
-				<li><a href="/shop/member/policy/privacy_con">개인정보처리방침</a></li>
+				<li><a href="/shop/company/about_us.do">회사소개</a></li>
+				<li><a href="/shop/company/brand.do">브랜드 소개</a></li>
+				<li><a href="/shop/member/policy/law_con.do">이용약관</a></li>
+				<li><a href="/shop/member/policy/privacy_con.do">개인정보처리방침</a></li>
 				<li><a href="/shop/cs/notice_lists">고객센터</a></li>
 			</ul>
 		</div>

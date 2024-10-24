@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVILLAGE 1987 ㅣ 비밀번호 재발급</title>
+<title>WINEVILLAGE 2024 ㅣ 비밀번호 재발급</title>
 <%@ include file="../../common/common.jsp" %>
 </head>
 <body>

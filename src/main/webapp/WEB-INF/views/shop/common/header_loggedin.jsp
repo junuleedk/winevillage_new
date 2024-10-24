@@ -66,10 +66,10 @@
 			<!-- <button type="button" class="btn_sel" onclick="$(this).parent().toggleClass('on');"><span class="ico_kakao">카카오톡채널</span></button> -->
 			<ul>
 				<!-- <li><button type="button" onclick="window.open('https://www.facebook.com/welcometowinenara');"><span class="ico_facebook">페이스북</span></button></li> -->
-				<li><button type="button" onclick="window.open('https://www.instagram.com/winenara_official/')"><span class="ico_insta">인스타그램</span></button></li>
+				<!-- <li><button type="button" onclick="window.open('https://www.instagram.com/winenara_official/')"><span class="ico_insta">인스타그램</span></button></li> -->
 				<!-- <li><button type="button" onclick="window.open('https://blog.naver.com/winenara2175')"><span class="ico_blog">네이버블로그</span></button></li> -->
-				<li><button type="button" onclick="window.open('https://www.youtube.com/channel/UCCfl_ClO1lV5CNOmH8vRa2w')"><span class="ico_youtube">유튜브</span></button></li>
-				<li><button type="button" onclick="window.open('http://pf.kakao.com/_vlkxfxb')"><span class="ico_kakao">카카오톡채널</span></button></li>
+				<!-- <li><button type="button" onclick="window.open('https://www.youtube.com/channel/UCCfl_ClO1lV5CNOmH8vRa2w')"><span class="ico_youtube">유튜브</span></button></li> -->
+				<!-- <li><button type="button" onclick="window.open('http://pf.kakao.com/_vlkxfxb')"><span class="ico_kakao">카카오톡채널</span></button></li> -->
 			</ul>
 			</li>
 			<!-- <li class="store_area mb_hidden">
@@ -243,9 +243,9 @@
 						</div>
 					</div> -->
 				</li>
-				<li class=" pc_hidden ">
+				<!-- <li class=" pc_hidden ">
 					<a href="/shop/product/product_lists?sh_category1_cd=50000">티켓</a>
-				</li>
+				</li> -->
 				<li style="display:none !important" class="mb_hidden opacity">
 					<a href="/shop/product/best_product_lists?group_cd=20240206">En Primeur</a>
 				</li>
@@ -253,9 +253,9 @@
 					<a href="<c:url value='/shop/event/event_lists.do' />">PROMOTION</a>
 				</li>
 				<li class="mb_hidden opacity">
-					<a href="/shop/company/store">SHOP</a>
+					<a href="/shop/company/store.do">SHOP</a>
 				</li>
-				<li class=" opacity">
+				<!-- <li class=" opacity">
 					<a href="/shop/company/mood" class="club-link">CLUB</a>
 					<div class="pc_category_gnb">
 						<div class="flex_box">
@@ -274,15 +274,18 @@
 							</div>
 						</div>
 					</div>
+				</li> -->
+				<li class="mb_hidden opacity">
+					<a href="/shop/community/brandstory_lists.do">BLOG&amp;VIDEO</a>
 				</li>
 				<li class="mb_hidden opacity">
-					<a href="/shop/community/brandstory_lists">BLOG&amp;VIDEO</a>
-				</li>
+	                <a href="/shop/company/member_benefit.do">MEMBERSHIP</a>
+                </li>
 				<!-- <li class=" opacity">
 					<a href="/shop/community/video_lists">VIDEO</a>
 				</li> -->
 				<li class="mb_hidden opacity">
-					<a href="/shop/company/about_us">ABOUT US</a>
+					<a href="/shop/company/about_us.do">ABOUT US</a>
 				</li>
 			</ul>
 			<button type="button" class="pc_category" onclick="$(this).toggleClass('on');$('.bottom .wrap>.pc_category_gnb').toggleClass('on');"><span></span></button>
@@ -336,10 +339,10 @@
 					<ul>
 						<li><a href="<c:url value='/shop/event/event_lists.do' />">이달의 프로모션</a></li>
 						<li><a href="<c:url value='/shop/event/event_end.do' />">완료된 프로모션</a></li>
-						<li><a href="/shop/cs/special">특판문의</a></li>
+						<!-- <li><a href="/shop/cs/special">특판문의</a></li> -->
 					</ul>
 					<p class="tit">
-						<a href="/shop/company/store"><strong>SHOP</strong></a>
+						<a href="/shop/company/store.do"><strong>SHOP</strong></a>
 					</p>
 					<p class="tit">
 						<strong>BLOG</strong>
@@ -357,12 +360,12 @@
 					</ul>
 					<p class="tit"><strong>ABOUT US</strong></p>
 					<ul>
-						<li><a href="/shop/company/about_us">WINENARA</a></li>
-						<li><a href="/shop/company/brand">BRANDS</a></li>
-						<li><a href="/shop/company/store">SHOP</a></li>
-						<li><a href="/shop/company/fnb">F&amp;B</a></li>
-						<li><a href="/shop/community/press_lists">PRESS</a></li>
-						<li><a href="/shop/company/member_benefit">MEMBERSHIP</a></li>
+						<li><a href="/shop/company/about_us.do">WINENARA</a></li>
+						<li><a href="/shop/company/brand.do">BRANDS</a></li>
+						<li><a href="/shop/company/store.do">SHOP</a></li>
+						<!-- <li><a href="/shop/company/fnb">F&amp;B</a></li> -->
+						<li><a href="/shop/community/press_lists.do">PRESS</a></li>
+						<li><a href="/shop/company/member_benefit.do">MEMBERSHIP</a></li>
 					</ul>
 				</div>
 				<div class="box">
@@ -416,7 +419,7 @@
 			</script>
 		</li> -->
 		<li class="btn_wish"><button type="button" onclick="location.href='/shop/mypage/note/wish_lists'"><span>WISH LIST</span></button></li>
-		<li class="btn_mypage"><button type="button" onclick="location.href='/shop/mypage/shopping/mypage'"><span>MY PAGE</span></button></li>
+		<li class="btn_mypage"><button type="button" onclick="location.href='/shop/mypage/shopping/mypage.do'"><span>MY PAGE</span></button></li>
 	</ul>
 </div>
 <!-- <form action="https://www.winenara.com/shop/order/barcode_view" id="BarcodeForm" name="BarcodeForm" method="post" accept-charset="utf-8">

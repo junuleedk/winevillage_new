@@ -710,7 +710,8 @@
 .member.policy .policy_lists li .con_wrap{padding:20px 48px 20px 30px}
 
 /* company */
-.lnb_wrap.company_lnb .pc_lnb .menu li{width:calc(100% / 6)}
+.lnb_wrap.company_lnb .pc_lnb .menu li{width:calc(100% / 5)}
+/* .lnb_wrap.company_lnb .pc_lnb .menu li{width:calc(100% / 6)} */
 
 /* company brand */
 .content.brand_page{padding:60px 0 120px}
