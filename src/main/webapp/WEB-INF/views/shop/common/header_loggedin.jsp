@@ -162,7 +162,7 @@
 		</ul>
 		<!-- 로그인했을 경우 나타나는 GNB 메뉴 -->
 		<div class="summary_menu">
-			<p><a href="/shop/mypage/shopping/mypage">고객님</a></p>
+			<p><a href="/shop/mypage/shopping/mypage"><%= memberName %>님</a></p>
 			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em><%= memberPoints %>P</em></a></p>
 			<p><a href="/shop/mypage/note/coupon_lists">쿠폰<em>1</em></a></p>
 		</div>
