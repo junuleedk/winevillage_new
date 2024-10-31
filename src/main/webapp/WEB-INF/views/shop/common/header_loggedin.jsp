@@ -211,7 +211,7 @@
 					</div>
 				</li>
 				<li class="">
-					<a href="/<c:url value='/shop/product/product_lists.do?category=20000' />">BEER&amp;LIQUOR</a>
+					<a href="<c:url value='/shop/product/product_lists.do?category=20000' />">BEER&amp;LIQUOR</a>
 					<div class="pc_category_gnb">
 						<div class="flex_box">
 							<div class="box other">

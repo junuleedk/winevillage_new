@@ -63,7 +63,7 @@
 				<!-- <p class="txt">와인나라가 준비한 이벤트에 신청해보세요.<br>가입 후 3일 이내에 신청시 인기상품을 100원에 드려요.</p> -->
 				<div class="btn_area col2">
 					<!-- <a href="/shop/event/event_lists" class="btn_txt">이벤트 바로가기</a> -->
-					<button type="button" class="btn_txt btn_black" onclick="location.href='/shop/product/product_lists?sh_category1_cd=10000'" style="float:none;display:inline-block;">쇼핑하러가기</button>
+					<button type="button" class="btn_txt btn_black" onclick="location.href='/shop/product/product_lists.do?category=10000'" style="float:none;display:inline-block;">쇼핑하러가기</button>
 				</div>
 			</div>
 		</div>

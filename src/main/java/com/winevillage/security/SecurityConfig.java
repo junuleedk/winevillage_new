@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 @EnableWebSecurity
@@ -85,6 +87,15 @@ public class SecurityConfig {
 //
 //        return url.toString();
 //    }
+	
+	@Bean
+	public HttpFirewall httpFirewall() {
+	    StrictHttpFirewall firewall = new StrictHttpFirewall();
+	    // 모든 쿠키 값 허용
+	    firewall.setAllowedHeaderValues(value -> 
+	        value.contains("search_recently_cookie") || !value.contains("cookie"));
+	    return firewall;
+	}
 	
 	@Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
