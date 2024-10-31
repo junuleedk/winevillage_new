@@ -75,7 +75,7 @@
 /* .header .top .wrap .right_menu li.wish{margin-left:10px} */
 .header .top .wrap .right_menu li.mypage{position:relative;overflow:visible}
 .header .top .wrap .right_menu li.mypage button{padding-right:17px;background:url(../../images/shop/default/pc_gray_arrow.png) no-repeat 100% 50%}
-.header .top .wrap .right_menu li .mypage_layer{display:none;position:absolute;top:150%;transform:translateX(-25%);border:1px solid #ddd;z-index:200}
+.header .top .wrap .right_menu li .mypage_layer{display:none;position:absolute;top:150%;transform:translateX(-25%);border:1px solid #ddd;z-index:200;width:100px}
 .header .top .wrap .right_menu li.mypage>button.on + .mypage_layer{display:block}
 .header .top .wrap .right_menu li .mypage_layer .no_login{width:60px;background:#fff;padding:10px 8px}
 .header .top .wrap .right_menu li .mypage_layer .no_login a{display:block;font-size:12px;color:#555}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 <meta name="description" content="WINENARA 1987">
-<meta name="keywords" content="와인나라는 전세계의 다양한 와인 포트폴리오를 보유하고 있으며, 와인을 비롯하여 각종 위스키와 스피릿을 판매하는 종합 주류 기업입니다.">
+<meta name="keywords" content="와인빌리지는 전세계의 다양한 와인 포트폴리오를 보유하고 있으며, 와인을 비롯하여 각종 위스키와 스피릿을 판매하는 종합 주류 기업입니다.">
 <meta name="author" content="WINENARA">
 <meta name="twitter:url" content="https://www.winenara.com/"/>
 <!--   트위터 카드를 사용하는 표시하고싶은URL -->
@@ -13,8 +13,8 @@
 <!--   트위터 카드에 나타날 웹 사이트의 제목 -->
 <meta name="twitter:image" content="https://www.winenara.com/asset/images/kr/default/logo.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="와인나라">
-<meta property="og:description" content="와인나라는 전세계의 다양한 와인 포트폴리오를 보유하고 있으며, 와인을 비롯하여 각종 위스키와 스피릿을 판매하는 종합 주류 기업입니다.">
+<meta property="og:title" content="와인빌리지">
+<meta property="og:description" content="와인빌리지는 전세계의 다양한 와인 포트폴리오를 보유하고 있으며, 와인을 비롯하여 각종 위스키와 스피릿을 판매하는 종합 주류 기업입니다.">
 <meta property="og:url" content="https://www.winenara.com">
 <meta property="og:image" content="https://www.winenara.com/asset/images/kr/default/logo.png"/>
 <meta property="og:title" content="WINENARA 1987"/>

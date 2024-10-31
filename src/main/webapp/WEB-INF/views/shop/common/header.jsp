@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <header id="header" class="header">
 <!-- 로딩바 -->
 <div class="loading">
@@ -20,6 +21,80 @@
             $(".loading").remove();
         });
     }
+    
+    //로그인관련
+	$(document).ready(function () {
+	    $("#loginBtn").on("click", function () {
+	        if (!$("#login_user_id").val()) {
+	            alert("아이디를 입력하여 주세요.");
+	            $("#login_user_id").focus();
+	            return false;
+	        }
+	        if (!$("#login_passwd").val()) {
+	            alert("비밀번호를 입력하여 주세요.");
+	            $("#login_passwd").focus();
+	            return false;
+	        }
+	        //Csrf.Set(_CSRF_NAME_); //토큰 초기화
+	        $.ajax({
+	            type: 'POST',
+	            url: "/shop/auth/login_check",
+	            contentType: "application/x-www-form-urlencoded",  // URL-encoded 형식으로 전송
+	            data: $("#LoginPostFrm").serialize(),  // Form 데이터를 URL-encoded 형식으로 직렬화
+	            success: function (response) {
+	                if (response.result === true) {
+	                    location.reload();  // 로그인 성공 시 페이지 새로고침
+	                }
+	            },
+	            error: function(xhr) {
+	                var response = JSON.parse(xhr.responseText);
+	                if (response.status === 'AUTH_DENIED') {
+						alert(response.message);
+					} else if (response.status === 'ACCOUNT_DISABLED') {
+						if (confirm(response.message)) {
+	                        // location.href = res.url;
+	                        $('#dormant_layer').show();
+	                    }
+					} else {
+						alert(response.message);
+					}
+					//if (response.pass_error_count >= 5) {
+	                //    recaptcha_load();
+	                //}
+	            }
+	        });
+	    });
+	    $("#logoutBtn").on('click', function() {
+	        $.ajax({
+	            url: '/shop/auth/logout',
+	            type: 'POST',
+	            success: function(result) {
+	                // 로그아웃 성공시 페이지 리로드 또는 리다이렉트
+	            	location.reload();
+	            },
+	            error: function(err) {
+	                // 에러 발생시 처리할 작업
+	                console.error('다시 시도해주세요.', err);
+	            },
+	        });
+	    });
+	});
+	function logout() {
+		$.ajax({
+	        url: '/shop/auth/logout',
+	        type: 'POST',
+	        success: function(result) {
+	            // 로그아웃 성공시 페이지 리로드 또는 리다이렉트
+	        	location.reload();
+	        },
+	        error: function(err) {
+	            // 에러 발생시 처리할 작업
+	            console.error('다시 시도해주세요.', err);
+	        },
+	    });
+	}    
+    
+    
     </script>
 </div>
 <input type="hidden" id="session_id" value="">
@@ -95,13 +170,21 @@
                 <button type="button" onclick="commonUI.header.Mypage.clickFn()">
                     <img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page">
                 </button>
-                <div class="mypage_layer">
-                    <div class="no_login">
-                        <a href="javascript:commonUI.layer.open('login_layer')">로그인</a>
-                        <a href="/shop/member/join/law_agreement.do">회원가입</a>
-                        <!-- <a href="javascript:commonUI.layer.open('wine_profile_layer')">와인 프로파일(임시 테스트용)</a> -->
-                    </div>
-                </div>
+	          	<div class="mypage_layer">
+			        <sec:authorize access="isAuthenticated()">
+			            <div class="logged_in">
+			                <p>환영합니다, <sec:authentication property="principal.username" />님!</p>
+			                <a href="/shop/mypage/mypage_main">마이페이지</a>
+			                <a href="/shop/member/logout">로그아웃</a>
+			            </div>
+			        </sec:authorize>
+			        <sec:authorize access="!isAuthenticated()">
+			            <div class="no_login">
+			                <a href="javascript:commonUI.layer.open('login_layer')">로그인</a>
+			                <a href="/shop/member/join/law_agreement.do">회원가입</a>
+			            </div>
+			        </sec:authorize>
+	  		  </div>
             </li>
             <li class="mb_hidden">
                 <a href="/shop/cs/notice_lists">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -60,12 +61,55 @@
 				<!-- <p class="txt">와인빌리지가 준비한 이벤트에 신청해보세요.<br>가입 후 3일 이내에 신청시 인기상품을 100원에 드려요.</p> -->
 				<div class="btn_area col2">
 					<!-- <a href="/shop/event/event_lists" class="btn_txt">이벤트 바로가기</a> -->
-					<button type="button" class="btn_txt btn_black" onclick="location.href='/shop/product/product_lists?sh_category1_cd=10000'" style="float:none;display:inline-block;">쇼핑하러가기</button>
+					<%-- <sec:authorize access="hasRole('ROLE_USER')"> --%>
+				<!-- 	<button type="button" class="btn_txt btn_black" onclick="location.href='/shop/main.do'" style="float:none;display:inline-block;">쇼핑하러가기</button> -->
+					<button type="button" class="btn_txt btn_black" onclick="goShopping()" style="float:none;display:inline-block;">쇼핑하러가기</button>
+					<%-- </sec:authorize> --%>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	function goShopping() {
+	    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+	    var csrfToken = $("meta[name='_csrf']").attr("content");
+	    
+	    $.ajax({
+	        url: '/performLogin.do',
+	        type: 'POST',
+	        contentType: 'application/json',
+	        beforeSend: function(xhr) {
+	            if (csrfHeader && csrfToken) {
+	                xhr.setRequestHeader(csrfHeader, csrfToken);
+	            }
+	        },
+	        success: function(response) {
+	            if (response.success) {
+	                alert(response.memberName + "님, 환영합니다!");
+	                window.location.href = '/shop/main.do';
+	            } else {
+	                alert('로그인에 실패했습니다: ' + response.message);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.error("AJAX Error:", textStatus, errorThrown);
+	            console.log("Response Text:", jqXHR.responseText);
+	            alert('로그인 요청 중 오류가 발생했습니다. 상세 정보: ' + textStatus);
+	        }
+	    });
+	}
+</script>
+
+<%
+    String pendingLoginId = (String) session.getAttribute("pendingLoginId");
+    String pendingLoginPassword = (String) session.getAttribute("pendingLoginPassword");
+%>
+<script>
+    console.log("JSP - Pending Login ID: <%= pendingLoginId %>");
+    console.log("JSP - Session ID: <%= session.getId() %>");
+</script>
 <!-- page_script -->
 <script>
 </script>
