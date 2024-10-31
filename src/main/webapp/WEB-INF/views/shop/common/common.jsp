@@ -26,7 +26,7 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta name="naver-site-verification" content="5a02c2e75c2f206818498a10352f35f7feb8c966"/>
 <!-- 삭제 불가 토큰갱신시 사용-->
-<!-- <script>
+<script>
     //if (document.location.protocol == 'http:' && location.hostname.indexOf("winenara.com") != -1) {
     //    document.location.href = document.location.href.replace('http:', 'https:');
     //}
@@ -36,9 +36,9 @@
     var sesCustSeq = "";
     var session_id = "";
     var ci_cookie = "s3klkmjskuf6n4ruqsf4t1673qfpejlf";
-</script> -->
+</script>
 <!--백로그 API-->
-<script type="text/JavaScript" language="JavaScript" src="https://winenara-recommend-method.s3.ap-northeast-2.amazonaws.com/rcMethod.js" charset="UTF-8"></script>
+<script type="text/JavaScript" language="JavaScript" src="<c:url value='/asset/rcMethod.js' />" charset="UTF-8"></script>
 <!-- <script type="text/JavaScript">
         RC_Initialize('https://waapi.winenara.com:18099', "", "s3klkmjskuf6n4ruqsf4t1673qfpejlf", "visitor");
     </script> -->

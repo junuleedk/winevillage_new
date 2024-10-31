@@ -120,5 +120,37 @@
 <!-- footer -->
 <%@ include file="../../common/footer.jsp" %>
 <!-- //footer -->
+
+<script language=javascript>
+    $(".quick_menu .menu_open").on("click", function () {
+        $(".quick_menu").toggleClass("on")
+    });
+</script>
 </body>
 </html>
+<!--백로그 API-->
+<script type="text/JavaScript">
+	var page = 'join_ok';
+	if( page == false){
+		page = 'main';
+	}
+	if( page !== 'product_view' && page !== 'order_ok'){
+		console.log(page);
+		/*
+        RC_Method({
+            sign_up_data: "",
+            page_type : page, 
+            behavior:"page_view"
+        });
+        */
+	}
+</script>
+<!--백로그 API-->
+<!--lazy_loading-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+<script>
+	const observer = lozad();
+	observer.observe();
+	console.log('test');
+</script>
+<!--lazy_loading-->

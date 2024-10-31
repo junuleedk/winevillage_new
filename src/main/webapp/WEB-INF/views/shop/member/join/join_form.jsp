@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>WINEVIllAGE 2024 ㅣ 와인의 모든 것이 있는 곳 와인빌리지입니다! </title>
+<title>WINEVILLAGE 2024 ㅣ 와인의 모든 것이 있는 곳 와인빌리지입니다! </title>
 <%@ include file="../../common/common.jsp" %>
 <meta name="_csrf" content="${_csrf.token}"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -24,6 +24,8 @@
 <!-- header -->
 <%@ include file="../../common/header.jsp" %>
 <!-- //header -->
+<%@ include file="../../common/layer.jsp" %>
+<%@ include file="../../common/script.jsp" %>
 
 <!-- contents -->
 <section id="contents">

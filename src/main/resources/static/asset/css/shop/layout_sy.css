@@ -787,15 +787,15 @@ span.star_num{line-height:20px;font-style:normal;font-family:'NotoSansCJKkr',san
 
 .keeping_pro_write_page .o_lists li .top_date .store{margin-left:5px;padding-left:23px;background:url(../../images/shop/default/ico_store.png) 0 50% no-repeat;font-size:14px;color:#AC8B68}
 
-/* content member forgoten_id */
-.forgoten_id_page .top_txt p,.forgoten_pw_page .top_txt p{text-align:center;color:#555}
-.forgoten_id_page .form_area,.forgoten_pw_page .form_area{margin-top:40px;padding-bottom:0;border-bottom:0}
-.forgoten_id_page .btn_area,.forgoten_pw_page .btn_area{margin-top:30px}
-.forgoten_id_page input[type=text]::-ms-clear,.forgoten_pw_page input[type=text]::-ms-clear{display:none}
+/* content member forgotten_id */
+.forgotten_id_page .top_txt p,.forgotten_pw_page .top_txt p{text-align:center;color:#555}
+.forgotten_id_page .form_area,.forgotten_pw_page .form_area{margin-top:40px;padding-bottom:0;border-bottom:0}
+.forgotten_id_page .btn_area,.forgotten_pw_page .btn_area{margin-top:30px}
+.forgotten_id_page input[type=text]::-ms-clear,.forgotten_pw_page input[type=text]::-ms-clear{display:none}
 
-/* content member forgoten_id_ok */
-.forgoten_id_ok_page .top_txt p,.forgoten_pw_ok_page .top_txt p{line-height:28px;text-align:center;font-size:20px;font-weight:500;color:#333}
-.forgoten_id_ok_page .btn_area,.forgoten_pw_ok_page .btn_area{margin-top:60px}
+/* content member forgotten_id_ok */
+.forgotten_id_ok_page .top_txt p,.forgotten_pw_ok_page .top_txt p{line-height:28px;text-align:center;font-size:20px;font-weight:500;color:#333}
+.forgotten_id_ok_page .btn_area,.forgotten_pw_ok_page .btn_area{margin-top:60px}
 
 /* content member change_pw */
 .change_pw_page .form_area{padding-bottom:0;border-bottom:0}
