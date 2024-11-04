@@ -23,26 +23,6 @@ public class SecurityConfig {
 	       .authorizeHttpRequests(auth -> auth
 	    		   .anyRequest().permitAll()
 	       );
-	   http.formLogin((formLogin) -> formLogin
-				//.loginPage("/login")
-				.loginProcessingUrl("/shop/auth/login_check")
-				.defaultSuccessUrl("/")
-				//.failureUrl("/error")
-				.usernameParameter("login_user_id")
-				.passwordParameter("login_passwd")
-				.permitAll()
-		);
-		http.logout((logout) -> logout
-				.logoutUrl("/shop/auth/logout")
-				//.logoutSuccessHandler(new DeauthSuccessHandler())
-				.invalidateHttpSession(true)
-				.clearAuthentication(true)
-				//.logoutSuccessUrl("/")
-				.permitAll()
-		);
-		http.exceptionHandling((expHandling) -> expHandling
-				.accessDeniedPage("/denied")
-		);
 		return http.build();
 	}
 	
