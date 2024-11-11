@@ -3,6 +3,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<% boolean isAuthenticated = false; %>
+<sec:authorize access="isAuthenticated()">
+<% isAuthenticated = true; %>
+</sec:authorize>
 <%
 	ProductDTO productDTO = (ProductDTO) request.getAttribute("product");
 %>
@@ -40,9 +44,9 @@
 
 <!-- contents -->
 <section id="contents">
-<meta property="og:url" content="www.winenara.com/shop/product/product_view?product_cd=03P858"/>
-<meta property="og:description" content="알리아니코 품종이 가진 이중성을 완벽하게 조화시킨 부띠끄 와인"/>
-<meta property="og:image" content="../../uploads/product/2783_detail_030.png"/>
+<meta property="og:url" content="<c:url value='/shop/product/product_view.do?product_cd=${product.product_code}' />"/>
+<meta property="og:description" content="${product.product_info}"/>
+<meta property="og:image" content="../../uploads/product/${product.thumbnail}"/>
 <script src="../../asset/js/wn.product.js"></script>
 <div class="lnb product_lnb product_view_lnb lnb_wrap">
 	<div class="pc_hidden">
@@ -51,7 +55,13 @@
 			<h2 class="my_value js_selectBtn">${product.product_name}</h2>
 		</div>
 		<p class="cart">
-			<a href="/shop/cart/cart_lists"><span>Cart List</span>
+			<a href="/shop/cart/cart_lists">
+				<span>Cart List</span>
+				<sec:authorize access="isAuthenticated()">
+				<c:if test="${memberCartCount != null}">
+				<span class="list-count">${memberCartCount}</span>
+				</c:if>
+				</sec:authorize>
 			</a>
 		</p>
 	</div>
@@ -420,46 +430,46 @@
 			<div class="layer_area">
 				<div class="cart_txt">
 					<p>장바구니에 상품이 담겼습니다.</p>
-					<p><a href="/shop/cart/cart_lists">바로가기</a></p>
+					<p><a href="/shop/cart/cart_lists.do">바로가기</a></p>
 				</div>
 				<div class="layer_tit">
-					<span>알파박스 앤 다이스 솔라 </span>
+					<span>${product.product_name}</span>
 					<button type="button" class="layer_close" onclick="commonUI.layer.close()"><span>Layer Close</span></button>
 				</div>
 				<div class="layer_con">
 					<!-- <p class="info_txt">빈티지와 용량을 선택하세요.</p> -->
 					<div class="border_style">
 						<ul>
-							<li class="4952" data-product-cd='03P858' data-base-price='49000' data-product-gb="C" data-option-cd1="OPT_1" data-option-cd2="OPT_2" data-option-cd3="" data-value-cd1="OPT_1_1" data-value-cd2="OPT_2_2" data-value-cd3="" data-option-gb="C" data-option-value-nm1="750" data-option-value-nm2="2018" data-option-value-nm3="" data-option-price1="0" data-option-price2="0" data-option-price3="" data-stock-seq="4952" data-mandatory-yn="Y">
+							<li class="${product.product_code}" data-product-cd='${product.product_code}' data-base-price='${product.price_discount != null ? product.price_discount : product.price_original}'>
 							<div class="select_line">
 								<div class="checkbox type2">
-									<input type="checkbox" id="4952" name="check[]" value="4952" autocomplete="off">
-									<label for="4952">&nbsp;</label>
+									<input type="checkbox" id="buy_check1" name="check[]" value="${product.product_code}" autocomplete="off">
+									<label for="buy_check1">&nbsp;</label>
 								</div>
 							</div>
 							<div class="info_area">
 								<div class="volume_line">
-									<span>알파박스 앤 다이스 솔라 </span>
+									<span>${product.product_name}</span>
 								</div>
 								<div class="total_price_line">
 									<div>
 										<span>상품금액</span>
-										<ins class="supply_ins">49,000원</ins>
+										<ins class="supply_ins"><fmt:formatNumber value="${product.price_discount != null ? product.price_discount : product.price_original}" pattern="#,###"/>원</ins>
 									</div>
 									<div class="discount">
 										<span>할인금액</span>
-										<ins class="sale_ins">0원</ins>
+										<ins class="sale_ins"><fmt:formatNumber value="${product.price_discount != null ? (product.price_original - product.price_discount) : 0}" pattern="#,###"/>원</ins>
 									</div>
 									<div class="total">
 										<span>총 결제금액</span>
-										<ins class="total_ins">49,000원</ins>
+										<ins class="total_ins"><fmt:formatNumber value="${product.price_discount != null ? product.price_discount : product.price_original}" pattern="#,###"/>원</ins>
 									</div>
 								</div>
 								<div class="count_line">
 									<div class="quantity type2">
-										<button type="button" class="min" onclick="change_qty(this, -1, 49000, 0,49000,0 )">빼기</button>
+										<button type="button" class="min" onclick="change_qty(this, -1, ${product.price_discount != null ? product.price_discount : product.price_original}, 0, ${product.price_original}, 0)">빼기</button>
 										<input type="text" class="qty" value='1' readonly>
-										<button type="button" class="plus" onclick="change_qty(this, 1, 49000, 0,49000,0 )">추가</button>
+										<button type="button" class="plus" onclick="change_qty(this, 1, ${product.price_discount != null ? product.price_discount : product.price_original}, 0, ${product.price_original}, 0)">추가</button>
 									</div>
 								</div>
 							</div>
@@ -467,8 +477,8 @@
 						</ul>
 					</div>
 					<div class="btn_area col2">
-						<button type="button" class="btn_txt" onclick="product_chk('03P858', 'F', '2201');"><span>장바구니</span></button>
-						<button type="button" class="btn_txt btn_black" onclick="product_chk('03P858', 'T', '2201');"><span>바로구매</span></button>
+						<button type="button" class="btn_txt" onclick="product_chk('${product.product_code}', 'F', '2201');"><span>장바구니</span></button>
+						<button type="button" class="btn_txt btn_black" onclick="product_chk('${product.product_code}', 'T', '2201');"><span>바로구매</span></button>
 					</div>
 				</div>
 			</div>
@@ -498,9 +508,9 @@
 <!-- http://mistic100.github.io/jQCloud/demo.html -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
-// $(function(){
-// 	getList('init');
-// });
+//$(function(){
+//getList('init');
+//});
 $(function(){
 	getTastingReview('init');
 });
@@ -1169,7 +1179,12 @@ function chklayer(){
 		}
 		i++;
 	});
+	<% if (!isAuthenticated) { %>
 		commonUI.layer.open('login_layer');
+	<% } %>
+	<% if (isAuthenticated) { %>
+		commonUI.layer.open('buy_process_layer');
+	<% } %>
 	}
 //리뷰
 var tr_page;

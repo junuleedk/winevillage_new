@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winevillage.cart.ICartService">
+	<select id="viewCart" resultType="com.winevillage.cart.CartDTO"
+			parameterType="java.lang.String">
+		SELECT c.cart_no, c.memberId, c.product_code, c.quantity, c.created_date,
+				p.product_name, p.product_en_name, p.thumbnail,
+				p.label_type, p.label_country, p.label_grapevariety,
+				p.price_discount, p.price_original, p.price_deal, p.price_deal_price, p.price_deal_amount
+		FROM cart c
+		JOIN product p ON c.product_code = p.product_code
+		WHERE c.memberId = #{memberId}
+		ORDER BY c.cart_no DESC
+	</select>
+	<insert id="addCart" parameterType="com.winevillage.cart.CartDTO">
+		DECLARE
+		next_no NUMBER;
+		BEGIN
+		getnext_cart_no(next_no);
+		INSERT INTO cart (cart_no, memberId, product_code, quantity, created_date)
+		VALUES (next_no, #{memberId}, #{product_code}, #{quantity}, CURRENT_TIMESTAMP);
+		END;
+	</insert>
+</mapper>

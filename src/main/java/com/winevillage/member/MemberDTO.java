@@ -23,4 +23,7 @@ public class MemberDTO {
 	private String memberAnniversary;
 	private String memberStore;
 	private String memberBizReferenceCode;
+	private int memberCartCount;
+	private int memberWishCount;
+	private int memberCouponCount;
 }

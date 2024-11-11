@@ -80,7 +80,7 @@
 				<ul class="press_lists" id="press_ul">
 					<c:forEach items="${lists}" var="item">
 					<li>
-					<div class="img" onclick='location.href="/shop/community/press_view?press_seq=${item.seq}"' style="cursor: pointer;">
+					<div class="img" onclick='location.href="/shop/community/press_view.do?seq=${item.seq}"' style="cursor: pointer;">
 						<img src="/uploads/press/${item.img}" alt="">
 					</div>
 					<div class="con">

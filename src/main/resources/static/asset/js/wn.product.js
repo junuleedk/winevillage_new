@@ -106,12 +106,14 @@ product.Calc = function () {
 - 장바구니 담기 (상품상세)
 -----------------------------*/
 product.cartProduct = function(products, set) {
-    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
     $.ajax({
         type: "POST",
         url : "/shop/cart/insert_cart_ajax",
+        contentType : 'application/json',
         dataType : 'json',
-        data: {'products' : products, 'iscurr' : 'F'},
+        //data: {'products' : products, 'iscurr' : 'F'},
+        data: JSON.stringify({'products': products, 'iscurr': 'F'}),
         success : function (res) {
             if( $.trim(res.status) == "ok"){
                 if(res.national_msg != "" && res.national_msg != null){
@@ -119,6 +121,7 @@ product.cartProduct = function(products, set) {
                 }
 				console.log(set);
 				var qty	= parseInt($(".pc_hidden").find(".cart").find(".list-count").text())+parseInt(res.cnt_increase);
+				console.log(qty);
 				$(".pc_hidden").find(".cart").find(".list-count").text(qty);
 				$(".mb_hidden").find(".cart").find(".list-count").text(qty);
 			
@@ -137,7 +140,7 @@ product.cartProduct = function(products, set) {
                 alert(res.msg);
                 return;
             }
-            return;
+            //return;
         },
         error: function (res) {
             alert(res.responseText);

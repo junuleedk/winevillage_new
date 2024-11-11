@@ -6,6 +6,7 @@
     String memberId = (String) request.getAttribute("memberId");
     String memberName = (String) request.getAttribute("memberName");
     int memberPoints = (Integer) request.getAttribute("memberPoints");
+    Integer memberCartCount = (Integer) request.getAttribute("memberCartCount");
 %>
 <header id="header" class="header mypage_index_header">
 <!-- 로딩바 -->
@@ -108,6 +109,13 @@
 			<li class="cart">
 				<a href="/shop/cart/cart_lists">
 					<span>Cart List</span>
+					<%
+					if (memberCartCount != null) {
+					%>
+					<span class="list-count"><%= memberCartCount %></span>
+					<%
+					}
+					%>
 				</a>
 			</li>
 			<!-- <li class="mobile_mypage pc_hidden">
