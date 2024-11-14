@@ -170,8 +170,8 @@
 							<c:choose>
 							<c:when test="${product.price_discount != null && product.price_discount != '0'}">
 							<span>${product.price_discount_rate}%</span>
-							<ins><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</ins>
-							<del><fmt:formatNumber value="${product.price_discount}" pattern="#,###"/>원</del>
+							<ins><fmt:formatNumber value="${product.price_discount}" pattern="#,###"/>원</ins>
+							<del><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</del>
 							</c:when>
 							<c:otherwise>
 							<ins><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</ins>
@@ -440,7 +440,7 @@
 					<!-- <p class="info_txt">빈티지와 용량을 선택하세요.</p> -->
 					<div class="border_style">
 						<ul>
-							<li class="${product.product_code}" data-product-cd='${product.product_code}' data-base-price='${product.price_discount != null ? product.price_discount : product.price_original}'>
+							<li class="${product.product_code}" data-product-cd='${product.product_code}' data-base-price='${product.price_discount != 0 ? product.price_discount : product.price_original}'>
 							<div class="select_line">
 								<div class="checkbox type2">
 									<input type="checkbox" id="buy_check1" name="check[]" value="${product.product_code}" autocomplete="off">
@@ -454,22 +454,22 @@
 								<div class="total_price_line">
 									<div>
 										<span>상품금액</span>
-										<ins class="supply_ins"><fmt:formatNumber value="${product.price_discount != null ? product.price_discount : product.price_original}" pattern="#,###"/>원</ins>
+										<ins class="supply_ins"><fmt:formatNumber value="${product.price_original}" pattern="#,###"/>원</ins>
 									</div>
 									<div class="discount">
 										<span>할인금액</span>
-										<ins class="sale_ins"><fmt:formatNumber value="${product.price_discount != null ? (product.price_original - product.price_discount) : 0}" pattern="#,###"/>원</ins>
+										<ins class="sale_ins"><fmt:formatNumber value="${product.price_discount != 0 ? (product.price_original - product.price_discount) : 0}" pattern="#,###"/>원</ins>
 									</div>
 									<div class="total">
 										<span>총 결제금액</span>
-										<ins class="total_ins"><fmt:formatNumber value="${product.price_discount != null ? product.price_discount : product.price_original}" pattern="#,###"/>원</ins>
+										<ins class="total_ins"><fmt:formatNumber value="${product.price_discount != 0 ? product.price_discount : product.price_original}" pattern="#,###"/>원</ins>
 									</div>
 								</div>
 								<div class="count_line">
 									<div class="quantity type2">
-										<button type="button" class="min" onclick="change_qty(this, -1, ${product.price_discount != null ? product.price_discount : product.price_original}, 0, ${product.price_original}, 0)">빼기</button>
+										<button type="button" class="min" onclick="change_qty(this, -1, ${product.price_discount != 0 ? product.price_discount : product.price_original}, ${product.price_deal_price}, ${product.price_original}, 0)">빼기</button>
 										<input type="text" class="qty" value='1' readonly>
-										<button type="button" class="plus" onclick="change_qty(this, 1, ${product.price_discount != null ? product.price_discount : product.price_original}, 0, ${product.price_original}, 0)">추가</button>
+										<button type="button" class="plus" onclick="change_qty(this, 1, ${product.price_discount != 0 ? product.price_discount : product.price_original}, ${product.price_deal_price}, ${product.price_original}, 0)">추가</button>
 									</div>
 								</div>
 							</div>
@@ -742,17 +742,17 @@ function vivino_keyword(){
 function change_qty(e, add, sale_price, special_price, supply_price, option_price){
 	var qty				=	$(e).siblings('.qty').val();		// 현재 개수
 	var change			=	parseInt(qty) + parseInt(add);
-	var quantity_set_yn =   '';
+	var quantity_set_yn =   '${product.price_deal == 1 ? "Y" : ""}';
 	var quantity_set	=   1;
 	if(change<1){
 		return false;
 	}
 	$(e).siblings('.qty').val(change);
-	quantity_set2	=   '';
+	quantity_set2	=   '${product.price_deal_amount}';
 	if( quantity_set_yn === 'Y' && change >= quantity_set2){
-			$(e).parents("li").find('.supply_ins').text((supply_price*change).toLocaleString()+'원');
-			$(e).parents("li").find('.sale_ins').text(( (supply_price*change) - (special_price*change) ).toLocaleString()+'원');
-			$(e).parents("li").find('.total_ins').text((special_price*change).toLocaleString()+'원');
+		$(e).parents("li").find('.supply_ins').text((supply_price*change).toLocaleString()+'원');
+		$(e).parents("li").find('.sale_ins').text(( (supply_price*change) - (special_price*change) ).toLocaleString()+'원');
+		$(e).parents("li").find('.total_ins').text((special_price*change).toLocaleString()+'원');
 	}else{
 		$(e).parents("li").find('.supply_ins').text((supply_price*change).toLocaleString()+'원');
 		$(e).parents("li").find('.sale_ins').text(( (supply_price*change) - (sale_price*change) ).toLocaleString()+'원');

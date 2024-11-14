@@ -24,9 +24,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="cartCount" resultType="int" parameterType="com.winevillage.member.MemberDTO">
 		SELECT MemberCartCount FROM member WHERE MemberId = #{memberId}
     </select>
-	<update id="updateCartCount" parameterType="com.winevillage.member.MemberDTO">
+	<update id="addCartCount" parameterType="com.winevillage.member.MemberDTO">
 		UPDATE member
 		SET MemberCartCount = COALESCE(memberCartCount, 0) + 1
+		WHERE MemberId = #{memberId}
+	</update>
+	<update id="removeCartCount" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberCartCount = CASE
+								  WHEN MemberCartCount = 1 THEN NULL
+								  ELSE MemberCartCount - 1
+							  END
 		WHERE MemberId = #{memberId}
 	</update>
 </mapper>

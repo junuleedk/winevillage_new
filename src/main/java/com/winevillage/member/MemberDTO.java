@@ -26,4 +26,6 @@ public class MemberDTO {
 	private int memberCartCount;
 	private int memberWishCount;
 	private int memberCouponCount;
+	
+	private int countChange;
 }

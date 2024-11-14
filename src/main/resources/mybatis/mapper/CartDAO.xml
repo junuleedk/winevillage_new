@@ -4,8 +4,7 @@
 <mapper namespace="com.winevillage.cart.ICartService">
 	<select id="viewCart" resultType="com.winevillage.cart.CartDTO"
 			parameterType="java.lang.String">
-		SELECT c.cart_no, c.memberId, c.product_code, c.quantity, c.created_date,
-				p.product_name, p.product_en_name, p.thumbnail,
+		SELECT c.*, p.bg_color, p.product_name, p.product_en_name, p.thumbnail,
 				p.label_type, p.label_country, p.label_grapevariety,
 				p.price_discount, p.price_original, p.price_deal, p.price_deal_price, p.price_deal_amount
 		FROM cart c
@@ -22,4 +21,31 @@
 		VALUES (next_no, #{memberId}, #{product_code}, #{quantity}, CURRENT_TIMESTAMP);
 		END;
 	</insert>
+	<!-- 단일 아이템 삭제 -->
+    <delete id="deleteCartItem" parameterType="int">
+        DELETE FROM cart WHERE cart_no = #{cart_no}
+    </delete>
+
+    <!-- 수량 업데이트 -->
+    <update id="updateCartQuantity" parameterType="com.winevillage.cart.CartDTO">
+        UPDATE cart SET quantity = #{quantity} WHERE cart_no = #{cart_no}
+    </update>
+
+    <!-- 포장 방식 업데이트 (포장 관련 컬럼이 없는 경우 테이블에 추가 필요) -->
+    <update id="updatePackingOption" parameterType="map">
+        UPDATE cart SET packing = #{packing} WHERE cart_no = #{cart_no}
+    </update>
+
+    <!-- 재고 확인 -->
+    <select id="checkStockAvailability" resultType="boolean" parameterType="int">
+        SELECT CASE WHEN p.stock >= c.quantity THEN 1 ELSE 0 END
+        FROM product p
+        JOIN cart c ON p.product_code = c.product_code
+        WHERE c.cart_no = #{cart_no}
+    </select>
+
+    <!-- 제품 코드로 재고 확인 -->
+    <select id="getProductStock" resultType="int" parameterType="string">
+        SELECT stock FROM product WHERE product_code = #{product_code}
+    </select>
 </mapper>

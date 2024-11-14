@@ -109,7 +109,7 @@
 .cart_lists_page .c_lists li .box.ip_img{width:170px}
 .cart_lists_page .c_lists li .box.opt{display:flex;width:155px}
 .cart_lists_page .c_lists li .box.opt span:not(:first-of-type){margin:0 0 0 10px}
-.cart_lists_page .c_lists li .box.con{width:235px;padding:0 40px}
+.cart_lists_page .c_lists li .box.con{width:390px;padding:0 40px}
 .cart_lists_page .c_lists li .box.price{float:right;width:330px;margin:0;line-height:1.2}
 .cart_lists_page .total_price{padding:40px 0;text-align:center}
 .cart_lists_page .total_price dl{position:relative;display:inline-block;vertical-align:middle;padding-right:102px}

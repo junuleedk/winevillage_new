@@ -120,10 +120,17 @@ product.cartProduct = function(products, set) {
                     alert(res.national_msg);
                 }
 				console.log(set);
-				var qty	= parseInt($(".pc_hidden").find(".cart").find(".list-count").text())+parseInt(res.cnt_increase);
+				var qty	= parseInt($(".pc_hidden").find(".cart").find(".list-count").text() || 0)+parseInt(res.cnt_increase);
+				var item = parseInt(res.cart_cnt);
 				console.log(qty);
-				$(".pc_hidden").find(".cart").find(".list-count").text(qty);
-				$(".mb_hidden").find(".cart").find(".list-count").text(qty);
+				if ($(".pc_hidden").find(".cart").find(".list-count").length === 0) {
+					$(".pc_hidden").find(".cart").find("a").append('<span class="list-count"></span>');
+				}
+				if ($(".mb_hidden").find(".cart").find(".list-count").length === 0) {
+					$(".mb_hidden").find(".cart").find("a").append('<span class="list-count"></span>');
+				}
+				$(".pc_hidden").find(".cart").find(".list-count").text(item);
+				$(".mb_hidden").find(".cart").find(".list-count").text(item);
 			
 				if( set == 'G') {
 					if(confirm("장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?")){

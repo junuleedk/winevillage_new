@@ -57,159 +57,7 @@
 </div>
 <div class="wrap">
 	<script src="<c:url value='/asset/js/wn.product.js' />"></script>
-	<div class="content order cart_lists_page">
-		<!-- 탭 버튼 형식 -->
-		<!-- <div class="tab_area">
-			<ul class="tab1">
-				<li class="on">
-					<button type="button" onclick="location.href='/shop/cart/cart_lists?order_gb=P'">
-						<span>온라인주문<em class="count">1</em></span>
-					</button>
-				</li>
-				<li >
-					<button type="button" onclick="location.href='/shop/cart/cart_lists?order_gb=V'">
-						<span>매장방문주문</span>
-					</button>
-				</li>
-				<li >
-					<button type="button" onclick="location.href='/shop/cart/cart_lists?order_gb=D'">
-						<span>택배배송</span>
-					</button>
-				</li>
-			</ul>
-		</div> -->
-		<!-- 라디오박스 형식(두 개 중 골라 쓰시면 됩니다) -->
-		<!-- <div class="radio_area">
-			<div class="radiobox">
-				<input type="radio" name="receive_way" id="pickup" checked>
-				<label for="pickup"><span>직접픽업(Array건)</span></label>
-			</div>
-			<div class="radiobox">
-				<input type="radio" name="receive_way" id="store">
-				<label for="store"><span>매장방문(0건)</span></label>
-			</div>
-			<div class="radiobox">
-				<input type="radio" name="receive_way" id="shipping">
-				<label for="shipping"><span>택배배송</span></label>
-			</div>
-		</div> -->
-		<div class="c_lists">
-			<div class="top">
-				<div class="checkbox type2">
-					<input type="checkbox" id="all_sel">
-					<label for="all_sel">전체선택</label>
-				</div>
-				<button type="button" id="btn_del">선택삭제</button>
-			</div>
-			<ul>
-				<li class="65271">
-				<div class="box ip_img">
-					<div class="checkbox type2">
-						<input type="checkbox" id="cart_seq_65271" name="cart_seq[]" class="ip_check" value="65271" data-qty="1" data-price="16900" data-supply-price="16900" data-promotion-limit="N">
-						<label for="cart_seq_65271">
-						<picture style="background:#D7F9E2">
-						<!--[if IE 9]><video style="display: none;"><![endif]-->
-						<source srcset="../../uploads/product/157bc4be3f4e882f68da804d39956326.jpg" media="(min-width:768px)">
-						<!-- pc이미지 -->
-						<source srcset="../../uploads/product/157bc4be3f4e882f68da804d39956326.jpg" media="(max-width:767px)">
-						<!-- mb이미지 -->
-						<!--[if IE 9]></video><![endif]-->
-						<img src="../../uploads/product/157bc4be3f4e882f68da804d39956326.jpg" alt="">
-						<!-- pc이미지 -->
-						</picture>
-						</label>
-					</div>
-				</div>
-				<div class="box con">
-					<div class="more_info">
-						<p class="prd_name">
-							<a href="/shop/product/product_view?product_cd=29E404" target="_blank">
-							빌라엠썸X수키도키 잔패키지<br>
-							</a>
-						</p>
-						<div class="cate_label">
-							<span class="label" style="background:#D7F9E2">디저트</span><span class="label" style="background:#D7F9E2">이탈리아</span><span class="label" style="background:#D7F9E2">기타</span>
-						</div>
-						<!-- 픽업제외매장 -->
-						<!-- //픽업제외매장 -->
-					</div>
-				</div>
-				<div class="box opt">
-					<span>750</span>
-					<!-- <span></span> -->
-				</div>
-				<div class="box price_amount">
-					<div class="box amount">
-						<div class="quantity" data-cart-seq="65271" data-product-cd="29E404" data-base-price="16900" data-opt-gb="C">
-							<button type="button" class="minus" onclick="box_qty(this, -1);">감소</button>
-							<input type="text" class="qty" title="수량" value="1">
-							<button type="button" class="plus" onclick="box_qty(this, +1);">증가</button>
-						</div>
-						<!-- <select class="packing" onchange="change_packing('65271',this.value)">
-							<option value="">포장선택</option>
-							<option value="2701">쇼핑백</option>
-							<option value="2702">완충포장</option>
-							<option value="2703">칠링백(+2,000원)</option>
-							<option value="2704">선물포장(+5,000원)</option>
-						</select> -->
-					</div>
-					<div class="box price price_con">
-						<div>
-							<span>상품금액</span>
-							<ins>16,900원</ins>
-						</div>
-						<div class="discount">
-							<span>할인금액</span>
-							<ins>0원</ins>
-						</div>
-						<div class="total">
-							<span>총 결제금액</span>
-							<ins>16,900원</ins>
-						</div>
-					</div>
-				</div>
-				<!-- <div class="box btn">
-						<button type="button" class="btn_like wish_29E404 " id="wish_29E404" onclick="product.likeProduct('29E404');">좋아요</button>
-						<button type="button" class="btn_del basic" value="65271">삭제</button>
-					</div> -->
-				</li>
-			</ul>
-		</div>
-		<div class="reload_container">
-			<div class="total_price">
-				<dl class="dash">
-					<dt>상품금액</dt>
-					<dd id="supply">16,900원</dd>
-				</dl>
-				<dl class="plus">
-					<dt>할인금액</dt>
-					<dd id="sale">0원</dd>
-				</dl>
-				<!-- 	<dl class="equal">
-					<dt>배송비</dt>
-					<dd>0원</dd>
-				</dl> -->
-				<dl class="total">
-					<dt>총 결제금액</dt>
-					<dd id="total">16,900원</dd>
-				</dl>
-			</div>
-		</div>
-		<!-- <p class="txt">당일 픽업은 오늘(04월19일) 오후 4시 이전 주문 완료 후 1시간 이후 픽업만 가능합니다.</p> -->
-		<div class="btn_area col2">
-			<button type="button" class="btn_txt" onclick="location.href='/shop/product/product_lists?sh_category1_cd=10000'"><span>계속 쇼핑하기</span></button>
-			<button type="button" class="btn_txt" onclick="orderSet('c')"><span>선택상품 주문</span></button>
-			<button type="button" class="btn_txt btn_black" onclick="orderSet('a')"><span>전체상품 주문</span></button>
-		</div>
-		<div class="recommend_area">
-			<!--   <h3>추천 상품</h3>
-			<ul class="prd_list" id="cart_recommend">
-			</ul> -->
-			<!-- <div class="btn_area">
-				<button type="button" class="btn_txt" id="more_button_wine" onclick="getList('add')"><span>더보기</span></button>
-			</div> -->
-		</div>
-	</div>
+	<%@ include file="cart_lists/cart_lists_page.jsp" %>
 </div>
 <form action="https://www.winenara.com/shop/cart/cart_lists" id="UpdateCartForm" name="UpdateCartForm" method="post" accept-charset="utf-8">
 	<input type="hidden" name="witplus_csrf_token" value="d4786544f2a0b0d87385c8d3e5a0810e">
@@ -340,28 +188,30 @@ $('.main_img .slider').slick({
 				cart_opt_val.push($(this).val());
 			});
 			if(confirm("선택한 상품을 삭제하시겠습니까?")){		//추가옵션 외
-			if(cart_val.length  !== 0) {
-				Csrf.Set(_CSRF_NAME_); 
-				$.ajax({
-					type: "POST",
-					url: "/shop/cart/cart_proc_ajax?ajax_mode=DEL",
-					dataType: 'json',
-					data: {cart_seq: cart_val},
-					success: function(res){
-						location.reload();
-					},
-					error: function(res){
-						alert(res.responseText);
-					}
-				});
-			}
+				if(cart_val.length  !== 0) {
+					//Csrf.Set(_CSRF_NAME_); 
+					$.ajax({
+						type: "POST",
+						url: "/shop/cart/cart_proc_ajax?ajax_mode=DEL",
+						contentType : 'application/json',
+						dataType: 'json',
+						data: JSON.stringify({cart_seq: cart_val}),
+						success: function(res){
+							location.reload();
+						},
+						error: function(res){
+							alert(res.responseText);
+						}
+					});
+				}
 				if(cart_opt_val.length  !== 0) {		//선택한 (추가)옵션 삭제
-					Csrf.Set(_CSRF_NAME_); 
+					//Csrf.Set(_CSRF_NAME_); 
 					$.ajax({
 						type: "POST",
 						url: "/shop/cart/cart_proc_ajax?ajax_mode=DEL_OPT",
+						contentType : 'application/json',
 						dataType: 'json',
-						data: {cart_opt_seq: cart_opt_val},
+						data: JSON.stringify({cart_opt_seq: cart_opt_val}),
 						success: function(res){
 							location.reload();
 						},
@@ -383,19 +233,20 @@ $('.main_img .slider').slick({
 		var product_cd      =	$(e).parents('.quantity').data('product-cd');
 		//	alert(product_cd);
 		if( qty > 0 ){
-			Csrf.Set(_CSRF_NAME_); //토큰 초기화
+			//Csrf.Set(_CSRF_NAME_); //토큰 초기화
 			$.ajax({
 				   type: "POST",
 				   url: "/shop/cart/cart_proc_ajax?ajax_mode=UPD_QTY",
+				   contentType : 'application/json',
 				   dataType: 'json',
 				   async: false,
-				   data: {cart_seq: cart_seq, qty: qty, opt_gb : opt_gb, product_cd : product_cd},
+				   data: JSON.stringify({'cart_seq': cart_seq, 'qty': qty, 'opt_gb' : opt_gb, 'product_cd' : product_cd}),
 				   success: function(res){
 					   if($.trim(res.status) == "ok"){
 							//$(e).siblings('.qty').val(qty);
 							//alert('test');
 							//$('.tab_area').load(location.href+' .tab_area');
-							location.href='/shop/cart/cart_lists?upt=Y';
+							location.href='/shop/cart/cart_lists.do?upt=Y';
 					   } else{
 						   if($.trim(res.status) == "err2"){
 							   if(res.data.length > 0){
@@ -491,7 +342,7 @@ $('.main_img .slider').slick({
 			   });
 	}
 var list_page=1;
-var product = '["29E404"]';
+var product = '[<c:forEach var="item" items="${lists}" varStatus="status">"${item.product_code}"<c:if test="${!status.last}">,</c:if></c:forEach>]';
 var product_cd;
 product_cd = JSON.parse(product);
 var mode ='init';
@@ -613,9 +464,10 @@ $("input[type=checkbox]").change(function() {
 			supply_price += $(this).data('qty') * $(this).data('supply-price');
 		}
 	});
-	$("#supply").text(supply_price.toLocaleString()+'원');
+	$("#supply").text(price.toLocaleString()+'원');
+	//$("#supply").text(supply_price.toLocaleString()+'원');
 	$("#sale").text((supply_price-price).toLocaleString()+'원');
-	$("#total").text(price.toLocaleString()+'원');
+	$("#total").text((price-(price-supply_price)).toLocaleString()+'원');
 });
 $("#all_sel").trigger("click");
 </script>
@@ -623,7 +475,7 @@ $("#all_sel").trigger("click");
 <!-- //page_script -->
 <!--백로그 API-->
 <script type="text/JavaScript">
-	var cart_log = '{"29E404":"1"}';
+	var cart_log = '${cart_log}';
 	if(cart_log.length>2){
 		console.log('적재');
 		cart_log = JSON.parse(cart_log);

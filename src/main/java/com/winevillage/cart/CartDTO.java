@@ -11,6 +11,7 @@ public class CartDTO {
 	private java.sql.Timestamp created_date;
 	
 	/* Product */
+	private String bg_color;
 	private String product_name;
 	private String product_en_name;
 	private String thumbnail;

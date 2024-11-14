@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IMemberService {
 	//회원가입
 	public int insertMember(MemberDTO membertDTO);
-	public int updateCartCount(String memberId);
+	public int addCartCount(String memberId);
+	public int removeCartCount(String memberId);
 	public Integer cartCount(String memberId);
 }
