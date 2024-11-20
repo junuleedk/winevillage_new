@@ -111,8 +111,8 @@ public class CartController {
 
 					for (Integer cartSeq : cartSeqList) {
 						dao.deleteCartItem(cartSeq);
+						member.removeCartCount(memberId);
 					}
-					member.removeCartCount(memberId);
 					response.put("status", "ok");
 					break;
 				case "DEL_OPT":
