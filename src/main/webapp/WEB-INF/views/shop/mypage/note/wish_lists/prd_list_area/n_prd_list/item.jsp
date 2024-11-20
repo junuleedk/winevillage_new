@@ -3,58 +3,31 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="item">
-	<%-- 이미지 영역 --%>
-	<%-- 레드 --%>
+	<div class="checkbox type2">
+		<input type="checkbox" name="wish[]" id="wish_item${item.product_code}" value="${item.product_code}">
+		<label for="wish_item${item.product_code}">&nbsp;</label>
+	</div>
 	<div class="main_img" style="background:${item.bg_color}">
-	
-	<%-- 레드 --%>
-	<!-- <div class="main_img" style="background:#E0D8EA"> -->
-	<%-- 화이트 --%>
-	<!-- <div class="main_img" style="background:#F6EC9C"> -->
-	<%-- 로제 --%>
-	<!-- <div class="main_img" style="background:#EEC1CC"> -->
-	<%-- 스파클링 --%>
-	<!-- <div class="main_img" style="background:#E0EBF8"> -->
-	<%-- 주정강화 --%>
-	<!-- <div class="main_img" style="background:#E1D5CA"> -->
-	<%-- 디저트 --%>
-	<!-- <div class="main_img" style="background:#D7F9E2"> -->
-	<%-- 위스키 --%>
-	<!-- <div class="main_img" style="background:#F5F5F5"> -->
-	<%-- 꼬냑 --%>
-	<!-- <div class="main_img" style="background:#FFF2D3"> -->
-	<%-- 데킬라 --%>
-	<!-- <div class="main_img" style="background:#FCD5BE"> -->
-	<%-- 진 --%>
-	<!-- <div class="main_img" style="background:#CBE9F4"> -->
-	<%-- 럼 --%>
-	<!-- <div class="main_img" style="background:#EDF8DA"> -->
-	<%-- 시음행사 --%>
-	<!-- <div class="main_img" style="background:#FFF"> -->
-	
-		<%-- 상품이미지 표시 --%>
-		<a href="../../shop/product/product_view.do?product_code=${item.product_code}" class="prd_img table_box">
+		<a href="/shop/product/product_view.do?product_code=${item.product_code}" class="prd_img table_box">
 			<picture>
 				<!--[if IE 9]><video style="display: none;"><![endif]-->
-				<source srcset="../../uploads/product/200/${item.thumbnail}" media="(min-width:1024px)">
+				<source srcset="../../../uploads/product/200/${item.thumbnail}" media="(min-width:1024px)">
 				<!-- pc이미지 -->
-				<source srcset="../../uploads/product/200/${item.thumbnail}" media="(max-width:1023px)">
+				<source srcset="../../../uploads/product/200/${item.thumbnail}" media="(max-width:1023px)">
 				<!-- mb이미지 -->
 				<!--[if IE 9]></video><![endif]-->
-				<img src="../../uploads/product/200/${item.thumbnail}" loading="lazy" alt="">
+				<img src="../../../uploads/product/200/${item.thumbnail}" loading="lazy" alt="">
 				<!-- pc이미지 -->
 			</picture>
 		</a>
 		
 		<%-- 찜하기 버튼 --%>
 		<div class="btn">
-			<sec:authorize access="!isAuthenticated()">
-			<button type="button" class="wish wish_${item.product_code}" id="wish_${item.product_code}" onclick="product.likeProduct('${item.product_code}');"><span>찜하기</span></button>
-			</sec:authorize>
-			<sec:authorize access="isAuthenticated()">
 			<button type="button" class="wish wish_${item.product_code}${item.wished ? ' on' : ''}" id="wish_${item.product_code}" onclick="product.likeProduct('${item.product_code}');"><span>찜하기</span></button>
-			</sec:authorize>
 		</div>
+		<!-- <div class="btn">
+			<button type="button" class="wish wish_${item.product_code} on" id="wish_${item.product_code}" onclick="product.likeProduct('${item.product_code}');"><span>찜하기</span></button>
+		</div> -->
 		
 		<%-- 비비노 점수 --%>
 		<c:if test="${not empty item.vivino_score}">
@@ -98,9 +71,6 @@
 		
 		<%-- 해시태그, 라벨 --%>
 		<div class="cate_label">
-			<%-- <c:if test="${item.label_type == null}">
-			<span style="background:transparent"></span>
-			</c:if> --%>
 			<c:if test="${item.label_type != null}">
 			<span style="background:${item.bg_color}">${item.label_type}</span>
 			</c:if>

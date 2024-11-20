@@ -760,6 +760,18 @@
 .wish_lists_page .n_prd_list li:last-child{margin-bottom:30px}
 .wish_lists_page .prd_list_area>.btn_area{margin-top:30px}
 
+.wish_lists_page .pagination{display:flex;align-items:center;justify-content:center;margin:60px auto 0}
+.wish_lists_page .pagination ul{text-align:center}
+.wish_lists_page .pagination ul>li{display:inline-block;min-width:30px;height:30px;vertical-align:middle}
+.wish_lists_page .pagination li a, .product_lists_page .pagination li span{vertical-align:middle;font-family:'Spoqa Han Sans Neo',sans-serif;font-size:18px;height:24px}
+.wish_lists_page .pagination li.on{padding-top:1px;background:#7a7d81}
+.wish_lists_page .pagination li.on span{border-radius:0;font-weight:bold;color:#fff}
+.wish_lists_page .pagination .btn_page{padding-top:1px}
+.wish_lists_page .pagination .btn_page a{height:30px}
+.wish_lists_page .pagination .btn_page a>img{width:20px;vertical-align:middle}
+.wish_lists_page .pagination .btn_page_prev{margin-right:10px}
+.wish_lists_page .pagination .btn_page_next{margin-left:10px}
+
 input[type='range']{width:100%}
 
 /* /*Chrome  */

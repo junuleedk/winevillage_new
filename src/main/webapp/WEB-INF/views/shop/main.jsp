@@ -565,18 +565,27 @@
         }
 //     	console.log(url);
     	if($("#session_id").val()){
-    	    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+    	    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
     	    $.ajax({
     	        type: "POST",
     	        url : url,
+    	        contentType : 'application/json',
     	        dataType : 'json',
-    	        data: { product_cd : product_cd },
+    	        //data: { product_cd : product_cd },
+    	        data: JSON.stringify({'product_code': product_cd}),
     	        success : function (res) {
     				if (typeof(res)=="string")	{
     					res = JSON.parse(res);
     				}
     	            if( $.trim(res.status) == "ok"){
-    					$('#header_like_cnt').text(res.data['like_cnt']);
+    					//$('#header_like_cnt').text(res.data['like_cnt']);
+    					$('#header_like_cnt').text(res['like_cnt']);
+    	            	if (res['like_cnt'] === 1) {
+    	            	    if ($('#header li.wish a').find('#header_like_cnt').length === 0) {
+    	            	        $('#header li.wish a').append('<span class="list-count" id="header_like_cnt">1</span>');
+    	            	    }
+    	            	}
+    	            	if (res['like_cnt'] === null) $('#header_like_cnt').remove();
     	                return;
     	            }else{
     	                return;

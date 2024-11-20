@@ -6,28 +6,29 @@
 	<select id="listReview" resultType="com.winevillage.review.ReviewDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
-            SELECT Tb.*, rownum rNum FROM (
-                SELECT * FROM review
-                WHERE 1=1
-                	AND product_code=#{product_code}
-                ORDER BY no DESC
-            ) Tb
-        )
-        WHERE rNum <![CDATA[>=]]> #{start}
-        AND rNum <![CDATA[<=]]> #{end}
-    </select>
-    
-    <!-- (USER측)리뷰 페이지 출력 -->
-	<select id="viewReview" resultType="com.winevillage.review.ReviewDTO"
-			parameterType="com.winevillage.parameter.ParameterDTO">
-	SELECT * FROM review WHERE no=#{no}
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM review
+				WHERE 1=1
+					AND product_code=#{product_code}
+				ORDER BY no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
 	</select>
 	
+	<!-- (USER측)리뷰 페이지 출력 -->
+	<select id="viewReview" resultType="com.winevillage.review.ReviewDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM review WHERE no=#{no}
+	</select>
+	
+	<!-- (USER측)해당되는 상품의 평균 별점 및 리뷰 갯수 -->
 	<select id="getReviewStatus" resultType="java.util.HashMap">
-    SELECT 
-        COUNT(*) AS "reviewCount",
-        NVL(ROUND(AVG(TO_NUMBER(star)) / 20, 1), 0) AS "ratingStar"
-    FROM review
-    WHERE product_code = #{product_code}
-    </select>
+		SELECT 
+			COUNT(*) AS "reviewCount",
+			NVL(ROUND(AVG(TO_NUMBER(star)) / 20, 1), 0) AS "ratingStar"
+		FROM review
+		WHERE product_code = #{product_code}
+	</select>
 </mapper>

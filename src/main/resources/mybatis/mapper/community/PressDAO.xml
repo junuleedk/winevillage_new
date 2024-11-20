@@ -19,6 +19,10 @@
 		AND rNum <![CDATA[<=]]> #{end}
 	</select>
 	
+	<select id="countPress" resultType="int">
+	SELECT COUNT(*) FROM press
+	</select>
+	
 	<!-- (USER측)홍보기사 상세페이지 -->
 	<select id="viewPress" resultType="com.winevillage.community.PressDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">

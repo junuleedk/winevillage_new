@@ -51,7 +51,10 @@
 			<li class="${item.cart_no}">
 			<div class="box ip_img">
 				<div class="checkbox type2">
-					<input type="checkbox" id="cart_seq_${item.cart_no}" name="cart_seq[]" class="ip_check" value="${item.cart_no}" data-qty="${item.quantity}" data-price="${item.price_original}" data-supply-price="<c:choose><c:when test='${item.price_deal == 1 and item.price_deal_amount >= item.quantity}'>${item.price_deal_price}</c:when><c:otherwise>${item.price_discount != 0 ? item.price_discount : item.price_original}</c:otherwise></c:choose>" data-promotion-limit="N">
+					<input type="checkbox" id="cart_seq_${item.cart_no}" name="cart_seq[]" class="ip_check" value="${item.cart_no}"
+					data-qty="${item.quantity}" data-price="${item.price_original}" data-supply-price="<c:choose><c:when test='${item.price_deal == 1 and item.price_deal_amount >= item.quantity}'>${item.price_deal_price}</c:when><c:otherwise>${item.price_discount != 0 ? item.price_discount : item.price_original}</c:otherwise></c:choose>"
+					data-discount-price="<c:choose><c:when test="${item.price_deal == 1 && item.quantity >= item.price_deal_amount}">${item.price_original - item.price_deal_price}</c:when><c:otherwise>${item.price_discount != 0 ? item.price_original - item.price_discount : 0}</c:otherwise></c:choose>"
+					data-promotion-limit="N">
 					<label for="cart_seq_${item.cart_no}">
 					<picture style="background:${item.bg_color}">
 					<!--[if IE 9]><video style="display: none;"><![endif]-->

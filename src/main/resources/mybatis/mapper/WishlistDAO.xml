@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winevillage.wishlist.IWishlistService">
+	<!-- (USER측)위시리스트 페이지 -->
+	<select id="viewWishlist" resultType="com.winevillage.wishlist.WishlistDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM wishlist
+				WHERE 1=1
+				AND MemberId=#{memberId}
+				ORDER BY no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	<select id="countWishlist" resultType="int"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT count(*) FROM wishlist WHERE MemberID=#{memberId}
+	</select>
+	<!-- (USER측)위시리스트 단일항목 선택 -->
+	<select id="selectWishlist" resultType="int"
+			parameterType="com.winevillage.wishlist.WishlistDTO">
+		SELECT no FROM wishlist WHERE MemberId=#{memberId} AND product_code=#{product_code}
+	</select>
+	<!-- (USER측)사용자 아이디에 있는 위시리스트 불러오기 -->
+	<select id="selectWishlists" resultType="String">
+		SELECT product_code FROM wishlist WHERE MemberId=#{memberId}
+	</select>
+	<!-- (USER측)위시리스트 추가 -->
+	<insert id="addWishlist" parameterType="com.winevillage.wishlist.WishlistDTO">
+		DECLARE
+		next_no NUMBER;
+		BEGIN
+		getnext_wishlist_no(next_no);
+		INSERT INTO wishlist (no, product_code, MemberId, created_date)
+		VALUES (next_no, #{product_code}, #{memberId}, CURRENT_TIMESTAMP);
+		END;
+	</insert>
+	<!-- (USER측)위시리스트 삭제 -->
+	<delete id="removeWishlist" parameterType="int">
+		DELETE FROM wishlist WHERE no = #{no}
+	</delete>
+</mapper>

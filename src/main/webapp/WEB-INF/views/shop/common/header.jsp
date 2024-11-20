@@ -87,7 +87,7 @@
         </h1>
         <ul class="right_menu">
             <li class="cart">
-                <a href="/shop/cart/cart_lists">
+                <a href="<c:url value='/shop/cart/cart_lists.do' />">
                     <span>Cart List</span>
                 </a>
             </li>
@@ -95,7 +95,7 @@
                 <a href="javascript:commonUI.layer.open('login_layer');"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
             </li> -->
             <li class="mb_hidden wish">
-                <a href="/shop/mypage/note/wish_lists">
+                <a href="<c:url value='/shop/mypage/note/wish_lists.do' />">
                     <img src="<c:url value='/asset/images/shop/default/pc_icon_wish.png' />" alt="Wish List">
                 </a>
             </li>

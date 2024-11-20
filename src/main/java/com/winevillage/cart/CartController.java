@@ -91,107 +91,106 @@ public class CartController {
 	@PostMapping("/shop/cart/cart_proc_ajax")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> cartProcAjax(Authentication authentication,
-	        @RequestParam("ajax_mode") String ajaxMode, @RequestBody Map<String, Object> payload) {
+			@RequestParam("ajax_mode") String ajaxMode, @RequestBody Map<String, Object> payload) {
 
-	    Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>();
 
-	    try {
-	        String memberId = authentication.getName();
+		try {
+			String memberId = authentication.getName();
 
-	        switch (ajaxMode) {
-		        case "DEL":
-	                // 단일 아이템 삭제
-	                List<String> cartSeqStrList = (List<String>) payload.get("cart_seq");
-	                List<Integer> cartSeqList = new ArrayList<>();
-	
-	                // String 값을 Integer로 변환하여 List<Integer>에 추가
-	                for (String cartSeqStr : cartSeqStrList) {
-	                    cartSeqList.add(Integer.parseInt(cartSeqStr));
-	                }
-	
-	                for (Integer cartSeq : cartSeqList) {
-	                    dao.deleteCartItem(cartSeq);
-	                }
-	                member.removeCartCount(memberId);
-	                response.put("status", "ok");
-	                break;
-		        case "DEL_OPT":
-	                // 선택된 추가 옵션 삭제
-	                List<String> cartOptSeqStrList = (List<String>) payload.get("cart_opt_seq");
-	                List<Integer> cartOptSeqList = new ArrayList<>();
+			switch (ajaxMode) {
+				case "DEL":
+					// 단일 아이템 삭제
+					List<String> cartSeqStrList = (List<String>) payload.get("cart_seq");
+					List<Integer> cartSeqList = new ArrayList<>();
 
-	                // String 값을 Integer로 변환하여 List<Integer>에 추가
-	                for (String cartOptSeqStr : cartOptSeqStrList) {
-	                    cartOptSeqList.add(Integer.parseInt(cartOptSeqStr));
-	                }
+					// String 값을 Integer로 변환하여 List<Integer>에 추가
+					for (String cartSeqStr : cartSeqStrList) {
+						cartSeqList.add(Integer.parseInt(cartSeqStr));
+					}
 
-	                for (Integer cartOptSeq : cartOptSeqList) {
-	                    dao.deleteCartOption(cartOptSeq);
-	                }
-	                member.removeCartCount(memberId);
-	                response.put("status", "ok");
-	                break;
-	            case "UPD_QTY":
-	                // 수량 변경
-	                int cartSeq = Integer.parseInt(payload.get("cart_seq").toString());
-	                int qty = Integer.parseInt(payload.get("qty").toString());
-	                String productCd = (String) payload.get("product_cd");
+					for (Integer cartSeq : cartSeqList) {
+						dao.deleteCartItem(cartSeq);
+					}
+					member.removeCartCount(memberId);
+					response.put("status", "ok");
+					break;
+				case "DEL_OPT":
+					// 선택된 추가 옵션 삭제
+					List<String> cartOptSeqStrList = (List<String>) payload.get("cart_opt_seq");
+					List<Integer> cartOptSeqList = new ArrayList<>();
 
-	                // 재고 확인 로직 (예시)
-	                int stock = dao.getProductStock(productCd);
-	                if (qty > stock) {
-	                    response.put("status", "err2");
-	                    response.put("msg", "재고가 부족합니다. 현재 남아있는 재고의 수는 " + stock + "개 입니다.");
-	                    return new ResponseEntity<>(response, HttpStatus.OK);
-	                }
-	                
-	                CartDTO cartDTO = new CartDTO();
-	                cartDTO.setCart_no(cartSeq);
-	                cartDTO.setQuantity(qty);
-	                dao.updateCartQuantity(cartDTO);
+					// String 값을 Integer로 변환하여 List<Integer>에 추가
+					for (String cartOptSeqStr : cartOptSeqStrList) {
+						cartOptSeqList.add(Integer.parseInt(cartOptSeqStr));
+					}
 
-	                response.put("status", "ok");
-	                break;
-	            case "UPD_PACKING":
-	                // 포장 방식 변경
-	                int packingCartSeq = Integer.parseInt(payload.get("cart_seq").toString());
-	                String packingValue = (String) payload.get("packing");
+					for (Integer cartOptSeq : cartOptSeqList) {
+						dao.deleteCartOption(cartOptSeq);
+					}
+					member.removeCartCount(memberId);
+					response.put("status", "ok");
+					break;
+				case "UPD_QTY":
+					// 수량 변경
+					int cartSeq = Integer.parseInt(payload.get("cart_seq").toString());
+					int qty = Integer.parseInt(payload.get("qty").toString());
+					String productCd = (String) payload.get("product_cd");
 
-	                dao.updatePackingOption(packingCartSeq, packingValue);
-	                response.put("status", "ok");
-	                break;
-	            case "ORDER":
-	                // 주문 프로세스
-	                List<Integer> orderCartSeqList = (List<Integer>) payload.get("cart_seq");
-	                for (Integer orderCartSeq : orderCartSeqList) {
-	                    boolean stockAvailable = dao.checkStockAvailability(orderCartSeq);
-	                    if (!stockAvailable) {
-	                        response.put("status", "err2");
-	                        response.put("msg", "재고가 부족합니다.");
-	                        return new ResponseEntity<>(response, HttpStatus.OK);
-	                    }
-	                }
-	                response.put("status", "ok");
-	                response.put("url", "/shop/order/order_write");
-	                break;
-	            default:
-	                response.put("status", "error");
-	                response.put("msg", "잘못된 요청입니다.");
-	                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-	        }
+					// 재고 확인 로직 (예시)
+					int stock = dao.getProductStock(productCd);
+					if (qty > stock) {
+						response.put("status", "err2");
+						response.put("msg", "재고가 부족합니다. 현재 남아있는 재고의 수는 " + stock + "개 입니다.");
+						return new ResponseEntity<>(response, HttpStatus.OK);
+					}
 
-	        return new ResponseEntity<>(response, HttpStatus.OK);
+					CartDTO cartDTO = new CartDTO();
+					cartDTO.setCart_no(cartSeq);
+					cartDTO.setQuantity(qty);
+					dao.updateCartQuantity(cartDTO);
 
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	        response.put("status", "error");
-	        response.put("msg", "처리 중 오류가 발생했습니다.");
-		    System.out.println("ajax_mode:"+ajaxMode);
-		    System.out.println("payload:"+payload);
-	        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+					response.put("status", "ok");
+					break;
+				case "UPD_PACKING":
+					// 포장 방식 변경
+					int packingCartSeq = Integer.parseInt(payload.get("cart_seq").toString());
+					String packingValue = (String) payload.get("packing");
+
+					dao.updatePackingOption(packingCartSeq, packingValue);
+					response.put("status", "ok");
+					break;
+				case "ORDER":
+					// 주문 프로세스
+					List<Integer> orderCartSeqList = (List<Integer>) payload.get("cart_seq");
+					for (Integer orderCartSeq : orderCartSeqList) {
+						boolean stockAvailable = dao.checkStockAvailability(orderCartSeq);
+						if (!stockAvailable) {
+							response.put("status", "err2");
+							response.put("msg", "재고가 부족합니다.");
+							return new ResponseEntity<>(response, HttpStatus.OK);
+						}
+					}
+					response.put("status", "ok");
+					response.put("url", "/shop/order/order_write");
+					break;
+				default:
+					response.put("status", "error");
+					response.put("msg", "잘못된 요청입니다.");
+					return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.put("status", "error");
+			response.put("msg", "처리 중 오류가 발생했습니다.");
+			System.out.println("ajax_mode:"+ajaxMode);
+			System.out.println("payload:"+payload);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-
 	
 	@GetMapping("shop/cart/cart_lists.do")
 	public String cartLists(Model model, CartDTO cartDTO,

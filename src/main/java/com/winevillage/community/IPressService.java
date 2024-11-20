@@ -10,5 +10,6 @@ import com.winevillage.parameter.ParameterDTO;
 public interface IPressService {
 	public ArrayList<PressDTO> listPress(ParameterDTO parameterDTO);
 	public ArrayList<PressDTO> searchPress(ParameterDTO parameterDTO);
+	public int countPress(PressDTO pressDTO);
 	public PressDTO viewPress(PressDTO pressDTO);
 }

@@ -19,6 +19,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,8 @@ import com.winevillage.pagination.Pagination;
 import com.winevillage.parameter.ParameterDTO;
 import com.winevillage.review.IReviewService;
 import com.winevillage.review.ReviewDTO;
+import com.winevillage.wishlist.IWishlistService;
+import com.winevillage.wishlist.WishlistDTO;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,6 +53,9 @@ public class ProductController {
 	@Autowired
 	private IReviewService review;
 	
+	@Autowired
+	private IWishlistService wishlist;
+	
 	private Cookie getCookie(HttpServletRequest request, String name) {
 		if (request.getCookies() != null) {
 			for (Cookie cookie : request.getCookies()) {
@@ -62,7 +68,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("shop/product/product_lists.do")
-	public String listProduct(Model model, HttpServletRequest request, HttpSession session,
+	public String listProduct(Model model, Authentication authentication,
+			HttpServletRequest request, HttpSession session,
 			@RequestParam(name = "classified", required = false) String classified,
 			@RequestParam(name = "sort", required = false) String sort,
 			@RequestParam(name = "list_count", required = false) String list_count,
@@ -196,6 +203,23 @@ public class ProductController {
 	        lists.add(product);
 	    }
 	    
+	    //-- 위시리스트 관련 코드(start) --//
+	    String memberId = null;
+		String[] wishlists = null;
+		if (authentication != null) {
+			memberId = authentication.getName();
+			wishlists = wishlist.selectWishlists(memberId);
+		}
+		if (wishlists != null) {
+			List<String> wishlist = Arrays.asList(wishlists);
+			for (ProductDTO productDTO : lists) {
+				if (wishlist.contains(productDTO.getProduct_code())) {
+					productDTO.setWished(true); // 위시리스트에 포함된 경우 true로 설정
+				}
+			}
+		}
+		//-- 위시리스트 관련 코드(end) --//
+	    
 		// 중복 제거를 위한 Map(category, category_type, category_country 중복 방지)
 	    Map<String, ProductDTO> distinctMap = new LinkedHashMap<>();
 	    
@@ -273,7 +297,9 @@ public class ProductController {
 	}
 	
 	@GetMapping("shop/product/product_view.do")
-	public String viewProduct(Model model, ProductDTO productDTO) {
+	public String viewProduct(Model model, ProductDTO productDTO,
+			Authentication authentication) {
+		
 		if (productDTO == null || productDTO.getProduct_code() == null || productDTO.getProduct_code().isEmpty()) {
 			return "shop/product/product_view"; // 기본적인 빈 페이지를 반환
 		}
@@ -282,31 +308,46 @@ public class ProductController {
 		productDTO = dao.viewProduct(productDTO);
 		
 		// 기존의 product_code 저장
-	    String originalProductCode = productDTO.getProduct_code();
+		String originalProductCode = productDTO.getProduct_code();
 	    
-	    model.addAttribute("product_code", originalProductCode);
+		model.addAttribute("product_code", originalProductCode);
 		
 		//Related Product를 저장하기 위한 ArrayList 생성
 		List<ProductDTO> relatedProductsList = new ArrayList<>();
 		//related_product 칼럼은 String으로 되어 있다. DAO에서 String으로 된 값 받아옴.
 		String relatedProducts = dao.selectRelatedProductCodes(productDTO);
 		//relatedProducts가 null이 아니면
-	    if (relatedProducts != null) {
-	    	//related_product 값에 있는 상품번호를 String[]로 저장.
-	        String[] product_codes = relatedProducts.split("/");
-	        for (String product_code : product_codes) {
-	            productDTO.setProduct_code(product_code.trim());
+		if (relatedProducts != null) {
+			//related_product 값에 있는 상품번호를 String[]로 저장.
+			String[] product_codes = relatedProducts.split("/");
+			for (String product_code : product_codes) {
+				productDTO.setProduct_code(product_code.trim());
 				/* 여기서 related_product를 출력하기 위해 productDTO의 product_code를 변경하기 때문에 기존의
 				product_code값을 사용하려면 해당 for문 위에서 별도로 저장해두어야 함. */
-	            ProductDTO relatedProduct = dao.viewProduct(productDTO);
-	            // 이제 relatedProduct에 관련 상품 정보가 담겨있습니다.
-	            // 이를 모델에 추가하거나 원하는 대로 사용할 수 있습니다.
-	            relatedProductsList.add(relatedProduct);
-	        }
-	    }
-	    //Related Product를 model에 전달
-	    model.addAttribute("relatedProducts", relatedProductsList);
-	    		
+				ProductDTO relatedProduct = dao.viewProduct(productDTO);
+				// 이제 relatedProduct에 관련 상품 정보가 담겨있습니다.
+				// 이를 모델에 추가하거나 원하는 대로 사용할 수 있습니다.
+				relatedProductsList.add(relatedProduct);
+			}
+		}
+		//Related Product를 model에 전달
+		model.addAttribute("relatedProducts", relatedProductsList);
+	    
+		//-- 위시리스트 관련 코드(start) --//
+		String memberId = null;
+		Integer wish = null;
+		if (authentication != null) {
+			memberId = authentication.getName();
+			WishlistDTO wishlistDTO = new WishlistDTO();
+			wishlistDTO.setMemberId(memberId);
+			wishlistDTO.setProduct_code(originalProductCode);
+			wish = wishlist.selectWishlist(wishlistDTO);
+		}
+		if (wish != null) {
+			productDTO.setWished(true); // 위시리스트에 포함된 경우 true로 설정
+		}
+		//-- 위시리스트 관련 코드(end) --//
+
 		String labelThumbnail = productDTO.getLabel_thumbnail(); // 실제로 label_thumbnail 값을 가져옴
 
 		// label_thumbnail 값 처리
@@ -324,17 +365,18 @@ public class ProductController {
 		model.addAttribute("product", productDTO);
 
 		// 평균 별점과 리뷰 수를 가져오기 위해 서비스 호출
-	    Map<String, Object> reviewStats = review.getReviewStatus(originalProductCode);
+		Map<String, Object> reviewStats = review.getReviewStatus(originalProductCode);
 
-	    // 모델에 평균 별점과 리뷰 수를 추가 (변수 이름을 JSP와 일치시킴)
-	    model.addAttribute("ratingStar", reviewStats.get("ratingStar"));
-	    model.addAttribute("reviewCount", reviewStats.get("reviewCount"));
+		// 모델에 평균 별점과 리뷰 수를 추가 (변수 이름을 JSP와 일치시킴)
+		model.addAttribute("ratingStar", reviewStats.get("ratingStar"));
+		model.addAttribute("reviewCount", reviewStats.get("reviewCount"));
 		
 		return "shop/product/product_view";
 	}
 	
 	@GetMapping("shop/product/search_product_lists.do")
-	public String searchProductLists(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response,
+	public String searchProductLists(Model model, Authentication authentication,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response,
 	        @RequestParam(name = "keyword", required = false) String searchKeyword,
 	        @RequestParam(name = "sort", required = false) String sort) {
 
@@ -435,6 +477,23 @@ public class ProductController {
 	    ArrayList<ProductDTO> lists = dao.searchProduct(parameterDTO);
 	    model.addAttribute("lists", lists);
 	    
+	    //-- 위시리스트 관련 코드(start) --//
+	    String memberId = null;
+		String[] wishlists = null;
+		if (authentication != null) {
+			memberId = authentication.getName();
+			wishlists = wishlist.selectWishlists(memberId);
+		}
+		if (wishlists != null) {
+			List<String> wishlist = Arrays.asList(wishlists);
+			for (ProductDTO productDTO : lists) {
+				if (wishlist.contains(productDTO.getProduct_code())) {
+					productDTO.setWished(true); // 위시리스트에 포함된 경우 true로 설정
+				}
+			}
+		}
+		//-- 위시리스트 관련 코드(end) --//
+	    
 	    String baseUrl = request.getContextPath() + "/shop/product/search_product_lists.do?";
 	    if (searchKeyword != null && !searchKeyword.isEmpty()) {
 	        baseUrl += "keyword=" + searchKeyword + "&";
@@ -534,7 +593,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("shop/product/group_product_lists.do")
-	public String listGroupProduct(Model model, HttpServletRequest request,
+	public String listGroupProduct(Model model,
+			HttpServletRequest request, Authentication authentication,
 			@RequestParam(value = "group_code", required = false) Integer group_code,
 	        @RequestParam(name = "sort", required = false) String sort) {
 
@@ -600,6 +660,23 @@ public class ProductController {
 	    // 더 이상 불러올 데이터가 있는지 확인
 	    boolean moreBtn = lists.size() == pageSize;
 	    model.addAttribute("more_btn", moreBtn);  // JSP에 전달
+	    
+	    //-- 위시리스트 관련 코드(start) --//
+	    String memberId = null;
+		String[] wishlists = null;
+		if (authentication != null) {
+			memberId = authentication.getName();
+			wishlists = wishlist.selectWishlists(memberId);
+		}
+		if (wishlists != null) {
+			List<String> wishlist = Arrays.asList(wishlists);
+			for (ProductDTO productDTO : lists) {
+				if (wishlist.contains(productDTO.getProduct_code())) {
+					productDTO.setWished(true); // 위시리스트에 포함된 경우 true로 설정
+				}
+			}
+		}
+		//-- 위시리스트 관련 코드(end) --//
 	    
 	    String baseUrl = request.getContextPath() + "/shop/product/group_product_lists.do?";
 	    String pagination = Pagination.product(count, pageSize, blockPage, pageNum, baseUrl);

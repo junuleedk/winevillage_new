@@ -30,7 +30,7 @@ public class PressController {
 	
 	@GetMapping("shop/community/press_lists.do")
 	public String listVideo(Model model, HttpServletRequest request,
-			PressDTO pressDTO, ProductDTO productDTO, ParameterDTO parameterDTO) {
+			PressDTO pressDTO, ParameterDTO parameterDTO) {
 		int pageSize = 5;
 		int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
 					: Integer.parseInt(request.getParameter("page"));
@@ -41,6 +41,7 @@ public class PressController {
 		parameterDTO.setEnd(end);
 		
 		ArrayList<PressDTO> lists = dao.listPress(parameterDTO);
+		int count = dao.countPress(pressDTO);
 		
 		for (PressDTO press : lists) {
 	        if (press.getDescription() != null) {
@@ -49,6 +50,7 @@ public class PressController {
 	    }
 		
 		model.addAttribute("lists", lists);
+		model.addAttribute("count", count);
 		
 		return "shop/community/press_lists";
 	}

@@ -44,7 +44,7 @@
 
 <!-- contents -->
 <section id="contents">
-<meta property="og:url" content="<c:url value='/shop/product/product_view.do?product_cd=${product.product_code}' />"/>
+<meta property="og:url" content="<c:url value='/shop/product/product_view.do?product_code=${product.product_code}' />"/>
 <meta property="og:description" content="${product.product_info}"/>
 <meta property="og:image" content="../../uploads/product/${product.thumbnail}"/>
 <script src="../../asset/js/wn.product.js"></script>
@@ -204,7 +204,12 @@
 						<div class="hide_process">
 						</div>
 						<div class="btn_area">
+							<sec:authorize access="!isAuthenticated()">
 							<button type="button" class="btn_txt wish_btn" onclick='commonUI.layer.open("login_layer");'>찜하기</button>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+							<button type="button" class="btn_txt wish_btn wish_${product_code}${product.wished ? ' on' : ''}" onclick="product.likeProduct('${product_code}'); RC_Method({page_type:'product_page', behavior: 'user_action', action: 'like'});">찜하기</button>							
+							</sec:authorize>
 							<c:choose>
 							<c:when test="${product.stock == '0'}">
 							<!-- 매장문의 -->

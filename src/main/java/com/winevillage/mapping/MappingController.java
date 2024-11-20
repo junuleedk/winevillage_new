@@ -169,10 +169,10 @@ public class MappingController {
 		return "shop/mypage/action/tasting_write";
 	}
 	
-	@GetMapping("shop/mypage/note/wish_lists.do")
-	public String wish_lists() {
-		return "shop/mypage/note/wish_lists";
-	}
+//	@GetMapping("shop/mypage/note/wish_lists.do")
+//	public String wish_lists() {
+//		return "shop/mypage/note/wish_lists";
+//	}
 	
 	@GetMapping("shop/mypage/shopping/mypage.do")
 	public String mypage() {

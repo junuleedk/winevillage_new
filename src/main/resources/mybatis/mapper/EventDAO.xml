@@ -9,53 +9,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listEventMain" resultType="com.winevillage.event.EventDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
-            SELECT Tb.*, rownum rNum FROM (
-                SELECT no, title, thumbnail, thumbnail_main_pc, thumbnail_main_mb, date_start, date_end, content, pinned
-                FROM event
-                WHERE 1=1
-                	AND enabled_main <![CDATA[=]]> 1
-                ORDER BY
-	                no DESC
-            ) Tb
-        )
-        WHERE rNum <![CDATA[>=]]> #{start}
-        AND rNum <![CDATA[<=]]> #{end}
-    </select>
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT no, title, thumbnail, thumbnail_main_pc, thumbnail_main_mb, date_start, date_end, content, pinned
+				FROM event
+				WHERE 1=1
+					AND enabled_main <![CDATA[=]]> 1
+				ORDER BY
+					no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
 	<!-- (USER측)현재 이벤트 리스트 출력 -->
 	<select id="listEventNow" resultType="com.winevillage.event.EventDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
-            SELECT Tb.*, rownum rNum FROM (
-                SELECT no, title, thumbnail, date_start, date_end, content, pinned
-                FROM event
-                WHERE 1=1
-                	AND thumbnail IS NOT NULL
-                	AND date_end <![CDATA[>=]]> SYSDATE
-                ORDER BY pinned ASC, no DESC
-            ) Tb
-        )
-        WHERE rNum <![CDATA[>=]]> #{start}
-        AND rNum <![CDATA[<=]]> #{end}
-    </select>
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT no, title, thumbnail, date_start, date_end, content, pinned
+				FROM event
+				WHERE 1=1
+					AND thumbnail IS NOT NULL
+					AND date_end <![CDATA[>=]]> SYSDATE
+				ORDER BY pinned ASC, no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
 	<!-- (USER측)현재 이벤트 리스트 출력 -->
 	<select id="listEventEnd" resultType="com.winevillage.event.EventDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
 		SELECT * FROM (
-            SELECT Tb.*, rownum rNum FROM (
-                SELECT no, title, thumbnail, date_start, date_end, content, pinned
-                FROM event
-                WHERE 1=1
-                	AND thumbnail IS NOT NULL
-                	AND date_end <![CDATA[<=]]> SYSDATE
-                ORDER BY pinned ASC, no DESC
-            ) Tb
-        )
-        WHERE rNum <![CDATA[>=]]> #{start}
-        AND rNum <![CDATA[<=]]> #{end}
-    </select>
-    <!-- (USER측)상품 상세페이지 -->
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT no, title, thumbnail, date_start, date_end, content, pinned
+				FROM event
+				WHERE 1=1
+					AND thumbnail IS NOT NULL
+					AND date_end <![CDATA[<=]]> SYSDATE
+				ORDER BY pinned ASC, no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	<!-- (USER측)상품 상세페이지 -->
 	<select id="viewEvent" resultType="com.winevillage.event.EventDTO"
 			parameterType="com.winevillage.parameter.ParameterDTO">
-	SELECT * FROM event WHERE no=#{no}
+		SELECT * FROM event WHERE no=#{no}
 	</select>
 </mapper>

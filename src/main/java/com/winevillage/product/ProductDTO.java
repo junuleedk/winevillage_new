@@ -49,4 +49,6 @@ public class ProductDTO {
 	/* JSP 페이지 내에서 사용 */
 	private String label_thumbnail_1;
 	private String label_thumbnail_2;
+	
+	private boolean isWished;
 }

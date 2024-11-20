@@ -71,7 +71,7 @@
 					<button type="button" onclick="keyword_search(input_keyword.value);">검색</button>
 				</div>
 				<div class="lists_top">
-					<span>총 <i id="total_count">33</i>개의 게시물</span>
+					<span>총 <i id="total_count">${count}</i>개의 게시물</span>
 					<!-- <select name="js_select" id="js_select" class="pd_select">
                 	<option value="">선택</option>
                     <option value="A">최신등록순</option>

@@ -280,18 +280,30 @@ product.likeProduct = function(product_cd) {
 	        var url = "../mypage/note/wish_proc_ajax?ajax_mode="+ajax_mode;
 	    }
 	    
-	    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+	    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
 	    $.ajax({
 	        type: "POST",
 	        url : url,
+	        contentType : 'application/json',
 	        dataType : 'json',
-	        data: { product_cd : product_cd },
+	        /* beforeSend: function(xhr, settings) {
+		        console.log("AJAX Data:", settings.data); // 전송할 데이터를 콘솔에 출력
+		    },*/
+	        //data: { product_cd : product_cd },
+	        data: JSON.stringify({'product_code': product_cd}),
 	        success : function (res) {
 				if (typeof(res)=="string")	{
 					res = JSON.parse(res);
 				}
 	            if( $.trim(res.status) == "ok"){
-					$('#header_like_cnt').text(res.data['like_cnt']);
+					//$('#header_like_cnt').text(res.data['like_cnt']);
+					$('#header_like_cnt').text(res['like_cnt']);
+					if (res['like_cnt'] === 1) {
+	            	    if ($('#header li.wish a').find('#header_like_cnt').length === 0) {
+	            	        $('#header li.wish a').append('<span class="list-count" id="header_like_cnt">1</span>');
+	            	    }
+	            	}
+	            	if (res['like_cnt'] === null) $('#header_like_cnt').remove();
 	                //alert(res.msg);
 	                if(ajax_mode == "DEL" && now_url.indexOf("/mypage") > -1){
 						location.reload();

@@ -155,4 +155,60 @@ public class MemberInfoController {
 		}
 		return 0;
 	}
+	
+	@ModelAttribute("memberWishCount")
+	public Integer getMemberWishCount(HttpServletRequest request) {
+		HttpSession session = request.getSession(); // 세션이 없으면 null 반환
+		
+		if (session != null) {
+			// 세션에서 SecurityContext 가져오기
+			SecurityContext securityContext = (SecurityContext) session.getAttribute("cachedSecurityContext");
+			if (securityContext == null) {
+				// 세션에서 SecurityContext 가져오기
+				securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+				if (securityContext != null) {
+					// SecurityContext를 세션에 저장
+					session.setAttribute("cachedSecurityContext", securityContext);
+				}
+			}
+			if (securityContext != null) {
+				Authentication authentication = securityContext.getAuthentication();
+				if (authentication != null && authentication.isAuthenticated()) {
+					String memberId = authentication.getName(); // username 가져오기
+					// 데이터베이스에서 memberCartCount 가져오기
+					String query = "SELECT memberWishCount FROM member WHERE memberid = ?";
+					return jdbcTemplate.queryForObject(query, new Object[]{memberId}, Integer.class);
+				}
+			}
+		}
+		return 0;
+	}
+	
+	@ModelAttribute("memberCouponCount")
+	public Integer getMemberCouponCount(HttpServletRequest request) {
+		HttpSession session = request.getSession(); // 세션이 없으면 null 반환
+		
+		if (session != null) {
+			// 세션에서 SecurityContext 가져오기
+			SecurityContext securityContext = (SecurityContext) session.getAttribute("cachedSecurityContext");
+			if (securityContext == null) {
+				// 세션에서 SecurityContext 가져오기
+				securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+				if (securityContext != null) {
+					// SecurityContext를 세션에 저장
+					session.setAttribute("cachedSecurityContext", securityContext);
+				}
+			}
+			if (securityContext != null) {
+				Authentication authentication = securityContext.getAuthentication();
+				if (authentication != null && authentication.isAuthenticated()) {
+					String memberId = authentication.getName(); // username 가져오기
+					// 데이터베이스에서 memberCartCount 가져오기
+					String query = "SELECT memberCouponCount FROM member WHERE memberid = ?";
+					return jdbcTemplate.queryForObject(query, new Object[]{memberId}, Integer.class);
+				}
+			}
+		}
+		return 0;
+	}
 }

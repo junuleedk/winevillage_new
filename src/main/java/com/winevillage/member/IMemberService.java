@@ -9,4 +9,7 @@ public interface IMemberService {
 	public int addCartCount(String memberId);
 	public int removeCartCount(String memberId);
 	public Integer cartCount(String memberId);
+	public int addWishCount(String memberId);
+	public int removeWishCount(String memberId);
+	public Integer wishCount(String memberId);
 }

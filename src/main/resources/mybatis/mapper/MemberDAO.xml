@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="cartCount" resultType="int" parameterType="com.winevillage.member.MemberDTO">
 		SELECT MemberCartCount FROM member WHERE MemberId = #{memberId}
-    </select>
+	</select>
 	<update id="addCartCount" parameterType="com.winevillage.member.MemberDTO">
 		UPDATE member
 		SET MemberCartCount = COALESCE(memberCartCount, 0) + 1
@@ -34,6 +34,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET MemberCartCount = CASE
 								  WHEN MemberCartCount = 1 THEN NULL
 								  ELSE MemberCartCount - 1
+							  END
+		WHERE MemberId = #{memberId}
+	</update>
+	<select id="wishCount" resultType="int" parameterType="com.winevillage.member.MemberDTO">
+		SELECT MemberWishCount FROM member WHERE MemberId = #{memberId}
+	</select>
+	<update id="addWishCount" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberWishCount = COALESCE(memberWishCount, 0) + 1
+		WHERE MemberId = #{memberId}
+	</update>
+	<update id="removeWishCount" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberWishCount = CASE
+								  WHEN MemberWishCount = 1 THEN NULL
+								  ELSE MemberWishCount - 1
 							  END
 		WHERE MemberId = #{memberId}
 	</update>

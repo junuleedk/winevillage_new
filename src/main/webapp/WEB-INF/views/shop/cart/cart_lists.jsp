@@ -59,8 +59,8 @@
 	<script src="<c:url value='/asset/js/wn.product.js' />"></script>
 	<%@ include file="cart_lists/cart_lists_page.jsp" %>
 </div>
-<form action="https://www.winenara.com/shop/cart/cart_lists" id="UpdateCartForm" name="UpdateCartForm" method="post" accept-charset="utf-8">
-	<input type="hidden" name="witplus_csrf_token" value="d4786544f2a0b0d87385c8d3e5a0810e">
+<form action="<c:url value='/shop/cart/cart_lists.do' />" id="UpdateCartForm" name="UpdateCartForm" method="post" accept-charset="utf-8">
+	<!-- <input type="hidden" name="witplus_csrf_token" value="d4786544f2a0b0d87385c8d3e5a0810e"> -->
 	<input type="hidden" name="cart_seq" value="">
 	<input type="hidden" name="qty" value="">
 </form>
@@ -458,16 +458,18 @@ $("#contents").addClass('mb_margin_0');
 $("input[type=checkbox]").change(function() {
 	var price = 0;
 	var supply_price = 0;
+	var discount_price = 0;
 	$("input:checkbox[name='cart_seq[]']").each(function (index) {
 		if($(this).is(":checked")==true){
 			price += $(this).data('qty') * $(this).data('price');
 			supply_price += $(this).data('qty') * $(this).data('supply-price');
+			discount_price += $(this).data('qty') * $(this).data('discount-price');
 		}
 	});
 	$("#supply").text(price.toLocaleString()+'원');
 	//$("#supply").text(supply_price.toLocaleString()+'원');
-	$("#sale").text((supply_price-price).toLocaleString()+'원');
-	$("#total").text((price-(price-supply_price)).toLocaleString()+'원');
+	$("#sale").text(discount_price.toLocaleString()+'원');
+	$("#total").text((price-discount_price).toLocaleString()+'원');
 });
 $("#all_sel").trigger("click");
 </script>

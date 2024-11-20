@@ -7,6 +7,7 @@
     String memberName = (String) request.getAttribute("memberName");
     int memberPoints = (Integer) request.getAttribute("memberPoints");
     Integer memberCartCount = (Integer) request.getAttribute("memberCartCount");
+    Integer memberWishCount = (Integer) request.getAttribute("memberWishCount");
 %>
 <header id="header" class="header mypage_index_header">
 <!-- 로딩바 -->
@@ -107,7 +108,7 @@
 		</h1>
 		<ul class="right_menu">
 			<li class="cart">
-				<a href="/shop/cart/cart_lists">
+				<a href="<c:url value='/shop/cart/cart_lists.do' />">
 					<span>Cart List</span>
 					<%
 					if (memberCartCount != null) {
@@ -122,8 +123,15 @@
 					<a href="/shop/mypage/shopping/mypage"><img src="<c:url value='/asset/images/shop/default/pc_icon_mypage.png' />" alt="My Page"></a>
 			</li> -->
 			<li class="mb_hidden wish">
-				<a href="/shop/mypage/note/wish_lists">
+				<a href="<c:url value='/shop/mypage/note/wish_lists.do' />">
 					<img src="<c:url value='/asset/images/shop/default/pc_icon_wish.png' />" alt="Wish List">
+					<%
+					if (memberWishCount != null) {
+					%>
+					<span class="list-count" id="header_like_cnt"><%= memberWishCount %></span>
+					<%
+					}
+					%>
 				</a>
 			</li>
 			<!-- <li class="pc_search_btn mb_hidden"><button type="button" onclick="commonUI.header.Search.clickFn()">PC Search</button></li>-->
@@ -426,7 +434,7 @@
 				})
 			</script>
 		</li> -->
-		<li class="btn_wish"><button type="button" onclick="location.href='/shop/mypage/note/wish_lists'"><span>WISH LIST</span></button></li>
+		<li class="btn_wish"><button type="button" onclick="location.href='<c:url value='/shop/mypage/note/wish_lists.do' />'"><span>WISH LIST</span></button></li>
 		<li class="btn_mypage"><button type="button" onclick="location.href='/shop/mypage/shopping/mypage.do'"><span>MY PAGE</span></button></li>
 	</ul>
 </div>

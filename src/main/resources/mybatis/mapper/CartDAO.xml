@@ -2,6 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winevillage.cart.ICartService">
+	<!-- (USER측-상품상세페이지)장바구니 보기 -->
 	<select id="viewCart" resultType="com.winevillage.cart.CartDTO"
 			parameterType="java.lang.String">
 		SELECT c.*, p.bg_color, p.product_name, p.product_en_name, p.thumbnail,
@@ -12,6 +13,7 @@
 		WHERE c.memberId = #{memberId}
 		ORDER BY c.cart_no DESC
 	</select>
+	<!-- (USER측-상품상세페이지)장바구니 추가 -->
 	<insert id="addCart" parameterType="com.winevillage.cart.CartDTO">
 		DECLARE
 		next_no NUMBER;
@@ -21,31 +23,27 @@
 		VALUES (next_no, #{memberId}, #{product_code}, #{quantity}, CURRENT_TIMESTAMP);
 		END;
 	</insert>
-	<!-- 단일 아이템 삭제 -->
-    <delete id="deleteCartItem" parameterType="int">
-        DELETE FROM cart WHERE cart_no = #{cart_no}
-    </delete>
-
-    <!-- 수량 업데이트 -->
-    <update id="updateCartQuantity" parameterType="com.winevillage.cart.CartDTO">
-        UPDATE cart SET quantity = #{quantity} WHERE cart_no = #{cart_no}
-    </update>
-
-    <!-- 포장 방식 업데이트 (포장 관련 컬럼이 없는 경우 테이블에 추가 필요) -->
-    <update id="updatePackingOption" parameterType="map">
-        UPDATE cart SET packing = #{packing} WHERE cart_no = #{cart_no}
-    </update>
-
-    <!-- 재고 확인 -->
-    <select id="checkStockAvailability" resultType="boolean" parameterType="int">
-        SELECT CASE WHEN p.stock >= c.quantity THEN 1 ELSE 0 END
-        FROM product p
-        JOIN cart c ON p.product_code = c.product_code
-        WHERE c.cart_no = #{cart_no}
-    </select>
-
-    <!-- 제품 코드로 재고 확인 -->
-    <select id="getProductStock" resultType="int" parameterType="string">
-        SELECT stock FROM product WHERE product_code = #{product_code}
-    </select>
+	<!-- (USER측-장바구니 목록)장바구니 항목 삭제 -->
+	<delete id="deleteCartItem" parameterType="int">
+		DELETE FROM cart WHERE cart_no = #{cart_no}
+	</delete>
+	<!-- (USER측-장바구니 목록)장바구니 항목 수량 변경 -->
+	<update id="updateCartQuantity" parameterType="com.winevillage.cart.CartDTO">
+		UPDATE cart SET quantity = #{quantity} WHERE cart_no = #{cart_no}
+	</update>
+	<!-- (USER측-장바구니 목록)장바구니 항목 포장 변경 -->
+	<update id="updatePackingOption" parameterType="map">
+		UPDATE cart SET packing = #{packing} WHERE cart_no = #{cart_no}
+	</update>
+	<!-- (USER측-장바구니 목록)장바구니 추가 시 상품 재고 확인 -->
+	<select id="checkStockAvailability" resultType="boolean" parameterType="int">
+		SELECT CASE WHEN p.stock >= c.quantity THEN 1 ELSE 0 END
+		FROM product p
+		JOIN cart c ON p.product_code = c.product_code
+		WHERE c.cart_no = #{cart_no}
+	</select>
+	<!-- (USER측-장바구니 목록)상품 코드로 재고 확인 -->
+	<select id="getProductStock" resultType="int" parameterType="string">
+		SELECT stock FROM product WHERE product_code = #{product_code}
+	</select>
 </mapper>

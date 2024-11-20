@@ -48,7 +48,7 @@
 		
 		<%-- 찜하기 버튼 --%>
 		<div class="btn">
-			<button type="button" class="wish wish_${item.product_code} " id="wish_${item.product_code}" onclick="product.likeProduct('${item.product_code}');"><span>찜하기</span></button>
+			<button type="button" class="wish wish_${item.product_code}${item.wished ? ' on' : ''}" id="wish_${item.product_code}" onclick="product.likeProduct('${item.product_code}');"><span>찜하기</span></button>
 		</div>
 		
 		<%-- 비비노 점수 --%>

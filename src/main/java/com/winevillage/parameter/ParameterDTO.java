@@ -29,5 +29,9 @@ public class ParameterDTO {
     private List<String> label_grapevariety;
     private String price_range;
     
+    /* Member */
+    private String memberId;
+    
+    /* Group Product 뷰 */
     private int group_code;
 }
