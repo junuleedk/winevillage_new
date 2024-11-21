@@ -59,7 +59,7 @@
 				</ul>
 			</div>
 		</div>
-		<%@ include file="../common/common_lnb.jsp" %>
+		<%@ include file="../common/mypage_lnb/common_lnb.jsp" %>
 		<!-- <div class="mb_hidden">
 			<div class="my_lnb_info">
 				<div class="my">

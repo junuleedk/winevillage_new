@@ -50,5 +50,6 @@ public class ProductDTO {
 	private String label_thumbnail_1;
 	private String label_thumbnail_2;
 	
+	/* 페이지 내 위시리스트 표시용 */
 	private boolean isWished;
 }

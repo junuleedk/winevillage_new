@@ -5,7 +5,9 @@
     // memberId와 memberName은 @ModelAttribute를 통해 설정된 속성
     String memberId = (String) request.getAttribute("memberId");
     String memberName = (String) request.getAttribute("memberName");
+    String memberGrade = (String) request.getAttribute("memberGrade");
     int memberPoints = (Integer) request.getAttribute("memberPoints");
+    int memberUsablePoints = (Integer) request.getAttribute("memberUsablePoints");
     Integer memberCartCount = (Integer) request.getAttribute("memberCartCount");
     Integer memberWishCount = (Integer) request.getAttribute("memberWishCount");
 %>
@@ -144,16 +146,24 @@
 						<ul>
 							<li>
 								<h3><%= memberName %>님 </h3>
+								<% if (memberGrade != null && memberGrade.equals("SILVER")) { %>
 								<p class="info">실버</p>
+								<% } else if (memberGrade != null && memberGrade.equals("GOLD")) { %>
+								<p class="info">골드</p>
+								<% } else if (memberGrade != null && memberGrade.equals("DIAMOND")) { %>
+								<p class="info">다이아몬드</p>
+								<% } else if (memberGrade != null && memberGrade.equals("TRINITY")) { %>
+								<p class="info">트리니티</p>
+								<% } %>
 							</li>
 							<li>
 								<h3>가용 마일리지</h3>
-								<p class="info"><%= memberPoints %>P</p>
+								<p class="info"><%= memberUsablePoints %>P</p>
 								<!-- <p class="sub_info">소멸예정 : 0P (2024.5<em>.01</em>)</p> -->
-								<p class="sub_info">
+								<!-- <p class="sub_info">
 									소멸예정 : 0P (<em>
 									2024.04.30 </em>)
-								</p>
+								</p> -->
 							</li>
 							<li class="top_line">
 								<h3><a href="javascript:openProfile();">테이스트 프로파일</a></h3>
@@ -179,7 +189,7 @@
 		<!-- 로그인했을 경우 나타나는 GNB 메뉴 -->
 		<div class="summary_menu">
 			<p><a href="/shop/mypage/shopping/mypage"><%= memberName %>님</a></p>
-			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em><%= memberPoints %>P</em></a></p>
+			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em><%= memberUsablePoints %>P</em></a></p>
 			<p><a href="/shop/mypage/note/coupon_lists">쿠폰<em>1</em></a></p>
 		</div>
 	</div>

@@ -10,17 +10,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO member (
             MemberNo, MemberId, MemberName, MemberBirth, MemberPhoneNumber, 
             MemberPassword, MemberEmail, MemberPostcode, MemberAddress1, 
-            MemberAddress2,
+            MemberAddress2, MemberPoints,
             MemberMaritalStatus, MemberAnniversary, MemberStore, 
             MemberBizReferenceCode
         ) VALUES (
             member_seq.NEXTVAL, #{memberId}, #{memberName}, #{memberBirth}, #{memberPhoneNumber},
             #{memberPassword}, #{memberEmail}, #{memberPostcode}, #{memberAddress1},
-            #{memberAddress2}, 
+            #{memberAddress2}, 100,
             #{memberMaritalStatus}, #{memberAnniversary}, #{memberStore},
             #{memberBizReferenceCode}
 		)
 	</insert>
+	<update id="addMemberPoints" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberPoints = COALESCE(MemberPoints, 0) + #{memberPoints}
+		WHERE MemberId = #{memberId}
+	</update>
+	<update id="removeMemberPoints" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberPoints = COALESCE(MemberPoints, 0) - #{memberPoints}
+		WHERE MemberId = #{memberId}
+	</update>
 	<select id="cartCount" resultType="int" parameterType="com.winevillage.member.MemberDTO">
 		SELECT MemberCartCount FROM member WHERE MemberId = #{memberId}
 	</select>

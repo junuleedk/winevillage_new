@@ -205,11 +205,11 @@
 					<div class="term_box">
 						<div class="datepicker_area">
 							<div class="datepicker">
-								<input type="text" id="date_s" name="sh_s_date" value="2024-04-23" class="hasDatepicker"><button type="button" class="ui-datepicker-trigger">선택</button>
+								<input type="text" id="date_s" name="sh_s_date" value="2024-04-23">
 							</div>
 							<span>~</span>
 							<div class="datepicker">
-								<input type="text" id="date_e" name="sh_e_date" value="2024-05-23" class="hasDatepicker"><button type="button" class="ui-datepicker-trigger">선택</button>
+								<input type="text" id="date_e" name="sh_e_date" value="2024-05-23">
 							</div>
 						</div>
 						<button type="button" class="btn_txt btn_black" onclick="shSubmit();"><span>검색</span></button>

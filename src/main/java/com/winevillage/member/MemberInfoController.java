@@ -96,6 +96,38 @@ public class MemberInfoController {
 	    return null;
 	}
 	
+	@ModelAttribute("memberGrade")
+	public String getMemberGrade(HttpServletRequest request) {
+		boolean sessionNotChanged = sessionNotChanged(request);
+		HttpSession session = request.getSession(); // 세션이 없으면 null 반환
+		
+		if (session != null) {
+			// 세션에서 SecurityContext 가져오기
+			SecurityContext securityContext = (SecurityContext) session.getAttribute("cachedSecurityContext");
+			if (securityContext == null) {
+				// 세션에서 SecurityContext 가져오기
+				securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+				if (securityContext != null) {
+					// SecurityContext를 세션에 저장
+					session.setAttribute("cachedSecurityContext", securityContext);
+				}
+			}
+			if (securityContext != null) {
+				Authentication authentication = securityContext.getAuthentication();
+				if (authentication != null && authentication.isAuthenticated()) {
+					String memberId = authentication.getName(); // username 가져오기
+					if (sessionNotChanged) {
+						System.out.println("Authenticated User ID: " + memberId);
+					}
+					// 데이터베이스에서 memberName 가져오기
+					String query = "SELECT membergrade FROM member WHERE memberid = ?";
+					return jdbcTemplate.queryForObject(query, new Object[]{memberId}, String.class);
+				}
+			}
+		}
+		return null;
+	}
+	
 	@ModelAttribute("memberPoints")
 	public int getMemberPoints(HttpServletRequest request) {
 		boolean sessionNotChanged = sessionNotChanged(request);
@@ -121,6 +153,40 @@ public class MemberInfoController {
 					}
 					// 데이터베이스에서 memberName 가져오기
 					String query = "SELECT memberpoints FROM member WHERE memberid = ?";
+					return jdbcTemplate.queryForObject(query, new Object[]{memberId}, Integer.class);
+				}
+			}
+		}
+		return 0;
+	}
+	
+	@ModelAttribute("memberUsablePoints")
+	public int getMemberUsablePoints(HttpServletRequest request) {
+		boolean sessionNotChanged = sessionNotChanged(request);
+		HttpSession session = request.getSession(); // 세션이 없으면 null 반환
+		
+		if (session != null) {
+			// 세션에서 SecurityContext 가져오기
+			SecurityContext securityContext = (SecurityContext) session.getAttribute("cachedSecurityContext");
+			if (securityContext == null) {
+				// 세션에서 SecurityContext 가져오기
+				securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+				if (securityContext != null) {
+					// SecurityContext를 세션에 저장
+					session.setAttribute("cachedSecurityContext", securityContext);
+				}
+			}
+			if (securityContext != null) {
+				Authentication authentication = securityContext.getAuthentication();
+				if (authentication != null && authentication.isAuthenticated()) {
+					String memberId = authentication.getName(); // username 가져오기
+					if (sessionNotChanged) {
+						System.out.println("Authenticated User ID: " + memberId);
+					}
+					// 데이터베이스에서 memberName 가져오기
+					String query = "SELECT COALESCE(SUM(CASE WHEN type = 'plus' THEN points ELSE 0 END), 0)"
+							+ " - COALESCE(SUM(CASE WHEN type = 'minus' THEN points ELSE 0 END), 0) AS usable_points"
+							+ " FROM mileage WHERE memberid = ?";
 					return jdbcTemplate.queryForObject(query, new Object[]{memberId}, Integer.class);
 				}
 			}

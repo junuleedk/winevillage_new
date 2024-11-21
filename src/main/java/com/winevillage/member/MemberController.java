@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.winevillage.note.IMileageService;
+import com.winevillage.note.MileageDTO;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -28,6 +31,9 @@ public class MemberController {
 
 	@Autowired
 	IMemberService dao;
+	
+	@Autowired
+	IMileageService mileage;
 	
 	@Autowired
     private PasswordEncoder passwordEncoder;
@@ -110,6 +116,13 @@ public class MemberController {
 	        // 인증 정보 확인을 위한 디버깅 출력 (원할 경우 주석 처리 가능)
 	        System.out.println("Authenticated user: " + authentication.getName());
 	        System.out.println("Authorities: " + authentication.getAuthorities());
+	        
+	        //회원가입 축하 포인트(마일리지 테이블에 기록)
+	        MileageDTO mileageDTO = new MileageDTO();
+	        mileageDTO.setMemberId(authentication.getName());
+	        mileageDTO.setMileage_name("회원가입 감사 포인트");
+	        mileageDTO.setPoints(100);
+	        mileage.plusMileage(mileageDTO);
 	    } else {
 	        // 인증되지 않은 경우
 	        System.out.println("User is not authenticated.");

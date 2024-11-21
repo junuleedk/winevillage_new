@@ -29,6 +29,11 @@ public class ParameterDTO {
     private List<String> label_grapevariety;
     private String price_range;
     
+    /* Mileage */
+    private String list_gb;
+    private String sh_s_date;
+    private String sh_e_date;
+    
     /* Member */
     private String memberId;
     

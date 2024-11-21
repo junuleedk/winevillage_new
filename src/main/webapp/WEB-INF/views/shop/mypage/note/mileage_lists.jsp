@@ -59,50 +59,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="common_lnb mileage_lnb">
-		<div class="my">
-			<div class="txt">
-				<div class="img gold grade_info g100">
-					<span>실버</span>
-				</div>
-				<p>
-					<strong class="name">고객</strong>님
-				</p>
-			</div>
-			<div class="btn_area">
-				<button type="button" class="btn_txt" onclick="commonUI.layer.open('grade_layer')">등급 혜택보기</button>
-				<!-- <span>시음노트 작성하면 등급 UP</span> -->
-			</div>
-		</div>
-		<div class="my_class_info">
-			<ul class="">
-				<li class="on">
-					<p class="tit">누적 마일리지</p>
-					<div class="num_box">
-						<span>170</span>
-					</div>
-				</li>
-				<li>
-					<p class="tit">사용 마일리지</p>
-					<div class="num_box">
-						<span>0</span>
-					</div>
-				</li>
-				<li>
-					<p class="tit">가용 마일리지</p>
-					<div class="num_box">
-						<span>170</span>
-					</div>
-				</li>
-				<li class="on">
-					<p class="tit">소멸예정마일리지</p>
-					<div class="num_box">
-						<span>0</span>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="mileage_lists/mileage_lnb.jsp" %>
 	<div class="mypage_link mb_hidden">
 		<ul class="depth_01">
 			<li>
@@ -172,75 +129,11 @@ function myPublic(){
 	});
 }
 </script>
-<div class="content mypage note shopping mileage_lists_page mileage_lists_test_page top_gap">
-	<div class="inner">
-		<div class="top_info">
-			<div class="page_tit">
-				<h2 class="tit">나의 마일리지</h2>
-			</div>
-			<div class="term_box">
-				<div class="datepicker_area">
-					<div class="datepicker">
-						<input type="text" id="date_s" name="sh_s_date" value="2024-09-24" class="hasDatepicker"><button type="button" class="ui-datepicker-trigger">선택</button>
-					</div>
-					<span>~</span>
-					<div class="datepicker">
-						<input type="text" id="date_e" name="sh_e_date" value="2024-10-24" class="hasDatepicker"><button type="button" class="ui-datepicker-trigger">선택</button>
-					</div>
-				</div>
-				<button type="button" class="btn_txt btn_black" onclick="get_mlg_list();"><span>검색</span></button>
-			</div>
-		</div>
-		<div class="mileage_box tab_area js_tab">
-			<ul class="js_tabBtn tab2">
-				<li class="on"><button type="button" data-val="plus_list">적립내역</button></li>
-				<li><button type="button" data-val="minus_list">사용내역</button></li>
-			</ul>
-			<div class="js_tabCon o_lists on">
-				<ul class="mypage_lists">
-					<li>
-						<div class="top_date">2024-05-24</div>
-						<div class="o_wrap">
-							<div class="box con">
-								<div class="more_info">
-									<p class="prd_name">
-										<a>상품구매 적립</a>
-									</p>
-								</div>
-							</div>
-							<div class="box mileage">
-								<p class="point plus">+85</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="top_date">2024-05-24</div>
-						<div class="o_wrap">
-							<div class="box con">
-								<div class="more_info">
-									<p class="prd_name">
-										<a>고객/온라인상품주문적립</a>
-									</p>
-								</div>
-							</div>
-							<div class="box mileage">
-								<p class="point plus">+85</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="js_tabCon o_lists">
-				<ul class="mypage_use_lists">
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+<%@ include file="mileage_lists/mileage_lists_page.jsp" %>
 <script>
 </script>
 <!-- //page_script -->
-<input type="hidden" id="page" value="2">
+<input type="hidden" id="page" value="1">
 <script>
 var list_gb = "plus_list";
 $(".js_tab > ul > li > button").on("click",function() {
@@ -248,6 +141,7 @@ $(".js_tab > ul > li > button").on("click",function() {
 	get_mlg_list();
 });
 $(document).ready(function(){
+	DatePeriod.GetDate(10, 'date_s', 'date_e');
 	get_mlg_list();
 })
 //스크롤 바닥 감지
@@ -260,7 +154,7 @@ function moreShowList() {
 }
 var page = 1;
 function get_mlg_list(mode){
-	Csrf.Set(_CSRF_NAME_);
+	//Csrf.Set(_CSRF_NAME_);
 	if(mode == 'more'){
 		page = $('#page').val();
 		page++;

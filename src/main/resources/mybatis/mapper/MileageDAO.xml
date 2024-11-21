@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winevillage.note.IMileageService">
+	<select id="listMileage" resultType="com.winevillage.note.MileageDTO"
+			parameterType="java.lang.String">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM mileage
+				WHERE 1=1
+				<if test="list_gb != null and list_gb != ''">
+					AND type =
+					<choose>
+						<when test="list_gb == 'minus_list'">
+						'minus'
+						</when>
+						<when test="list_gb == 'plus_list'">
+						'plus'
+						</when>
+						<otherwise>
+						type
+						</otherwise>
+					</choose>
+				</if>
+				<if test="sh_s_date != null and sh_s_date != '' and sh_e_date != null and sh_e_date != ''">
+					AND created_date BETWEEN TO_DATE(#{sh_s_date}, 'YYYY-MM-DD')
+										 AND TO_DATE(#{sh_e_date}, 'YYYY-MM-DD') + 1 - INTERVAL '1' SECOND
+				</if>
+				<if test="memberId != null and memberId != ''">
+					AND MemberId=#{memberId}
+				</if>
+				ORDER BY mileage_no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	<select id="totalPlusPoints" parameterType="com.winevillage.note.MileageDTO">
+		SELECT COALESCE(SUM(points), 0) AS plus_points
+		FROM mileage
+		WHERE 1=1
+		AND type='plus'
+		<if test="memberId != null and memberId != ''">
+		AND MemberId=#{memberId}
+		</if>
+	</select>
+	<select id="totalMinusPoints" parameterType="com.winevillage.note.MileageDTO">
+		SELECT COALESCE(SUM(points), 0) AS minus_points
+		FROM mileage
+		WHERE 1=1
+		AND type='minus'
+		<if test="memberId != null and memberId != ''">
+		AND MemberId=#{memberId}
+		</if>
+	</select>
+	<insert id="plusMileage" parameterType="com.winevillage.note.MileageDTO">
+		DECLARE
+		next_no NUMBER;
+		BEGIN
+		getnext_mileage_no(next_no);
+		INSERT INTO mileage (mileage_no, MemberId, mileage_name, type, points, created_date)
+		VALUES (next_no, #{memberId}, #{mileage_name}, 'plus', #{points}, CURRENT_TIMESTAMP);
+		END;
+	</insert>
+	<delete id="minusMileage" parameterType="com.winevillage.note.MileageDTO">
+		DECLARE
+		next_no NUMBER;
+		BEGIN
+		getnext_mileage_no(next_no);
+		INSERT INTO mileage (mileage_no, MemberId, mileage_name, type, points, created_date)
+		VALUES (next_no, #{memberId}, #{mileage_name}, 'minus', #{points}, CURRENT_TIMESTAMP);
+		END;
+	</delete>
+</mapper>

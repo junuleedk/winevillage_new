@@ -138,6 +138,9 @@
 		</c:forEach>
 		</ul>
 		</c:if>
+		<c:if test="${empty lists}">
+		<ul><li class="nodata">장바구니 상품이 없습니다.</li></ul>
+		</c:if>
 	</div>
 	<div class="reload_container">
 		<div class="total_price">

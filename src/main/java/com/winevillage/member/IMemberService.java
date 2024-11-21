@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IMemberService {
 	//회원가입
-	public int insertMember(MemberDTO membertDTO);
+	public int insertMember(MemberDTO memberDTO);
+	public int addMemberPoints(MemberDTO memberDTO);
+	public int removeMemberPoints(MemberDTO memberDTO);
 	public int addCartCount(String memberId);
 	public int removeCartCount(String memberId);
 	public Integer cartCount(String memberId);

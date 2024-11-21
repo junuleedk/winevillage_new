@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
 					<div class="layer_con">
 						<div class="login_tab">
 							<p class="check"><span>기존회원</span></p>
-							<p><span><a href="/shop/member/join/law_agreement">신규회원가입</a></span></p>
+							<p><span><a href="/shop/member/join/law_agreement.do">신규회원가입</a></span></p>
 						</div>
 						<div class="social_login">
 							<h2 class="social_tit">소셜아이디로 로그인</h2>
