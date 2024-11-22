@@ -840,6 +840,7 @@
 				$("input:radio[name='item_seq']:checked").each(function() {
 					if($(this).val() == remove_val){
 						$(this).prop("checked", false);
+						$("#price_range").val(null);
 					}
 				});
 				 filter_submit()
