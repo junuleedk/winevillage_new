@@ -498,6 +498,8 @@
 			document.getElementById('label_country').value = labelCountryArray.join(',');
 			document.getElementById('label_state').value = labelStateArray.join(',');
 			document.getElementById('label_grapevariety').value = labelGrapevarietyArray.join(',');
+			
+			filter_submit();
 		});
 		function filter_submit(){
 			var seq = '';

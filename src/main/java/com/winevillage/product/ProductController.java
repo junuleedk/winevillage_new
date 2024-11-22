@@ -296,9 +296,6 @@ public class ProductController {
 		// 현재 label_grapevariety 값을 모델에 추가
 		model.addAttribute("label_grapevariety", labelGrapevariety);
 		
-		// 파라미터의 price_range 값을 모델에 추가
-		model.addAttribute("price_range", priceRange);
-		
 		String baseUrl = request.getContextPath() + "/shop/product/product_lists.do?";
 		if (classified != null && !classified.isEmpty()) {
 			baseUrl += "classified=" + classified + "&";
