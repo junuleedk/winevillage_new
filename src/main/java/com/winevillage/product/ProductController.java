@@ -290,7 +290,6 @@ public class ProductController {
 		
 		// 파라미터의 price_range 값을 모델에 추가
 		model.addAttribute("price_range", priceRange);
-		System.out.println(priceRange);
 		
 		String baseUrl = request.getContextPath() + "/shop/product/product_lists.do?";
 		if (classified != null && !classified.isEmpty()) {
