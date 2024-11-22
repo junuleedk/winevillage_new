@@ -75,6 +75,7 @@ public class ProductController {
 			@RequestParam(name = "list_count", required = false) String list_count,
 			@RequestParam(name = "category_type", required = false) String categoryTypeParam,
 	        @RequestParam(name = "category_country", required = false) String categoryCountryParam,
+	        @RequestParam(name = "label_country", required = false) String labelCountryParam,
 	        @RequestParam(name = "label_state", required = false) String labelStateParam,
 	        @RequestParam(name = "label_grapevariety", required = false) String labelGrapevarietyParam,
 	        @RequestParam(name = "price_range", required = false) String priceRange,
@@ -84,6 +85,21 @@ public class ProductController {
 	    String category = request.getParameter("category");
 	    //String categoryType = request.getParameter("category_type");
 	    //String categoryCountry = request.getParameter("category_country");
+	    
+	    //GNB에서 선택된 메뉴의 토글을 위한 문자열을 model로 전달
+	    //SMART SEARCH에 표시될 내용 구분
+	    int category_gnb = Integer.parseInt(category);
+	    if (category_gnb == 10000) {
+	    	model.addAttribute("gnb", "WINE");
+	    	model.addAttribute("smartsearch", "WINE");
+	    } else if (category_gnb == 20000) {
+	    	model.addAttribute("gnb", "BEER&LIQUOR");
+	    	model.addAttribute("smartsearch", "BEER&LIQUOR");
+	    } else if (category_gnb == 50000) {
+	    	model.addAttribute("gnb", "TICKET");
+	    } else if (category_gnb == 40000) {
+	    	model.addAttribute("gnb", "OTHER");	    	
+	    }
 		
 		parameterDTO.setClassified(classified);
 	    parameterDTO.setCategory(category);
@@ -91,6 +107,7 @@ public class ProductController {
 	    // category_type 및 category_country 값을 ','와 '%2C'를 기준으로 분리
 	    List<Integer> categoryType = new ArrayList<>();
 	    List<Integer> categoryCountry = new ArrayList<>();
+	    List<String> labelCountry = new ArrayList<>();
 	    List<Integer> labelState = new ArrayList<>();
 	    List<String> labelGrapevariety = new ArrayList<>();
 
@@ -110,6 +127,12 @@ public class ProductController {
 	                                .collect(Collectors.toList());
 	    }
 	    
+	    // label_country 다중값 처리
+	    if (labelCountryParam != null && !labelCountryParam.isEmpty()) {
+	        labelCountryParam = labelCountryParam.replaceAll("%2C", ","); // %2C를 ,로 변경
+	        labelCountry = Arrays.asList(labelCountryParam.split(","));
+	    }
+	    
 	    // label_state 다중값 처리
 	    if (labelStateParam != null && !labelStateParam.isEmpty()) {
 	    	labelStateParam = labelStateParam.replaceAll("%2C", ","); // %2C를 ,로 변경
@@ -126,6 +149,7 @@ public class ProductController {
 	    
 	    parameterDTO.setCategory_type(categoryType);
 	    parameterDTO.setCategory_country(categoryCountry);
+	    parameterDTO.setLabel_country(labelCountry);
 	    parameterDTO.setLabel_state(labelState);
 	    parameterDTO.setLabel_grapevariety(labelGrapevariety);
 		
@@ -257,6 +281,8 @@ public class ProductController {
         model.addAttribute("category_type", categoryType);
         // 현재 category_country 값을 모델에 추가
         model.addAttribute("category_country", categoryCountry);
+        // 현재 label_state 값을 모델에 추가
+        model.addAttribute("label_country", labelCountry);
         // 현재 label_state 값을 모델에 추가
         model.addAttribute("label_state", labelState);
         // 현재 label_grapevariety 값을 모델에 추가

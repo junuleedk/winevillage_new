@@ -10,9 +10,9 @@
     Integer memberWishCount = (Integer) request.getAttribute("memberWishCount");
     Integer memberCouponCount = (Integer) request.getAttribute("memberCouponCount");
 %>
-<div class="common_lnb">
+<div class="common_lnb${mypage_lnb == 'mileage_lists' ? ' mileage_lnb' : ''}">
 	<div class="my">
-		<div class="txt grade_area">
+		<div class="txt${mypage_lnb != 'mileage_lists' ? ' grade_area' : ''}">
 			<div class="img gold grade_info g100">
 				<span>실버</span>
 			</div>
@@ -23,8 +23,36 @@
 			<!-- <span>시음노트 작성하면 등급 UP</span> -->
 		</div>
 	</div>
-	<div class="my_info my_class_info">
+	<div class="${mypage_lnb != 'mileage_lists' ? 'my_info ' : ''}my_class_info">
 		<ul class="">
+		<c:choose>
+		<c:when test="${mypage_lnb == 'mileage_lists'}">
+			<li class="on">
+				<p class="tit">누적 마일리지</p>
+				<div class="num_box">
+					<span>${saved != null ? saved : 0}</span>
+				</div>
+			</li>
+			<li>
+				<p class="tit">사용 마일리지</p>
+				<div class="num_box">
+					<span>${used != null ? used : 0}</span>
+				</div>
+			</li>
+			<li>
+				<p class="tit">가용 마일리지</p>
+				<div class="num_box">
+					<span>${usable != null ? usable : 0}</span>
+				</div>
+			</li>
+			<!-- <li class="on">
+				<p class="tit">소멸예정마일리지</p>
+				<div class="num_box">
+					<span>0</span>
+				</div>
+			</li> -->
+		</c:when>
+		<c:otherwise>
 			<li>
 				<a href="/shop/mypage/shopping/order_lists">
 					<p class="tit">주문내역</p>
@@ -57,6 +85,8 @@
 					<div class="num_box"><span>0</span></div>
 				</a>
 			</li>
+		</c:otherwise>
+		</c:choose>
 		</ul>
 	</div>
 </div>

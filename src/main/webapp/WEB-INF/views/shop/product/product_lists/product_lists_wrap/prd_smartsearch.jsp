@@ -8,6 +8,52 @@
 				<div class="layer_tit">SMART SEARCH</div>
 				<div class="layer_con">
 					<div class="filter">
+						<c:choose>
+						<c:when test="${smartsearch == 'BEER&LIQUOR'}">
+						<div class="check_area ">
+							<p>종류</p>
+							<div class="check_type">
+								<!-- PC : default(한 줄에 3개) col4 class 추가(한 줄에 4개) -->
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_24" value="24" data-nm="위스키" onclick="filter_submit();">
+									<label for="type_check_24">위스키
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_23" value="23" data-nm="꼬냑" onclick="filter_submit();">
+									<label for="type_check_23">꼬냑
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_22" value="22" data-nm="데킬라" onclick="filter_submit();">
+									<label for="type_check_22">데킬라
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_21" value="21" data-nm="진" onclick="filter_submit();">
+									<label for="type_check_21">진
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_20" value="20" data-nm="럼" onclick="filter_submit();">
+									<label for="type_check_20">럼
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_19" value="19" data-nm="맥주" onclick="filter_submit();">
+									<label for="type_check_19">맥주
+									<!--()-->
+									</label>
+								</div>
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
 						<div class="check_area ">
 							<p>와인 종류</p>
 							<div class="check_type">
@@ -50,6 +96,8 @@
 								</div>
 							</div>
 						</div>
+						</c:otherwise>
+						</c:choose>
 						<div class="check_area price">
 							<p>가격</p>
 							<div class="check_type">
@@ -80,6 +128,46 @@
 								</div>
 							</div>
 						</div>
+						<c:choose>
+						<c:when test="${smartsearch == 'BEER&LIQUOR'}">
+						<div class="check_area ">
+							<p>생산 국가</p>
+							<div class="check_type">
+								<!-- PC : default(한 줄에 3개) col4 class 추가(한 줄에 4개) -->
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_241" value="241" data-nm="프랑스" onclick="filter_submit();">
+									<label for="type_check_241">프랑스 
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_242" value="242" data-nm="미국" onclick="filter_submit();">
+									<label for="type_check_242">미국 
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_243" value="243" data-nm="스코틀랜드" onclick="filter_submit();">
+									<label for="type_check_243">스코틀랜드 
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_244" value="244" data-nm="기타구대륙" onclick="filter_submit();">
+									<label for="type_check_244">기타 구대륙
+									<!--()-->
+									</label>
+								</div>
+								<div class="checkbox type2">
+									<input type="checkbox" name="item_seq" id="type_check_245" value="245" data-nm="기타 신대륙" onclick="filter_submit();">
+									<label for="type_check_245">기타 신대륙
+									<!--()-->
+									</label>
+								</div>
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
 						<div class="check_area ">
 							<p>생산 국가</p>
 							<div class="check_type">
@@ -158,6 +246,9 @@
 								</div>
 							</div>
 						</div>
+						</c:otherwise>
+						</c:choose>
+						<c:if test="${smartsearch != 'BEER&LIQUOR'}">
 						<div class="check_area ">
 							<p>생산 지역</p>
 							<div class="check_type">
@@ -356,6 +447,8 @@
 								</div>
 							</div>
 						</div>
+						</c:if>
+						<c:if test="${smartsearch != 'BEER&LIQUOR'}">
 						<div class="check_area ">
 							<p>포도 품종</p>
 							<div class="check_type">
@@ -530,6 +623,7 @@
 								</div>
 							</div>
 						</div>
+						</c:if>
 					</div>
 					<div class="bottom">
 						<div class="current_filter filter_item nodata_fiter">

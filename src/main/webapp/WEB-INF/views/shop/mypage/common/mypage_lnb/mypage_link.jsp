@@ -5,9 +5,9 @@
 		<li>
 			<a href="/shop/mypage/shopping/mypage">나의 쇼핑</a>
 			<ul class="depth_02">
-				<li class="on"><a href="/shop/mypage/shopping/order_lists">주문내역</a></li>
+				<li><a href="/shop/mypage/shopping/order_lists">주문내역</a></li>
 				<li><a href="/shop/mypage/shopping/return_order_lists">교환/반품내역</a></li>
-				<li><a href="/shop/mypage/note/wish_lists">위시리스트</a></li>
+				<li<c:if test="${mypage_lnb == 'wish_lists'}"> class="on"</c:if>><a href="/shop/mypage/note/wish_lists">위시리스트</a></li>
 				<li><a href="/shop/cart/cart_lists">장바구니</a></li>
 				<!-- <li ><a href="/shop/mypage/shopping/order_pre_lists">이전주문 내역</a></li>
 					<li ><a href="/shop/mypage/shopping/order_shop_lists">오프라인 주문내역</a></li> -->
@@ -18,7 +18,7 @@
 			<ul class="depth_02">
 				<li><a href="/shop/mypage/note/giftcard_lists">나의 기프트카드</a></li>
 				<!-- <li ><a href="/shop/mypage/note/balance_lists">나의 예치금</a></li> -->
-				<li><a href="/shop/mypage/note/mileage_lists">나의 마일리지</a></li>
+				<li<c:if test="${mypage_lnb == 'mileage_lists'}"> class="on"</c:if>><a href="/shop/mypage/note/mileage_lists">나의 마일리지</a></li>
 				<li><a href="/shop/mypage/note/coupon_lists">나의 쿠폰</a></li>
 			</ul>
 		</li>

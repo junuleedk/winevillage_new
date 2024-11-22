@@ -19,9 +19,13 @@ public class MileageController {
 	
 	@Autowired
 	IMileageService dao;
-
+	
 	@GetMapping("shop/mypage/note/mileage_lists.do")
-	public String mileage_lists(Model model, MileageDTO mileageDTO, Authentication authentication) {
+	public String mileage_lists(Model model, MileageDTO mileageDTO,
+			Authentication authentication) {
+		//마이페이지 LNB에 메뉴 인식을 위한 토글용 문자열을 model로 전달
+		model.addAttribute("mypage_lnb", "mileage_lists");
+		
 		if (authentication != null) mileageDTO.setMemberId(authentication.getName());
 		int plus = dao.totalPlusPoints(mileageDTO);
 		int minus = dao.totalMinusPoints(mileageDTO);

@@ -7,6 +7,7 @@
 	<input type="hidden" name="category_country" id="category_country">
 	<input type="hidden" name="classified" id="classified" value="${classified}">
 	<input type="hidden" name="sort" id="sort">
+	<input type="hidden" name="label_country" id="label_country" value="${label_country}">
 	<input type="hidden" name="label_state" id="label_state" value="">
 	<input type="hidden" name="label_grapevariety" id="label_grapevariety" value="${label_grapevariety}">
 	<input type="hidden" name="price_range" id="price_range" value="${price_range}">

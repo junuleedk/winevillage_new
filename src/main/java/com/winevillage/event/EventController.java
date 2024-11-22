@@ -31,7 +31,10 @@ public class EventController {
 	
 	@GetMapping("shop/event/event_lists.do")
 	public String listEventNow(Model model, HttpServletRequest request,
-			ParameterDTO parameterDTO) {		
+			ParameterDTO parameterDTO) {
+		//GNB에서 선택된 메뉴의 토글을 위한 문자열을 model로 전달
+		model.addAttribute("gnb", "PROMOTION");
+		
 		int pageSize = 6;
 	    int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
 	            : Integer.parseInt(request.getParameter("page"));
@@ -113,7 +116,10 @@ public class EventController {
 	
 	@GetMapping("shop/event/event_end.do")
 	public String listEventEnd(Model model, HttpServletRequest request,
-			ParameterDTO parameterDTO) {		
+			ParameterDTO parameterDTO) {
+		//GNB에서 선택된 메뉴의 토글을 위한 문자열을 model로 전달
+		model.addAttribute("gnb", "PROMOTION");
+		
 		int pageSize = 6;
 	    int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
 	            : Integer.parseInt(request.getParameter("page"));

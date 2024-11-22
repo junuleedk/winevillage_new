@@ -245,11 +245,16 @@
 			const categoryCountryArray = ${category_country} || []; // 빈 배열로 초기화
 			const labelStateArray = ${label_state} || []; // 빈 배열로 초기화
 			const priceRange = "${price_range}"; // 문자열로 호출
+			const labelCountryString = "${label_country}"; // 문자열로 호출
+			const labelCountryDecode = decodeURIComponent(labelCountryString); // 문자열이 URL인코딩 되어 있으면 디코딩
+			const labelCountryClean = labelCountryDecode.replace(/[\[\]']+/g, '').replace(/,\s+/g, ','); // 대괄호 제거
+			const labelCountryArray = labelCountryClean ? labelCountryClean.split(',') : []; // 쉼표로 구분된 배열로 변환
 			const labelGrapevarietyString = "${label_grapevariety}"; // 문자열로 호출
 			const labelGrapevarietyDecode = decodeURIComponent(labelGrapevarietyString); // 문자열이 URL인코딩 되어 있으면 디코딩
 			const labelGrapevarietyClean = labelGrapevarietyDecode.replace(/[\[\]']+/g, '').replace(/,\s+/g, ','); // 대괄호 제거
 			const labelGrapevarietyArray = labelGrapevarietyClean ? labelGrapevarietyClean.split(',') : []; // 쉼표로 구분된 배열로 변환
 
+			<%-- 종류(와인) - SMART SEARCH에 체크됨 표시 --%>
 		    // categoryTypeArray에 따라 input[name='item_seq']를 체크
 		    categoryTypeArray.forEach(function(type) {
 		    	// Ensure type is a string for comparison
@@ -268,6 +273,25 @@
 		    	}
 		    });
 			
+		    <%-- 종류(맥주&위스키) - SMART SEARCH에 체크됨 표시 --%>
+		    categoryTypeArray.forEach(function(type) {
+		    	// Ensure type is a string for comparison
+		    	if (String(type) === "20101") {
+		    		$("input[name='item_seq'][value='24']").prop("checked", true);
+		    	} else if (String(type) === "20102") {
+		    		$("input[name='item_seq'][value='23']").prop("checked", true);
+		    	} else if (String(type) === "20105") {
+		    		$("input[name='item_seq'][value='22']").prop("checked", true);
+		    	} else if (String(type) === "20103") {
+		    		$("input[name='item_seq'][value='21']").prop("checked", true);
+		    	} else if (String(type) === "20106") {
+		    		$("input[name='item_seq'][value='20']").prop("checked", true);
+		    	} else if (String(type) === "20201") {
+		    		$("input[name='item_seq'][value='19']").prop("checked", true);
+		    	}
+		    });
+			
+		    <%-- 가격 - SMART SEARCH에 체크됨 표시 --%>
 			// priceRange에 따라 input[name='item_seq']를 체크
 			switch (String(priceRange)) {
 				case "~30000":
@@ -286,6 +310,7 @@
 					break;
 			}
 
+			<%-- 생산 국가(와인) - SMART SEARCH에 체크됨 표시 --%>
 		    // categoryCountryArray에 따라 input[name='item_seq']를 체크
 		    categoryCountryArray.forEach(function(country) {
 		    	// Ensure country is a string for comparison
@@ -316,6 +341,24 @@
 		    	}
 		    });
 		    
+		    <%-- 생산 국가(맥주&위스키) - SMART SEARCH에 체크됨 표시 --%>
+			// labelCountryArray에 따라 input[name='item_seq']를 체크
+		    labelCountryArray.forEach(function(country) {
+		    	// Ensure country is a string for comparison
+		    	if (String(country) === "프랑스") {
+		    		$("input[name='item_seq'][value='241']").prop("checked", true);
+		    	} else if (String(country) === "미국") {
+		    		$("input[name='item_seq'][value='242']").prop("checked", true);
+		    	} else if (String(country) === "스코틀랜드") {
+		    		$("input[name='item_seq'][value='243']").prop("checked", true);
+		    	} else if (String(country) === "기타구대륙") {
+		    		$("input[name='item_seq'][value='244']").prop("checked", true);
+		    	} else if (String(country) === "기타 신대륙") {
+		    		$("input[name='item_seq'][value='245']").prop("checked", true);
+		    	}
+		    });
+		    
+		    <%-- 생산 지역 - SMART SEARCH에 체크됨 표시 --%>
 		    // labelStateArray에 따라 input[name='item_seq']를 체크
 		    labelStateArray.forEach(function(state) {
 		    	// Ensure country is a string for comparison
@@ -386,70 +429,73 @@
 				}
 		    });
 		    
+		    <%-- 포도 품종 - SMART SEARCH에 체크됨 표시 --%>
 			// labelGrapevarietyArray에 따라 input[name='item_seq']를 체크
-		    labelGrapevarietyArray.forEach(function(country) {
+		    labelGrapevarietyArray.forEach(function(grape) {
 		    	// Ensure country is a string for comparison
-		    	if (String(country) === "카베르네 소비뇽") {
+		    	if (String(grape) === "카베르네 소비뇽") {
 		    		$("input[name='item_seq'][value='37']").prop("checked", true);
-		    	} else if (String(country) === "쉬라즈") {
+		    	} else if (String(grape) === "쉬라즈") {
 		    		$("input[name='item_seq'][value='157']").prop("checked", true);
-		    	} else if (String(country) === "메를로") {
+		    	} else if (String(grape) === "메를로") {
 		    		$("input[name='item_seq'][value='38']").prop("checked", true);
-		    	} else if (String(country) === "카베르네 프랑") {
+		    	} else if (String(grape) === "카베르네 프랑") {
 		    		$("input[name='item_seq'][value='92']").prop("checked", true);
-		    	} else if (String(country) === "템프라니요") {
+		    	} else if (String(grape) === "템프라니요") {
 		    		$("input[name='item_seq'][value='90']").prop("checked", true);
-		    	} else if (String(country) === "피노 누아") {
+		    	} else if (String(grape) === "피노 누아") {
 		    		$("input[name='item_seq'][value='87']").prop("checked", true);
-		    	} else if (String(country) === "말벡") {
+		    	} else if (String(grape) === "말벡") {
 		    		$("input[name='item_seq'][value='88']").prop("checked", true);
-		    	} else if (String(country) === "진판델") {
+		    	} else if (String(grape) === "진판델") {
 		    		$("input[name='item_seq'][value='168']").prop("checked", true);
-		    	} else if (String(country) === "산지오베제") {
+		    	} else if (String(grape) === "산지오베제") {
 		    		$("input[name='item_seq'][value='89']").prop("checked", true);
-		    	} else if (String(country) === "가메") {
+		    	} else if (String(grape) === "가메") {
 		    		$("input[name='item_seq'][value='164']").prop("checked", true);
-		    	} else if (String(country) === "네비올로") {
+		    	} else if (String(grape) === "네비올로") {
 		    		$("input[name='item_seq'][value='167']").prop("checked", true);
-		    	} else if (String(country) === "카르메네르") {
+		    	} else if (String(grape) === "카르메네르") {
 		    		$("input[name='item_seq'][value='156']").prop("checked", true);
-		    	} else if (String(country) === "그르나슈") {
+		    	} else if (String(grape) === "그르나슈") {
 		    		$("input[name='item_seq'][value='91']").prop("checked", true);
-		    	} else if (String(country) === "몬테풀치아") {
+		    	} else if (String(grape) === "몬테풀치아") {
 		    		$("input[name='item_seq'][value='231']").prop("checked", true);
-		    	} else if (String(country) === "바르베라") {
+		    	} else if (String(grape) === "바르베라") {
 		    		$("input[name='item_seq'][value='232']").prop("checked", true);
-		    	} else if (String(country) === "샤르도네") {
+		    	} else if (String(grape) === "샤르도네") {
 		    		$("input[name='item_seq'][value='171']").prop("checked", true);
-		    	} else if (String(country) === "세미용") {
+		    	} else if (String(grape) === "세미용") {
 		    		$("input[name='item_seq'][value='161']").prop("checked", true);
-		    	} else if (String(country) === "소비뇽 블랑") {
+		    	} else if (String(grape) === "소비뇽 블랑") {
 		    		$("input[name='item_seq'][value='159']").prop("checked", true);
-		    	} else if (String(country) === "리슬링") {
+		    	} else if (String(grape) === "리슬링") {
 		    		$("input[name='item_seq'][value='160']").prop("checked", true);
-		    	} else if (String(country) === "슈냉 블랑") {
+		    	} else if (String(grape) === "슈냉 블랑") {
 		    		$("input[name='item_seq'][value='224']").prop("checked", true);
-		    	} else if (String(country) === "모스카토") {
+		    	} else if (String(grape) === "모스카토") {
 		    		$("input[name='item_seq'][value='225']").prop("checked", true);
-		    	} else if (String(country) === "피노그리") {
+		    	} else if (String(grape) === "피노그리") {
 		    		$("input[name='item_seq'][value='166']").prop("checked", true);
-		    	} else if (String(country) === "비오니에") {
+		    	} else if (String(grape) === "비오니에") {
 		    		$("input[name='item_seq'][value='226']").prop("checked", true);
-		    	} else if (String(country) === "게뷔르츠트라미너") {
+		    	} else if (String(grape) === "게뷔르츠트라미너") {
 		    		$("input[name='item_seq'][value='163']").prop("checked", true);
-		    	} else if (String(country) === "그뤼너 펠트리너") {
+		    	} else if (String(grape) === "그뤼너 펠트리너") {
 		    		$("input[name='item_seq'][value='227']").prop("checked", true);
-		    	} else if (String(country) === "베르데호") {
+		    	} else if (String(grape) === "베르데호") {
 		    		$("input[name='item_seq'][value='162']").prop("checked", true);
-		    	} else if (String(country) === "알리고떼") {
+		    	} else if (String(grape) === "알리고떼") {
 		    		$("input[name='item_seq'][value='228']").prop("checked", true);
-		    	} else if (String(country) === "기타") {
+		    	} else if (String(grape) === "기타") {
 		    		$("input[name='item_seq'][value='174']").prop("checked", true);
 		    	}
 		    });
 			
+		    <%-- listFrm에 value를 배열로 join한다.(불러올때) --%>
 			document.getElementById('category_type').value = categoryTypeArray.join(',');
 			document.getElementById('category_country').value = categoryCountryArray.join(',');
+			document.getElementById('label_country').value = labelCountryArray.join(',');
 			document.getElementById('label_state').value = labelStateArray.join(',');
 			document.getElementById('label_grapevariety').value = labelGrapevarietyArray.join(',');
 		});
@@ -460,6 +506,7 @@
 			$("#page").val(1);
 			var categoryTypes = [];
 			var categoryCountries = [];
+			var labelCountries = [];
 			var labelStates = [];
 			var labelGrapevarieties = [];
 			$("input[name='item_seq']:checked").each(function() {
@@ -481,6 +528,7 @@
 				}
 				
 				var mappedValue;
+				<%-- 종류(와인) --%>
 			    if (["type_check_29", "type_check_28", "type_check_27", "type_check_26", "type_check_25", "type_check_100"].includes(id)) {
 			        if (id === "type_check_29") {
 			            mappedValue = "10101";
@@ -497,6 +545,24 @@
 			        }
 			        categoryTypes.push(mappedValue);
 			    }
+			    <%-- 종류(맥주&위스키) --%>
+			    else if (["type_check_24", "type_check_23", "type_check_22", "type_check_21", "type_check_20", "type_check_19"].includes(id)) {
+			        if (id === "type_check_24") {
+			            mappedValue = "20101";
+			        } else if (id === "type_check_23") {
+			            mappedValue = "20102";
+			        } else if (id === "type_check_22") {
+			            mappedValue = "20105";
+			        } else if (id === "type_check_21") {
+			            mappedValue = "20103";
+			        } else if (id === "type_check_20") {
+			            mappedValue = "20106";
+			        } else if (id === "type_check_19") {
+			            mappedValue = "20201";
+			        }
+			        categoryTypes.push(mappedValue);
+			    }
+			    <%-- 생산 국가(와인) --%>
 			    else if (["type_check_75", "type_check_76", "type_check_77",
 			    	"type_check_80", "type_check_78", "type_check_79",
 			    	"type_check_83", "type_check_81", "type_check_82",
@@ -529,6 +595,23 @@
 			        }
 			        categoryCountries.push(mappedValue);
 			    }
+			    <%-- 생산 국가(위스키) --%>
+			    else if (["type_check_241", "type_check_242", "type_check_243",
+			    	"type_check_244", "type_check_245"].includes(id)) {
+			    	if (id === "type_check_241") {
+						mappedValue = "프랑스";
+					} else if (id === "type_check_242") {
+			            mappedValue = "미국";
+			        } else if (id === "type_check_243") {
+			            mappedValue = "스코틀랜드";
+			        } else if (id === "type_check_244") {
+			            mappedValue = "기타구대륙";
+			        } else if (id === "type_check_245") {
+			            mappedValue = "기타 신대륙";
+			        }
+			        labelCountries.push(mappedValue);
+			    }
+			    <%-- 생산 지역 --%>
 				else if (["type_check_198", "type_check_199", "type_check_71",
 					"type_check_177", "type_check_202", "type_check_72",
 					"type_check_203", "type_check_204", "type_check_205",
@@ -607,7 +690,9 @@
 						mappedValue = "230";
 					}
 			        labelStates.push(mappedValue);
-				} else if (["type_check_37", "type_check_157", "type_check_38",
+				}
+			    <%-- 포도 품종 --%>
+				else if (["type_check_37", "type_check_157", "type_check_38",
 					"type_check_92", "type_check_90", "type_check_87", "type_check_88",
 					"type_check_168", "type_check_89", "type_check_164", "type_check_167",
 					"type_check_156", "type_check_91", "type_check_231", "type_check_232",
@@ -673,7 +758,9 @@
 						mappedValue = "기타";
 					}
 					labelGrapevarieties.push(mappedValue);
-				} else if (["type_check_35", "type_check_36", "type_check_66", "type_check_67"].includes(id)) {
+				}
+				<%-- 가격 --%>
+				else if (["type_check_35", "type_check_36", "type_check_66", "type_check_67"].includes(id)) {
 					if (id === "type_check_35") {
 						priceRange = "~30000";
 					} else if (id === "type_check_36") {
@@ -684,7 +771,8 @@
 						priceRange = "100000~";
 					}
 					$("#price_range").val(priceRange);
-				} else {
+				}
+				else {
 			        if(seq == ""){
 			            seq = String($(this).val());
 			        }else{
@@ -699,10 +787,13 @@
 			//	$("#category").val(null);  // Set category to null if it's 40000 or 50000
 			//}
 			
+			<%-- VALUE,EXCLUSIVE가 아닌 모든 상품을 보여주도록 파라미터를 지정한다. --%>
 			$("#classified").val("all");
 			
+			<%-- listFrm에 value를 배열로 join한다.(체크한 걸 보낼때) --%>
 			$("#category_type").val(categoryTypes.join(','));
 			$("#category_country").val(categoryCountries.join(','));
+			$("#label_country").val(labelCountries.join(','));
 			$("#label_state").val(labelStates.join(','));
 			$("#label_grapevariety").val(labelGrapevarieties.join(','));
 			

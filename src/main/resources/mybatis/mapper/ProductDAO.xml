@@ -39,6 +39,12 @@
                         #{item}
                     </foreach>
                 </if>
+                <if test="label_country != null and !label_country.isEmpty()">
+                    AND label_country IN
+                    <foreach item="item" index="index" collection="label_country" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
                 <if test="label_state != null and !label_state.isEmpty()">
                     AND label_state IN
                     <foreach item="item" index="index" collection="label_state" open="(" separator="," close=")">

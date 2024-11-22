@@ -25,6 +25,7 @@ public class ParameterDTO {
 	private String category;
 	private List<Integer> category_type;
     private List<Integer> category_country;
+    private List<String> label_country;
     private List<Integer> label_state;
     private List<String> label_grapevariety;
     private String price_range;

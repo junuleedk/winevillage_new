@@ -134,7 +134,7 @@
                 <li><a href="/shop/product/product_lists.do?category=20000">BEER&LIQUOR</a></li>
                 <li><a href="/shop/product/product_lists.do?category=50000">TICKET</a></li>
                 <li><a href="/shop/product/product_lists.do?category=40000">OTHER</a></li> -->
-                <li class="">
+                <li class="${gnb == 'WINE' ? 'on' : ''}">
 	                <a href="<c:url value='/shop/product/product_lists.do?category=10000' />">WINE</a>
 	                <div class="pc_category_gnb">
 	                    <div class="flex_box">
@@ -162,7 +162,7 @@
 	                    </div>
 	                </div>
                 </li>
-                <li class="">
+                <li class="${gnb == 'BEER&LIQUOR' ? 'on' : ''}">
 	                <a href="<c:url value='/shop/product/product_lists.do?category=20000' />">BEER&LIQUOR</a>
 	                <div class="pc_category_gnb">
 	                    <div class="flex_box">
@@ -179,10 +179,10 @@
 	                    </div>
 	                </div>
                 </li>
-                <li class="">
+                <li class="${gnb == 'TICKET' ? 'on' : ''}">
 					<a href="<c:url value='/shop/product/product_lists.do?category=50000' />">TICKET</a>
 				</li>
-                <li class="">
+                <li class="${gnb == 'OTHER' ? 'on' : ''}">
 	                <a href="<c:url value='/shop/product/product_lists.do?category=40000' />">OTHER</a>
 	                <!-- <div class="pc_category_gnb">
 	                    <div class="flex_box">
@@ -200,10 +200,10 @@
                 <li style="display:none !important" class="mb_hidden opacity">
 	                <a href="/shop/product/best_product_lists?group_cd=20240206">En Primeur</a>
                 </li>
-                <li class="mb_hidden opacity">
+                <li class="${gnb == 'PROMOTION' ? 'on ' : ''}mb_hidden opacity">
 	                <a href="<c:url value='/shop/event/event_lists.do' />">PROMOTION</a>
                 </li>
-                <li class="opacity">
+                <li class="${gnb == 'SHOP' ? 'on ' : ''}opacity">
 	                <a href="/shop/company/store.do">SHOP</a>
                 </li>
                 <li class="mb_hidden opacity">

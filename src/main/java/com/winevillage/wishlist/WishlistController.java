@@ -41,6 +41,8 @@ public class WishlistController {
 	public String wishlists(Model model, HttpServletRequest request,
 			Authentication authentication, ParameterDTO parameterDTO,
 			ProductDTO productDTO, WishlistDTO wishlistDTO) {
+		//마이페이지 LNB에 메뉴 인식을 위한 토글용 문자열을 model로 전달
+		model.addAttribute("mypage_lnb", "wish_lists");
 		
 		//한 페이지 당 표시될 갯수 설정, 페이지네이션 관련 설정
 		int pageSize = 6;
