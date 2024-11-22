@@ -88,7 +88,15 @@ public class ProductController {
 		
 		//GNB에서 선택된 메뉴의 토글을 위한 문자열을 model로 전달
 		//SMART SEARCH에 표시될 내용 구분
-		int category_gnb = Integer.parseInt(category);
+		int category_gnb = 0;
+		//자료형이 int이므로 NumberFormatException 방지를 위해 if문에서 처리
+		if (category != null && !category.isEmpty()) {
+			try {
+				category_gnb = Integer.parseInt(category);				
+			} catch (NumberFormatException e) {
+				category_gnb = 0;
+			}
+		}
 		if (category_gnb == 10000) {
 			model.addAttribute("gnb", "WINE");
 			model.addAttribute("smartsearch", "WINE");

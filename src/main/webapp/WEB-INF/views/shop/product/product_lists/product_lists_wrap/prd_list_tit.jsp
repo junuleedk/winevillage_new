@@ -45,8 +45,6 @@
 			<li class="state_li${classified == 'exclusive' ? ' on' : ''}" id="state_li_5"><a href="javascript:void(0);" onclick="state_list('exclusive');">EXCLUSIVE</a></li>
 			<li class="state_li${classified == 'all' || classified == null ? ' on' : ''}" id="state_li_all"><a href="javascript:void(0);" onclick="state_list('all');">ALL</a></li>
 		</ul>
-		<c:if test="${smartsearch == 'WINE' or smartsearch == 'BEER&LIQUOR'}">
 		<button class="smart_search" onclick="commonUI.layer.open('filter_layer')"><span>SMART SEARCH</span></button>
-		</c:if>
 	</div>
 </div>
