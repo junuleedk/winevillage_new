@@ -29,7 +29,7 @@ public class MileageController {
 		if (authentication != null) mileageDTO.setMemberId(authentication.getName());
 		int plus = dao.totalPlusPoints(mileageDTO);
 		int minus = dao.totalMinusPoints(mileageDTO);
-		//해당 if문 없으면 전체 고객들의 마일리지 포인트가 출력되기 때문에 꼭 필요한 if문임
+		//해당 if문 없으면 전체 고객들의 포인트를 합산한 포인트가 출력되기 때문에 꼭 필요한 if문임
 		if (authentication != null) {
 			model.addAttribute("saved", plus);
 			model.addAttribute("used", minus);
@@ -43,10 +43,10 @@ public class MileageController {
 	public String mileageErpListsAjax(Model model, HttpServletRequest request,
 			Authentication authentication) {
 		// 클라이언트에서 전달된 파라미터 처리
-	    String list_gb = request.getParameter("list_gb"); // minus 또는 plus 등
-	    String sh_s_date = request.getParameter("sh_s_date"); // 검색 시작 날짜 (YYYY-MM-DD)
-	    String sh_e_date = request.getParameter("sh_e_date"); // 검색 종료 날짜 (YYYY-MM-DD)
-	    
+		String list_gb = request.getParameter("list_gb"); // minus 또는 plus 등
+		String sh_s_date = request.getParameter("sh_s_date"); // 검색 시작 날짜 (YYYY-MM-DD)
+		String sh_e_date = request.getParameter("sh_e_date"); // 검색 종료 날짜 (YYYY-MM-DD)
+		
 		int pageSize = 4;
 		int pageNum = (request.getParameter("page") == null || request.getParameter("page").equals("")) ? 1
 					: Integer.parseInt(request.getParameter("page"));

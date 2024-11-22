@@ -103,25 +103,25 @@
 							<div class="check_type">
 								<!-- PC : default(한 줄에 3개) col4 class 추가(한 줄에 4개) -->
 								<div class="checkbox radio">
-									<input type="radio" name="item_seq" id="type_check_35" value="35" data-nm="~30,000" onclick="filter_submit();">
+									<input type="radio" name="item_seq" id="type_check_35" value="35" data-nm="~30,000"<c:if test="${price_range == '~30000'}"> checked</c:if> onclick="filter_submit();">
 									<label for="type_check_35">~30,000 
 									<!--()-->
 									</label>
 								</div>
 								<div class="checkbox radio">
-									<input type="radio" name="item_seq" id="type_check_36" value="36" data-nm="30,000~60,000" onclick="filter_submit();">
+									<input type="radio" name="item_seq" id="type_check_36" value="36" data-nm="30,000~60,000"<c:if test="${price_range == '30000~60000'}"> checked</c:if> onclick="filter_submit();">
 									<label for="type_check_36">30,000~60,000 
 									<!--()-->
 									</label>
 								</div>
 								<div class="checkbox radio">
-									<input type="radio" name="item_seq" id="type_check_66" value="66" data-nm="60,000~100,000" onclick="filter_submit();">
+									<input type="radio" name="item_seq" id="type_check_66" value="66" data-nm="60,000~100,000"<c:if test="${price_range == '60000~100000'}"> checked</c:if> onclick="filter_submit();">
 									<label for="type_check_66">60,000~100,000 
 									<!--()-->
 									</label>
 								</div>
 								<div class="checkbox radio">
-									<input type="radio" name="item_seq" id="type_check_67" value="67" data-nm="100,000~" onclick="filter_submit();">
+									<input type="radio" name="item_seq" id="type_check_67" value="67" data-nm="100,000~"<c:if test="${price_range == '100000~'}"> checked</c:if> onclick="filter_submit();">
 									<label for="type_check_67">100,000~ 
 									<!--()-->
 									</label>
