@@ -10,6 +10,7 @@
     int memberUsablePoints = (Integer) request.getAttribute("memberUsablePoints");
     Integer memberCartCount = (Integer) request.getAttribute("memberCartCount");
     Integer memberWishCount = (Integer) request.getAttribute("memberWishCount");
+    Integer memberCouponCount = (Integer) request.getAttribute("memberCouponCount");
 %>
 <header id="header" class="header mypage_index_header">
 <!-- 로딩바 -->
@@ -190,7 +191,7 @@
 		<div class="summary_menu">
 			<p><a href="/shop/mypage/shopping/mypage"><%= memberName %>님</a></p>
 			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em><%= memberUsablePoints %>P</em></a></p>
-			<p><a href="/shop/mypage/note/coupon_lists">쿠폰<em>1</em></a></p>
+			<p><a href="/shop/mypage/note/coupon_lists">쿠폰<em><%= memberCouponCount %></em></a></p>
 		</div>
 	</div>
 </div>

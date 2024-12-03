@@ -129,7 +129,7 @@ public class MemberInfoController {
 	}
 	
 	@ModelAttribute("memberPoints")
-	public int getMemberPoints(HttpServletRequest request) {
+	public Integer getMemberPoints(HttpServletRequest request) {
 		boolean sessionNotChanged = sessionNotChanged(request);
 		HttpSession session = request.getSession(); // 세션이 없으면 null 반환
 		

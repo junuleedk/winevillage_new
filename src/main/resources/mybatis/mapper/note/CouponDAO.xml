@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winevillage.note.ICouponService">
+	<!-- (USER측)보유 쿠폰 출력 -->
+	<select id="listCoupon" resultType="com.winevillage.note.CouponDTO"
+			parameterType="com.winevillage.parameter.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM coupon
+				WHERE 1=1
+				<if test="memberId != null and memberId != ''">
+					AND MemberId=#{memberId}
+				</if>
+				ORDER BY coupon_no DESC
+			) Tb
+		)
+		WHERE rNum <![CDATA[>=]]> #{start}
+		AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	<!-- (USER측)전체 쿠폰 수 -->
+	<select id="totalCoupon" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM coupon
+		WHERE 1=1
+		<if test="memberId != null and memberId != ''">
+			AND MemberId=#{memberId}
+		</if>
+	</select>
+	<!-- (USER측)사용된 쿠폰 수 -->
+	<select id="usedCoupon" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM coupon
+		WHERE 1=1
+		AND used=1
+		AND date_end >= TRUNC(SYSDATE)
+		<if test="memberId != null and memberId != ''">
+			AND MemberId=#{memberId}
+		</if>
+	</select>
+	<!-- (USER측)쿠폰을 해당 아이디에 등록 -->
+	<insert id="addCoupon" parameterType="com.winevillage.note.CouponDTO">
+		DECLARE
+		next_no NUMBER;
+		BEGIN
+		getnext_coupon_no(next_no);
+		INSERT INTO coupon (coupon_no, memberId, thumbnail, coupon_name, coupon_code, discount, minimum, date_start, date_end, used, created_date)
+		VALUES (next_no, #{memberId}, #{thumbnail, jdbcType=VARCHAR}, #{coupon_name}, #{coupon_code, jdbcType=VARCHAR}, #{discount}, #{minimum, jdbcType=NUMERIC}, #{date_start}, #{date_end}, #{used}, CURRENT_TIMESTAMP);
+		END;
+	</insert>
+	<!-- (USER측)등록된 쿠폰인지 확인 -->
+	<select id="checkCouponExist" resultType="com.winevillage.note.CouponDTO">
+		SELECT * FROM coupon
+		WHERE 1=1
+		AND date_end >= TRUNC(SYSDATE)
+		AND coupon_code=#{coupon_code}
+		AND MemberId=#{memberId}
+	</select>
+	<!-- (USER측)쿠폰 코드 확인 -->
+	<select id="searchCouponCode" resultType="com.winevillage.note.CouponDTO">
+		SELECT * FROM coupon_code WHERE coupon_code=#{coupon_code}
+	</select>
+</mapper>

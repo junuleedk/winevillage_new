@@ -5,17 +5,34 @@
     // memberId와 memberName은 @ModelAttribute를 통해 설정된 속성
     String memberId = (String) request.getAttribute("memberId");
     String memberName = (String) request.getAttribute("memberName");
+    String memberGrade = (String) request.getAttribute("memberGrade");
     int memberPoints = (Integer) request.getAttribute("memberPoints");
     Integer memberCartCount = (Integer) request.getAttribute("memberCartCount");
     Integer memberWishCount = (Integer) request.getAttribute("memberWishCount");
     Integer memberCouponCount = (Integer) request.getAttribute("memberCouponCount");
 %>
-<div class="common_lnb${mypage_lnb == 'mileage_lists' ? ' mileage_lnb' : ''}">
+<c:choose>
+<c:when test="${mypage_lnb == 'mileage_lists'}">
+<div class="common_lnb mileage_lnb">
+</c:when>
+<c:when test="${mypage_lnb == 'coupon_lists'}">
+<div class="common_lnb item3">
+</c:when>
+<c:otherwise></c:otherwise>
+</c:choose>
 	<div class="my">
 		<div class="txt${mypage_lnb != 'mileage_lists' ? ' grade_area' : ''}">
-			<div class="img gold grade_info g100">
-				<span>실버</span>
-			</div>
+			<% if (memberGrade != null && memberGrade.equals("SILVER")) { %>
+			<div class="img silver grade_info g100"><span>실버</span></div>
+			<% } else if (memberGrade != null && memberGrade.equals("GOLD")) { %>
+			<div class="img gold grade_info g200"><span>실버</span></div>
+			<% } else if (memberGrade != null && memberGrade.equals("DIAMOND")) { %>
+			<div class="img diamond grade_info g300"><span>실버</span></div>
+			<% } else if (memberGrade != null && memberGrade.equals("TRINITY")) { %>
+			<div class="img trinity grade_info g400"><span>실버</span></div>
+			<% } else { %>
+			<div class="img silver grade_info g100"><span></span></div>
+			<% } %>
 			<p><strong class="name"><%= (memberName != null ? memberName : "회원") %></strong>님</p>
 		</div>
 		<div class="btn_area">
@@ -24,7 +41,7 @@
 		</div>
 	</div>
 	<div class="${mypage_lnb != 'mileage_lists' ? 'my_info ' : ''}my_class_info">
-		<ul class="">
+		<ul class="${mypage_lnb == 'coupon_lists' ? 'col3' : ''}">
 		<c:choose>
 		<c:when test="${mypage_lnb == 'mileage_lists'}">
 			<li class="on">
@@ -51,6 +68,26 @@
 					<span>0</span>
 				</div>
 			</li> -->
+		</c:when>
+		<c:when test="${mypage_lnb == 'coupon_lists'}">
+			<li class="">
+				<p class="tit">총 쿠폰 발행 수</p>
+				<div class="num_box">
+					<span>${total != null ? total : 0}</span>
+				</div>
+			</li> 
+			<li class="">
+				<p class="tit">사용 쿠폰 수</p>
+				<div class="num_box">
+					<span>${used != null ? used : 0}</span>
+				</div>
+			</li>
+			<li class="">
+				<p class="tit">가용  쿠폰 수</p>
+				<div class="num_box">
+					<span>${usable != null ? usable : 0}</span>
+				</div>
+			</li>
 		</c:when>
 		<c:otherwise>
 			<li>

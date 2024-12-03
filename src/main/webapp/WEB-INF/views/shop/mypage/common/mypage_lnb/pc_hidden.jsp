@@ -3,9 +3,10 @@
 <div class="pc_hidden">
 	<a href="javascript:history.go(-1);" class="prev">이전</a>
 	<div class="select_brand js_select" id="select_brand">
-		<button type="button" class="my_value js_selectBtn on" onclick="$(this).toggleClass('on')">
+		<button type="button" class="my_value js_selectBtn" onclick="$(this).toggleClass('on')">
 			<c:if test="${mypage_lnb == 'wish_lists'}"><span>위시리스트</span></c:if>
 			<c:if test="${mypage_lnb == 'mileage_lists'}"><span>나의 마일리지</span></c:if>
+			<c:if test="${mypage_lnb == 'coupon_lists'}"><span>나의 쿠폰</span></c:if>
 		</button>
 		<ul class="mb_lnb_lists">
 			<li><a href="/shop/mypage/shopping/order_lists">주문내역</a></li>

@@ -19,7 +19,7 @@
 				<li><a href="/shop/mypage/note/giftcard_lists">나의 기프트카드</a></li>
 				<!-- <li ><a href="/shop/mypage/note/balance_lists">나의 예치금</a></li> -->
 				<li<c:if test="${mypage_lnb == 'mileage_lists'}"> class="on"</c:if>><a href="/shop/mypage/note/mileage_lists">나의 마일리지</a></li>
-				<li><a href="/shop/mypage/note/coupon_lists">나의 쿠폰</a></li>
+				<li<c:if test="${mypage_lnb == 'coupon_lists'}"> class="on"</c:if>><a href="/shop/mypage/note/coupon_lists">나의 쿠폰</a></li>
 			</ul>
 		</li>
 		<li>

@@ -10,13 +10,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO member (
             MemberNo, MemberId, MemberName, MemberBirth, MemberPhoneNumber, 
             MemberPassword, MemberEmail, MemberPostcode, MemberAddress1, 
-            MemberAddress2, MemberPoints,
+            MemberAddress2,
             MemberMaritalStatus, MemberAnniversary, MemberStore, 
             MemberBizReferenceCode
         ) VALUES (
             member_seq.NEXTVAL, #{memberId}, #{memberName}, #{memberBirth}, #{memberPhoneNumber},
             #{memberPassword}, #{memberEmail}, #{memberPostcode}, #{memberAddress1},
-            #{memberAddress2}, 100,
+            #{memberAddress2},
             #{memberMaritalStatus}, #{memberAnniversary}, #{memberStore},
             #{memberBizReferenceCode}
 		)
@@ -60,6 +60,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET MemberWishCount = CASE
 								  WHEN MemberWishCount = 1 THEN NULL
 								  ELSE MemberWishCount - 1
+							  END
+		WHERE MemberId = #{memberId}
+	</update>
+	<select id="couponCount" resultType="int" parameterType="com.winevillage.member.MemberDTO">
+		SELECT MemberCouponCount FROM member WHERE MemberId = #{memberId}
+	</select>
+	<update id="addCouponCount" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberCouponCount = COALESCE(memberCouponCount, 0) + 1
+		WHERE MemberId = #{memberId}
+	</update>
+	<update id="removeCouponCount" parameterType="com.winevillage.member.MemberDTO">
+		UPDATE member
+		SET MemberCouponCount = CASE
+								  WHEN MemberCouponCount = 1 THEN NULL
+								  ELSE MemberCouponCount - 1
 							  END
 		WHERE MemberId = #{memberId}
 	</update>
