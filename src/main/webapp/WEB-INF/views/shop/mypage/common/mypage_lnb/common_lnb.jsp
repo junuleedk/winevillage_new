@@ -18,7 +18,9 @@
 <c:when test="${mypage_lnb == 'coupon_lists'}">
 <div class="common_lnb item3">
 </c:when>
-<c:otherwise></c:otherwise>
+<c:otherwise>
+<div class="common_lnb">
+</c:otherwise>
 </c:choose>
 	<div class="my">
 		<div class="txt${mypage_lnb != 'mileage_lists' ? ' grade_area' : ''}">

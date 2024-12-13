@@ -219,7 +219,7 @@
         Cookie.Set('join_gb', 'K', 1, true);
         Cookie.Set('success_url', '/shop/member/join/join_form', 1, true);
         Cookie.Set('error_url', location.href, 1, true);
-        location.href = '../../auth/oauth.html';
+        location.href = '../../auth/oauth';
     });
     $('.law_agreement_page .social_btn.naver').click(function () {
         if (!terms_check()) {
@@ -228,7 +228,7 @@
         Cookie.Set('join_gb', 'N', 1, true);
         Cookie.Set('success_url', '/shop/member/join/join_form', 1, true);
         Cookie.Set('error_url', location.href, 1, true);
-        location.href = '../../auth/oauth.html';
+        location.href = '../../auth/oauth';
     });
     $('.law_agreement_page .social_btn.face').click(function () {
         if (!terms_check()) {
@@ -237,7 +237,7 @@
         Cookie.Set('join_gb', 'F', 1, true);
         Cookie.Set('success_url', '/shop/member/join/join_form', 1, true);
         Cookie.Set('error_url', location.href, 1, true);
-        location.href = '../../auth/oauth.html';
+        location.href = '../../auth/oauth';
     });
     $('.law_agreement_page .social_btn.google').click(function () {
         if (!terms_check()) {
@@ -246,7 +246,7 @@
         Cookie.Set('join_gb', 'G', 1, true);
         Cookie.Set('success_url', '/shop/member/join/join_form', 1, true);
         Cookie.Set('error_url', location.href, 1, true);
-        location.href = '../../auth/oauth.html';
+        location.href = '../../auth/oauth';
     });
     $('.law_agreement_page .social_btn.apple').click(function () {
         if (!terms_check()) {
@@ -255,7 +255,7 @@
         Cookie.Set('join_gb', 'A', 1, true);
         Cookie.Set('success_url', '/shop/member/join/join_form', 1, true);
         Cookie.Set('error_url', location.href, 1, true);
-        location.href = '../../auth/oauth.html';
+        location.href = '../../auth/oauth';
     });
     // 체크리스트 모두체크 해제 및 개별선택
     $('.all_chk').click(function () {

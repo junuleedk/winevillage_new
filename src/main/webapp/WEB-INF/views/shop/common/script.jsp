@@ -401,7 +401,7 @@ function resultBarcode(barcode) {
     location.href = '/shop/order/barcode_view?barcode=' + barcode;
 }
 function openProfile() {
-    Csrf.Set(_CSRF_NAME_); //토큰 초기화
+    //Csrf.Set(_CSRF_NAME_); //토큰 초기화
     $.ajax({
         type: "POST",
         url: "/shop/mypage/shopping/wine_profile_ajax",

@@ -170,10 +170,10 @@
 								<h3><a href="javascript:openProfile();">테이스트 프로파일</a></h3>
 							</li>
 							<li class="top_line">
-								<h3><a href="/shop/mypage/shopping/mypage">마이페이지</a></h3>
+								<h3><a href="/shop/mypage/shopping/mypage.do">마이페이지</a></h3>
 							</li>
 							<li class="top_line">
-								<h3><a href="/shop/mypage/note/giftcard_lists">기프트카드</a></h3>
+								<h3><a href="/shop/mypage/note/giftcard_lists.do">기프트카드</a></h3>
 							</li>
 						</ul>
 						<button type="button" class="btn_txt btn_black logout_btn on" id="logoutBtn">로그아웃</button>
@@ -189,9 +189,9 @@
 		</ul>
 		<!-- 로그인했을 경우 나타나는 GNB 메뉴 -->
 		<div class="summary_menu">
-			<p><a href="/shop/mypage/shopping/mypage"><%= memberName %>님</a></p>
-			<p><a href="/shop/mypage/note/mileage_lists">마일리지<em><%= memberUsablePoints %>P</em></a></p>
-			<p><a href="/shop/mypage/note/coupon_lists">쿠폰<em><%= memberCouponCount %></em></a></p>
+			<p><a href="/shop/mypage/shopping/mypage.do"><%= memberName %>님</a></p>
+			<p><a href="/shop/mypage/note/mileage_lists.do">마일리지<em><%= memberUsablePoints %>P</em></a></p>
+			<p><a href="/shop/mypage/note/coupon_lists.do">쿠폰<em><%= memberCouponCount %></em></a></p>
 		</div>
 	</div>
 </div>
